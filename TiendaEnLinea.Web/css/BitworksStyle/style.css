@@ -1,0 +1,16 @@
+ 
+
+/*Para mostrar activo un item en la lista tree*/
+.active-item {
+    border: 1px solid #407AA0;
+    background: #DCE9F1;
+
+    /*background: #f0f0f0;
+    cursor: pointer;*/
+    font-weight: bold;
+} 
+
+/*Para mostrar la lista de validaciones a la izquierda*/
+.sweet-alert p li {
+            text-align: left;
+        }

@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size:400;
+            background:#eee;
+            color:#434A54;
+        }
+        .error {
+            max-width:800px;
+            margin:20px auto;
+            text-align:center;
+        }
+        h2 {
+            font-weight:400;
+            color:#434A54;
+        }
+        img {
+            max-width:100%;
+        }
+        a {
+            background:#134182;
+            display:inline-block;
+            line-height:36px;
+            border-radius:4px;
+            -webkit-border-radius:4px;
+            -moz-border-radius:4px;
+            color:#fff;
+            text-align:center;
+            text-decoration:none;
+            padding:0 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="error">
+        <img src="@Url.Content("~/img/error.png")" />
+        <h1>¡Lo sentimos!</h1>
+        <h2>Ha ocurrido un error. Intentelo más tarde.</h2>
+        <a href="@Url.Action("Index","Home")">Ir a la página de inicio</a>
+    </div>
+
+</body>
+</html>

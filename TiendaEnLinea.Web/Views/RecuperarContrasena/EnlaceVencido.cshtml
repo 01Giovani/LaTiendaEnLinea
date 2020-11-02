@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Enlace Vencido";
+    Layout = "~/Views/Shared/_LayoutNoLogin.cshtml";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="ibox-content">
+            <h2 class="font-bold">Enlace Vencido</h2>
+            <p>
+                El enlace utilizado para recuperar su contraseña ya esta vencido o no es válido. Si desea puede solicitar un nuevo enlace @Html.ActionLink("aquí", "SolicitarContrasena")
+            </p>
+        </div>
+    </div>
+</div>

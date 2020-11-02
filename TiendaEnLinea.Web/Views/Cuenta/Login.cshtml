@@ -1,0 +1,39 @@
+﻿@using System.Collections.Concurrent
+@model Bitworks.Seguridad.MVC.ViewModel.Login
+@{
+    ViewBag.Title = "Login";
+    HtmlHelper.ClientValidationEnabled = true;
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox-content">
+
+        <div class="logo-login">
+            <img src="~/img/logo.jpg" />
+        </div>
+
+        <h3>Proyecto</h3>
+
+        @using (Html.BeginForm())
+            {
+            @Html.ValidationSummary()
+            <div class="m-t" role="form">
+                <div class="form-group">
+                    @*<input type="text" class="form-control" placeholder="Username" required="">*@
+                    @Html.TextBoxFor(x => x.Usuario, new { @class = "form-control", placeholder = "Username" })
+                </div>
+                <div class="form-group">
+                    @*<input type="password" class="form-control" placeholder="Password" required="">*@
+                    @Html.PasswordFor(x => x.Contrasena, new { @class = "form-control", placeholder = "Password" })
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">INGRESAR</button>
+
+                <a href="@Url.Action("SolicitarContrasena","RecuperarContrasena")"><small>Olvidé mi contraseña</small></a>
+            </div>
+        }
+
+        <p class="m-t">
+            <small>&copy; 2016 Proyecto</small>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@charset "UTF-8";
+
+@font-face {
+  font-family: "tienda-morena-iconos";
+  src:url("fonts/tienda-morena-iconos.eot");
+  src:url("fonts/tienda-morena-iconos.eot?#iefix") format("embedded-opentype"),
+    url("fonts/tienda-morena-iconos.woff") format("woff"),
+    url("fonts/tienda-morena-iconos.ttf") format("truetype"),
+    url("fonts/tienda-morena-iconos.svg#tienda-morena-iconos") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "tienda-morena-iconos" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "tienda-morena-iconos" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-left:before {
+  content: "\3c";
+}
+.icon-twitter:before {
+  content: "\74";
+}
+.icon-arrow-right:before {
+  content: "\3e";
+}
+.icon-basurero:before {
+  content: "\64";
+}
+.icon-bolsa-compras:before {
+  content: "\65";
+}
+.icon-editar:before {
+  content: "\67";
+}
+.icon-facebook:before {
+  content: "\66";
+}
+.icon-forma-pago:before {
+  content: "\68";
+}
+.icon-grid:before {
+  content: "\38";
+}
+.icon-instagram:before {
+  content: "\69";
+}
+.icon-lupa:before {
+  content: "\6b";
+}
+.icon-mas:before {
+  content: "\2b";
+}
+.icon-menos:before {
+  content: "\2d";
+}
+.icon-menu:before {
+  content: "\3d";
+}
+.icon-regalo:before {
+  content: "\6f";
+}
+.icon-pin-mapa:before {
+  content: "\70";
+}
+.icon-persona:before {
+  content: "\71";
+}
+.icon-list-bullet:before {
+  content: "\62";
+}
+.icon-close:before {
+  content: "\78";
+}
+.icon-carretilla:before {
+  content: "\61";
+}
+.icon-telefono:before {
+  content: "\63";
+}
+.icon-mano:before {
+  content: "\6a";
+}
+.icon-help:before {
+  content: "\3f";
+}
+.icon-check-circle:before {
+  content: "\6c";
+}
+.icon-lock:before {
+  content: "\6d";
+}
+.icon-lock-secure:before {
+  content: "\6e";
+}
+.icon-email:before {
+  content: "\72";
+}
+.icon-waze:before {
+  content: "\73";
+}
+.icon-play:before {
+  content: "\44";
+}
+.icon-quote:before {
+  content: "\22";
+}
+.icon-checkmark:before {
+  content: "\75";
+}
+.icon-arrow-right-1:before {
+  content: "\76";
+}
+.icon-check:before {
+  content: "\77";
+}
+.icon-whatsapp:before {
+  content: "\79";
+}
+.icon-whatsapp-1:before {
+  content: "\7a";
+}

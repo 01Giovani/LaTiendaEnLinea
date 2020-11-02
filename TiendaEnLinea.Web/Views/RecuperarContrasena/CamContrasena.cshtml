@@ -1,0 +1,88 @@
+﻿@model Bitworks.Seguridad.MVC.ViewModel.CamContrasena
+
+@{
+    ViewBag.Title = "Cambios de Contraseña";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+
+
+
+<!-- Header para Titulos y navegación unicamente -->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Ingrese su Nueva Contraseña</h2>
+       
+    </div>
+</div>
+<!---->
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="ibox">
+
+                <div class="ibox-content">
+                    <p>
+                        @Model.usr.nombre, ingrese su nueva contraseña:
+                    </p>
+
+                
+
+
+                    @*   @using (Html.BeginForm()) *@
+                        @using (Html.BeginForm("CamContrasena", "RecuperarContrasena", FormMethod.Post, new { @class = "form-horizontal" }))
+   {
+                        @Html.ValidationSummary()
+
+                            @*<input type="hidden" name="idRecContrasenaEnc" value="@Request.QueryString["idRecContrasenaEnc"]" />*@
+                       
+                            @Html.HiddenFor(x=>x.idRecContrasenaEnc)
+                             <div class="form-group">
+                            <label class="col-lg-2 control-label">Nueva Contraseña: </label>
+
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        @Html.PasswordFor(x => x.Contrasena, new { placeholder = "Contraseña", @class = "form-control" ,required = "" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                    <div class="form-group">
+
+                                        <label class="col-lg-2 control-label">Confirmar Contraseña: </label>
+
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    @Html.PasswordFor(x => x.ContrasenaRepetida, new { placeholder = "Confirmar Contraseña", @class = "form-control" ,required = "" })
+      </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary" type="submit">Modificar</button>
+
+                                        </div>
+                                    </div>
+
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,48 @@
+/*!
+** VARIABLES ***/
+$primary:  		#6D3357;
+$secondary:		#ED1941;
+
+$color-texto: 			#222222;
+$color-texto-accent: 	#666666;
+$body-bg: 				#f2f2f2;
+$body-color:			$color-texto-accent;
+
+$enable-responsive-font-sizes:	true;
+$font-family-base: 				'BarlowCondensed', sans-serif;
+$font-family-secondary: 		'Sarabun', sans-serif;
+$font-size-base: 				1rem;
+$line-height-base:				1;
+$line-height-lg:        		1;
+$line-height-sm:        		1;
+
+
+$h1-font-size:        	$font-size-base * 2;
+$h2-font-size:          $font-size-base * 1.75;
+$h3-font-size:          $font-size-base * 1.5;
+$h4-font-size:          $font-size-base * 1.25;
+$h5-font-size:          $font-size-base * 1;
+
+
+//ICONOS
+$font-family-icons:				'tienda-morena-iconos';
+
+
+//Buttons
+$btn-border-radius:		5px;
+$btn-padding-x:			1em;
+
+
+//Inputs
+$input-line-height:		1.5;
+$input-border-radius:	3px;
+$input-border-color:	#DDDEDF;
+$input-color:			$secondary;
+$input-font-weight:		bold; 
+
+
+$nav-tabs-border-color:                 $primary; 
+$nav-tabs-link-active-bg:               white;
+$nav-tabs-link-hover-border-color:      none;
+$nav-tabs-link-active-border-color:     $primary $primary $nav-tabs-link-active-bg !default; 
+$nav-tabs-link-active-color:            $primary;

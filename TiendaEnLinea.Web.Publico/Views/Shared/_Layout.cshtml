@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda en línea</title>
+
+    <link rel="icon" href="~/wwwroot/img/icon.png" type="image/png">
+    
+    <link rel="stylesheet" href="~/wwwroot/lib/slick-1.8.1/slick.css">
+    <link rel="stylesheet" href="~/wwwroot/lib/slick-1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="~/wwwroot/lib/fancybox/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/wwwroot/css/fonts.css">
+    <link rel="stylesheet" href="~/wwwroot/css/icons.css">
+    <link rel="stylesheet" href="~/wwwroot/css/site.css" />
+    <link rel="stylesheet" href="~/wwwroot/css/theme.css" />
+
+    <link href="~/wwwroot/lib/sweetalert2-9.10.6/sweetalert2.css" rel="stylesheet" />
+    <link href="~/wwwroot/lib/toastr/content/toastr.min.css" rel="stylesheet" />
+    @*<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>*@
+</head>
+<body>
+
+    <div id="hdr">
+        <div class="menu-ppal">
+            <div class="mn-movil-topbar bg-primary menu-toggle d-md-none">
+                <i class="icon-close"></i> <h4>Menú</h4>
+            </div>
+            <div class="wrap mn-content">
+                <div class="row no-gutters pl-md-3 pr-md-1">
+                    <div class="col-md">
+                        <nav class="nav nav-movil-top d-md-none">
+
+                        </nav>
+                        <hr class="d-md-none">
+                        <nav class="nav nav-ppal">
+                            @*<a asp-controller="Seccion" asp-action="Nosotros" class="nav-link">Nosotros</a>
+                                <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
+                            <a asp-controller="Contacto" asp-action="Index" class="nav-link">Contacto</a>
+                        </nav>
+                    </div>
+                    <div class="col-md-auto">
+                        <hr class="d-md-none">
+                        <nav class="nav social">
+                            <a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-overlay menu-toggle d-md-none"></div>
+        <div class="hdr-middle">
+            <div class="wrap px-0 px-md-3">
+                <div class="row align-items-md-end no-gutters">
+                    <div class="col-md-auto">
+                        <div class="logo-container">
+                            <a asp-action="Index" asp-controller="Home" class="logo"><img src="~/wwwroot/img/logo.png" alt="Tienda"></a>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="row hdr-middle-bar align-items-md-end no-gutters px-3 px-md-0">
+                            <div class="col-auto d-md-none">
+                                <a href="" class="link-menu-movil menu-toggle"><i class="icon-menu"></i></a>
+                            </div>
+                            <div class="col col-buscador pl-3">
+                                <form asp-controller="Productos" action="@Url.Action("Index","Home")" method="get" id="frm-busqueda">
+                                    <div class="buscador">
+                                        <div class="input">
+                                            <input type="text" class="input-buscador" name="busqueda" value="@ViewBag.TextoBuscador" placeholder="¿Qué comprarás hoy?">
+                                        </div>
+                                        <div class="action">
+                                            <button type="submit">
+                                                <i class="icon-lupa"></i> <span class="d-lg-inline-block">Buscar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-auto pl-3" id="cont-icon-carrito">
+
+                            </div>
+                            <div class="col-auto d-none d-md-block pl-3">
+                              
+                                    @*<div class="user-box">
+                                        <span class="icono"><i class="icon-persona"></i></span>
+                                        <a href="" class="link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>julio</span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd-user-link">
+                                            <a class="dropdown-item" href="@Url.Action("MiCuenta", "Cuenta")">Mi Cuenta</a>
+                                            <a class="dropdown-item" href="@Url.Action("HistoricoPedidos", "Cuenta")">Mis pedidos</a>
+                                            <a asp-controller="Cuenta" asp-action="LogOut" class="dropdown-item">Cerrar Sesión</a>
+                                        </div>
+                                    </div>*@
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="middle-content">
+        <div class="mainbar">
+            <div class="wrap position-relative">
+                <div class="container-fluid d-none d-md-block">
+                    <nav class="nav nav-main">
+
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mn-overlay toggle-categorias lg"></div>
+
+
+    @RenderBody()
+
+    <footer id="footer" class="bg-primary text-white">
+        <div class="wrap container-fluid">
+            <div class="row align-items-center">
+
+                <div class="col-6 col-md-auto">
+                    <img src="~/wwwroot/img/logo.png" class="logo" alt="Tienda Morena">
+                </div>
+                <div class="col-6 col-md">
+                    <div class="d-flex justify-content-center align-items-center">
+
+                    </div>
+                </div>
+                <div class="col col-md-auto text-md-right pt-3 pt-md-0">
+                    <p class="copy">Todos los derechos Reservados 2020 <br>TIENDA EN LÍNEA <br>PBX: 2222-2222</p>
+                </div>
+                <div class="col-auto pt-3 pt-md-0">
+                    <nav class="nav social justify-content-end">
+                        <a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/wwwroot/lib/slick-1.8.1/slick.min.js"></script>
+    <script src="~/wwwroot/lib/fancybox/dist/jquery.fancybox.min.js"></script>
+    <script src="~/wwwroot/lib/outclick.min.js"></script>
+    <script src="~/wwwroot/js/site.js" asp-append-version="true"></script>
+    <script src="~/wwwroot/js/diseno.js" asp-append-version="true"></script>
+
+    <script src="~/wwwroot/js/bitworks/plugginConfig.js"></script>
+    <script src="~/wwwroot/js/bitworks/utilidadesBitworks.js"></script>
+    <script src="~/wwwroot/js/tienda/beneficiarios.js"></script>
+    <script src="~/wwwroot/js/tienda/carretilla.js"></script>
+    <script src="~/wwwroot/js/tienda/pago.js"></script>
+
+    <script src="~/wwwroot/js/Productos/Productos.js"></script>
+
+    <script src="~/wwwroot/lib/sweetalert2-9.10.6/sweetalert2.js"></script>
+    <script src="~/wwwroot/lib/toastr/scripts/toastr.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

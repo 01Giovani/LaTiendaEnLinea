@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model  List<TiendaEnLinea.Core.DTOs.Producto.ListaProductoDTO>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Listado de productos</h2>
+       
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <a href="@Url.Action("Detalle","Producto")" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus text-white">
+        </i> Agregar Producto
+    </a><br />
+
+    <table class="footable table table-stripped">
+        ​<!-- Encabezado de la tabla -->
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th data-hide="phone">Precio Oferta</th>
+                <th data-hide="phone,tablet">Descripción</th>
+                <th data-hide="phone,tablet">Destacado</th>
+                <th>Activo</th>
+                <th data-hide="phone,tablet">Multiplo de venta</th>
+                <th data-hide="phone,tablet">Prefijo de unidad</th>
+                <th></th>
+            </tr>
+        </thead>
+        ​<!-- -->
+        ​<!-- Cuerpo de la tabla -->
+        <tbody>
+            @foreach (var item in Model)
+            {
+               
+                <tr>
+                
+                    <td>@item.Nombre</td>
+                    <td>@item.Precio.ToString("$0.00")</td>
+                    <td>@(item.PrecioOferta != null ? item.PrecioOferta.Value.ToString("$0.00"):"")</td>
+                    <td>@item.Descripcion</td>
+                    <td>@(item.Destacado ? "Si":"No")</td>
+                    <td>@(item.Activo ? "Si":"No")</td>
+                    <td>@item.MultiploVenta</td>
+                    <td>@item.PrefijoVenta</td>
+                    <td>
+                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle","Producto", new {id =item.Codigo })">
+                            <i class="fa fa-eye"></i> Modificar
+                        </a>
+                    </td>
+                </tr>
+                }
+
+
+            </tbody>
+
+    </table>
+
+</div>
+
+
+
