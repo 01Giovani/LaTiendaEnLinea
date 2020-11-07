@@ -1,0 +1,106 @@
+﻿@model TiendaEnLinea.Core.DTOs.Pedido.CarretillaDTO
+
+@{
+    ViewData["Title"] = "Carretilla";
+}
+
+<div class="main-content">
+
+
+    <div class="bg-white py-3 py-md-4 mt-1">
+        <div class="wrap text-center">
+            <div class="title-group text-primary">
+                <div class="icono">
+                    <i class="icon-carretilla"></i>
+                </div>
+                <div class="texto">
+                    <h1 class="tt-main"><span class="st text-secondary">Listado de</span> <span class="tt">compras</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap container-fluid mb-5">
+        <div class="bg-white px-3">
+            <table class="table tabla-productos">
+                <thead>
+                    <tr>
+                        <th class="img"></th>
+                        <th class="des">Detalle</th>
+                        <th class="pre">Precio</th>
+                        <th class="can">Cantidad</th>
+                        <th class="sto">Subtotal</th>
+                        <th class="del"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model != null && Model.Pedido != null) {
+                        foreach (var det in Model.Pedido.ProductosPedidos)
+                        {
+                            int cantidad =(int)det.Cantidad;
+                            <tr>
+                                <td class="img">
+                                    <img src="@Url.Action("GetMedia", new { id = det.Producto.Multimedias.FirstOrDefault()?.IdMultimedia})">
+                                </td>
+                                <td class="des">
+                                    <h3>@det.Producto.Nombre</h3>
+                                    <p>@det.Producto.Descripcion</p>
+                                </td>
+                                <td class="pre">
+                                    <span class="label-movil">Precio: </span>
+                                    <strong class="mw">
+
+                                        @if (det.Producto.PrecioOferta != null)
+                                        {
+                                            @(det.Producto.PrecioOferta.Value.ToString("$0.00"))
+                                        }
+                                        else
+                                        {
+
+                                            @(det.Producto.Precio.ToString("$0.00"))
+                                        }
+
+                                    </strong>
+                                </td>
+                                <td class="can">
+                                    <div class="add-box">
+                                        <div class="input">
+                                            <button class="ctrl up"><i class="icon-mas"></i></button>
+                                            <input type="text" value="@cantidad">
+                                            <button class="ctrl down"><i class="icon-menos"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="sto">
+                                    <span class="label-movil">Sub-total: </span>
+                                    <strong class="mw">@det.SubTotal.ToString("$0.00")</strong>
+                                </td>
+                                <td class="del"><a href="" class="remove"><i class="icon-basurero"></i></a></td>
+                            </tr>
+                        }
+                    }
+              
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row table-totales no-gutters py-3">
+            <div class="col pr-3">
+                <strong>Total a pagar</strong>
+            </div>
+            <div class="col-auto stot">
+                <strong></strong>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center pt-4 pb-5">
+            <div class="col-8 col-md-4 order-md-2 mb-3">
+                <a href="" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Enviar mi pedido</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+

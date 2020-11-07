@@ -10,5 +10,8 @@ namespace TiendaEnLinea.Core.Repositories
 {
     public interface IPedidoRepository: IGenericRepository<Pedido>
     {
+        Pedido Inicializar(Pedido pedido);
+
+        Pedido Modificar(Pedido pedido);
     }
 }

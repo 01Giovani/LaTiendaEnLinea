@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TiendaEnLinea.Core.DTOs.Pedido;
 using TiendaEnLinea.Core.DTOs.ProductoPublico;
 using TiendaEnLinea.Core.Model;
 using TiendaEnLinea.Core.Services;
@@ -14,11 +15,14 @@ namespace TiendaEnLinea.Web.Publico.Controllers
     {
         private static IMapper _mapper;
         private IProductoService _productoService;
+        private IPedidoService _pedidoService;
         public HomeController(
-            IProductoService productoService
+            IProductoService productoService,
+            IPedidoService pedidoService
             )
         {
             _productoService = productoService;
+            _pedidoService = pedidoService;
         }
 
         static HomeController()
@@ -45,6 +49,15 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult Carretilla()
+        {
+            string pedido = GetCookieCliente();
+
+            return View(new CarretillaDTO { 
+                Pedido = _pedidoService.GetPedidoCarretilla(new Guid(pedido))
+            });
+        }
 
         
         [HttpGet]
@@ -57,6 +70,113 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             else
                 throw new HttpException(404, "El archivo seleccionado no existe");
 
+        }
+
+        [HttpPost]
+        public ActionResult AgregarProducto(AgregarDTO data)
+        {
+            string pedido = GetCookieCliente();
+            if (pedido == null)
+            {
+                Guid nuevo = Guid.NewGuid();
+                _pedidoService.IniciarPedido(nuevo);
+                SetCookieCliente(nuevo);
+                pedido = nuevo.ToString();
+            }
+
+            Guid id = new Guid(pedido);
+            Producto producto = _productoService.GetProducto(data.IdProducto,false);
+
+            _pedidoService.AgregarDetalle(new ProductosPedido() { 
+                IdProducto = data.IdProducto,
+                IdPedido = id,
+                Cantidad = data.Cantidad,
+                SubTotal =  GetSubTotal(producto,data.Cantidad),
+                Modificado = false                
+            });
+            
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarDetalle(AgregarDTO data)
+        {
+            string pedido = GetCookieCliente();
+            
+            Guid id = new Guid(pedido);
+            Producto producto = _productoService.GetProducto(data.IdProducto, false);
+
+            _pedidoService.ModificarDetallePedido(new ProductosPedido()
+            {
+                Codigo = data.codigoDetalle.Value,
+                IdProducto = producto.Codigo,
+                IdPedido = id,
+                Cantidad = data.Cantidad,
+                SubTotal = GetSubTotal(producto, data.Cantidad),
+                Modificado = true
+            });
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult EliminarDetalle(int codigo)
+        {
+            _pedidoService.EliminarDetalle(codigo);
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult FinalizarPedido(Guid id)
+        {
+            Pedido pedido = _pedidoService.GetPedidoNoTracking(id);
+            pedido.Completado = true;
+            pedido.FechaCompletado = DateTime.Now;
+
+            _pedidoService.ModificarPedido(pedido);
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+
+        private decimal GetSubTotal(Producto producto, int cantidad)
+        {           
+            if (producto.PrecioOferta != null)
+            {
+                return producto.PrecioOferta.Value * cantidad;
+            }
+            else {
+                return producto.Precio * cantidad;
+            }           
+        }
+
+        private string GetCookieCliente()
+        {
+
+
+            HttpCookie myCookie = Request.Cookies["pedido"];
+
+            if (myCookie != null)
+            {
+                return myCookie.Value;               
+            }
+            else
+                return null;
+
+        }
+
+        private void SetCookieCliente(Guid pedido)
+        {
+
+
+            HttpCookie myCookie = new HttpCookie("pedido");
+            // Set the cookie value.
+            myCookie.Value = pedido.ToString();
+            // Set the cookie expiration date.
+            myCookie.Expires = DateTime.Now.AddYears(1);
+            // Add the cookie.
+            Response.Cookies.Add(myCookie);
         }
     }
 }

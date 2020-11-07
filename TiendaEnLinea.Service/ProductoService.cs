@@ -29,9 +29,16 @@ namespace TiendaEnLinea.Service
             return _productoRepository.GetLista(x => true,null,new System.Linq.Expressions.Expression<Func<Producto, object>>[] {x=>x.Multimedias });
         }
 
-        public Producto GetProducto(Guid id)
+        public Producto GetProducto(Guid id,bool includes = true)
         {
-            return _productoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Producto, object>>[] { x => x.Multimedias });
+
+            List<System.Linq.Expressions.Expression<Func<Producto, object>>> inc = new List<System.Linq.Expressions.Expression<Func<Producto, object>>>();
+
+            if (includes)
+                inc.Add(x => x.Multimedias);
+
+
+            return _productoRepository.FindBy(x => x.Codigo == id, inc.ToArray());
         }
 
         public Producto GuardarProducto(Producto producto)

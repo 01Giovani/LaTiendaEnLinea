@@ -10,5 +10,8 @@ namespace TiendaEnLinea.Core.Repositories
 {
     public interface IProductoPedidoRepository: IGenericRepository<ProductosPedido>
     {
+        ProductosPedido Agregar(ProductosPedido productosPedido);
+        void Eliminar(int Codigo);
+        ProductosPedido Modificar(ProductosPedido detalle);
     }
 }

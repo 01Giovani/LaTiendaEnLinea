@@ -19,7 +19,7 @@
                 <div class="row filtros no-gutters pt-3 pt-lg-0">
                   
                     <div class="col-md-auto f-col">
-                        <button class="btn btn-secondary btn-block">Enviar pedido</button>
+                        <a href="@Url.Action("Carretilla")" style="font-size:24px" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Enviar mi pedido</a>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                                             <input type="text" id="@("nor-")@prod.Codigo" value="1">
                                             <button class="ctrl up btnmas" data-caja="@("nor-")@prod.Codigo" data-step="@prod.MultiploVenta"><i class="icon-mas"></i></button>
                                         </div>
-                                        <button class="add-cart">Agregar</button>
+                                        <button data-producto="@prod.Codigo" data-caja="@("nor-")@prod.Codigo" class="add-cart agregarbtn">Agregar</button>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                                                             <input id="@("des-")@dest.Codigo" type="text" value="1">
                                                             <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
                                                         </div>
-                                                        <button class="add-cart">Agregar</button>
+                                                        <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -202,6 +202,38 @@
 
         $("#" + caja).val(total);
     });
+
+
+    $(document).on("click", ".agregarbtn", function () {
+
+        var caja = $(this).data("caja");
+        var cantidad = $("#" + caja ).val();
+        var url = $("#endpoints").data("agregar");
+        var producto = $(this).data("producto");
+
+        var payload = { "IdProducto": producto, "Cantidad": cantidad };
+
+        peticionAjaxPost(url, payload);
+
+    });
+
+    function peticionAjaxPost(url,data) {
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data === "ok") {
+                    Swal.fire('Exito!', 'El producto fue agregado', 'success');
+                }
+            },
+            error: function (error) {
+                console.log("Error:"+error);
+            }
+        });
+    }
 
 </script>    
 }

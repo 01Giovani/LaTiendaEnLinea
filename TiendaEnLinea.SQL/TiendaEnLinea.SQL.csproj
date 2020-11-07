@@ -74,6 +74,10 @@
     <Compile Include="Migrations\202011020455346_multiploVentaDecima.Designer.cs">
       <DependentUpon>202011020455346_multiploVentaDecima.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011040517032_campos_pedido.cs" />
+    <Compile Include="Migrations\202011040517032_campos_pedido.Designer.cs">
+      <DependentUpon>202011040517032_campos_pedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CheckoutRepository.cs" />
@@ -105,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011020455346_multiploVentaDecima.resx">
       <DependentUpon>202011020455346_multiploVentaDecima.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011040517032_campos_pedido.resx">
+      <DependentUpon>202011040517032_campos_pedido.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

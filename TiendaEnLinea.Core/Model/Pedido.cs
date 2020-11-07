@@ -22,6 +22,9 @@ namespace TiendaEnLinea.Core.Model
         /// </summary>
         public int? OrdenEntrega { get; set; }
 
+        public bool Completado { get; set; }
+        public DateTime? FechaCompletado { get; set; }
+
         public Cliente Cliente { get; set; }
         public Beneficiario Beneficiario { get; set; }
         public List<ProductosPedido> ProductosPedidos { get; set; }
