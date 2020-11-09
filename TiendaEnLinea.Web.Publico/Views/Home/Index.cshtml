@@ -4,7 +4,28 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+    .input2 input {
+        text-align: center;
+        width: 45%;
+        height: 28px;
+        color: #456D33;
+        font-size:15px;
+        font-weight:bolder;
 
+    }
+
+    .input2 button {
+        width: 25%;
+        height: 28px;
+        color: #456D33;
+    }
+
+    .input2{
+        width:100%;
+        margin-bottom:4px;
+    }
+</style>
 
 <div class="main-content">
 	
@@ -19,7 +40,7 @@
                 <div class="row filtros no-gutters pt-3 pt-lg-0">
                   
                     <div class="col-md-auto f-col">
-                        <a href="@Url.Action("Carretilla")" style="font-size:24px" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Enviar mi pedido</a>
+                        <a href="@Url.Action("Carretilla")" style="font-size:24px" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Ver mi pedido</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +62,7 @@
                                 <a href="detalle.html"><img src="@Url.Action("GetMedia",new{ id = prod.Fotos.FirstOrDefault() })" alt=""></a>
                             </figure>
                             <div class="pcontent">
-                                <div class="info">
+                                <div class="info" style="height:110px;">
                                     <h3><a href="detalle.html">@prod.Nombre</a></h3>
                                     <div class="precios">
                                         <div class="left">
@@ -59,9 +80,9 @@
                                 </div>
                                 <div class="agregar">
                                     <div class="add-box">
-                                        <div class="input">
+                                        <div class="input2">
                                             <button class="ctrl down btnmenos" data-caja="@("nor-")@prod.Codigo" data-step="@prod.MultiploVenta"><i class="icon-menos"></i></button>
-                                            <input type="text" id="@("nor-")@prod.Codigo" value="1">
+                                            <input type="text" id="@("nor-")@prod.Codigo" value="@string.Format("{0:0.##}", prod.MultiploVenta)">
                                             <button class="ctrl up btnmas" data-caja="@("nor-")@prod.Codigo" data-step="@prod.MultiploVenta"><i class="icon-mas"></i></button>
                                         </div>
                                         <button data-producto="@prod.Codigo" data-caja="@("nor-")@prod.Codigo" class="add-cart agregarbtn">Agregar</button>
@@ -118,7 +139,7 @@
                                                 <a href="detalle.html"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
                                             </figure>
                                             <div class="pcontent">
-                                                <div class="info">
+                                                <div class="info" style="height:110px;">
                                                     <h3><a href="detalle.html">@dest.Nombre</a></h3>
                                                     <div class="precios">
                                                         <div class="left">
@@ -139,9 +160,9 @@
                                                 </div>
                                                 <div class="agregar">
                                                     <div class="add-box">
-                                                        <div class="input">
+                                                        <div class="input2">
                                                             <button class="ctrl down btnmenos" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-menos"></i></button>
-                                                            <input id="@("des-")@dest.Codigo" type="text" value="1">
+                                                            <input id="@("des-")@dest.Codigo" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
                                                             <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
                                                         </div>
                                                         <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
@@ -172,52 +193,96 @@
 @section scripts{
 <script type="text/javascript">
 
+
+
+   
     $(document).on("click", ".btnmenos", function () {
         var caja = $(this).data("caja");
         var step = 0;
-        step = Math.round($(this).data("step"));
+        step = $(this).data("step") * 1;
 
-        var cantidadActual = 0;
-        cantidadActual = Math.round($("#" + caja).val());
+        var textbox = $("#" + caja);
 
-        var total = 0 + cantidadActual - step;
+        if (isNumber(textbox.val()) === false) {
+            textbox.val(step);
+        }
 
-        if (total < 0)
-            total = 0;
+        textbox.val(function (i, val) {
+            var aux = 0.00;
+            aux = val * 1;
 
-        $("#" + caja).val(total);
+
+            if (aux % step !== 0) {
+                aux = aux - (aux % step);
+            } else {
+                aux = aux - step;
+            }
+          
+            if (aux < step)
+                aux = step * 1;
+           
+            return aux;
+        });
+
+
     });
 
     $(document).on("click", ".btnmas", function () {
         var caja = $(this).data("caja");
+        var textbox = $("#" + caja);
+
         var step = 0;
-        step = Math.round($(this).data("step"));
+        step = $(this).data("step") * 1;
 
-        var cantidadActual = 0;
-        cantidadActual = Math.round($("#" + caja).val());
+        if (isNumber(textbox.val()) === false) {
+            textbox.val(step);
+        }
 
-        var total = 0 + cantidadActual + step;
+        textbox.val(function (i, val) {
+            var aux = 0.00;
+            aux = val * 1;
 
-        
+            if (aux % step !== 0) {
+                aux = aux + step - (aux % step);
+            } else {
+                aux = aux + step;
+            }
+            
+            if (aux < step)
+                aux = step * 1;
 
-        $("#" + caja).val(total);
+            return aux;
+        });
     });
+
+
 
 
     $(document).on("click", ".agregarbtn", function () {
 
+        var button = $(this);
         var caja = $(this).data("caja");
-        var cantidad = $("#" + caja ).val();
+        var cantidad = $("#" + caja).val();
+
+        if (isNumber(cantidad) === false) {
+            Swal.fire('Espera!', 'Cantidad invalida', 'warning');
+            return;
+        }
+    
         var url = $("#endpoints").data("agregar");
         var producto = $(this).data("producto");
 
         var payload = { "IdProducto": producto, "Cantidad": cantidad };
 
-        peticionAjaxPost(url, payload);
+        button.prop("disabled", true);
+        Swal.showLoading();
+        peticionAjaxPost(url, payload,button);
 
     });
 
-    function peticionAjaxPost(url,data) {
+   
+
+    function peticionAjaxPost(url,data,button) {
 
         $.ajax({
             type: "POST",
@@ -225,14 +290,21 @@
             data: data,
             dataType: "json",
             success: function (data) {
-                if (data === "ok") {
-                    Swal.fire('Exito!', 'El producto fue agregado', 'success');
-                }
+
+                button.prop("disabled", false);
+                Swal.hideLoading();
+                Swal.fire(data.titulo, data.mensaje, data.tipo);
+                
             },
             error: function (error) {
                 console.log("Error:"+error);
             }
         });
+    }
+   
+
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
 </script>    

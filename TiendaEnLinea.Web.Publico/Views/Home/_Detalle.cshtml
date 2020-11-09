@@ -1,0 +1,91 @@
+﻿@model TiendaEnLinea.Core.DTOs.Pedido.CarretillaDTO
+@{ 
+    Layout = null;
+}
+<div class="wrap container-fluid mb-5">
+    <div class="bg-white px-3">
+        <table class="table tabla-productos">
+            <thead>
+                <tr>
+                    <th class="img"></th>
+                    <th class="des">Detalle</th>
+                    <th class="pre">Precio</th>
+                    <th class="can">Cantidad</th>
+                    <th class="sto">Subtotal</th>
+                    <th class="del"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null && Model.Pedido != null)
+                {
+                    foreach (var det in Model.Pedido.ProductosPedidos)
+                    {
+
+                        <tr>
+                            <td class="img">
+                                <img src="@Url.Action("GetMedia", new { id = det.Producto.Multimedias.FirstOrDefault()?.IdMultimedia})">
+                            </td>
+                            <td class="des">
+                                <h3>@det.Producto.Nombre</h3>
+                                <p>@det.Producto.Descripcion</p>
+                            </td>
+                            <td class="pre">
+                                <span class="label-movil">Precio: </span>
+                                <strong class="mw">
+
+                                    @if (det.Producto.PrecioOferta != null)
+                                    {
+                                        @(det.Producto.PrecioOferta.Value.ToString("$0.00"))
+                                    }
+                                    else
+                                    {
+
+                                        @(det.Producto.Precio.ToString("$0.00"))
+                                    }
+
+                                </strong>
+                            </td>
+                            <td class="can">
+                                <div class="add-box">
+                                    <div class="input2">
+                                        <button class="ctrl down btnmenos" data-caja="@("des-")@det.IdProducto" data-step="@det.Producto.MultiploVenta" data-producto="@det.IdProducto"><i class="icon-menos"></i></button>
+                                        <input type="text" id="@("des-")@det.IdProducto" value="@string.Format("{0:0.##}", det.Cantidad)">
+                                        <button class="ctrl up btnmas" data-caja="@("des-")@det.IdProducto" data-step="@det.Producto.MultiploVenta" data-producto="@det.IdProducto"><i class="icon-mas"></i></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="sto">
+                                <span class="label-movil">Sub-total: </span>
+                                <strong class="mw">@det.SubTotal.ToString("$0.00")</strong>
+                            </td>
+                            <td class="del"><a href="@Url.Action("EliminarDetalle",new { codigo = det.Codigo })" class="remove"><i class="icon-basurero"></i></a></td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row table-totales no-gutters py-3">
+        <div class="col pr-3">
+            <strong>Total a pagar</strong>
+        </div>
+        <div class="col-auto stot">
+            <strong>
+                @if (Model.Pedido.Total != null)
+                {
+                    @Model.Pedido.Total.Value.ToString("$0.00")
+                }
+                else
+                {
+                    @("$0.00")
+                }
+
+            </strong>
+        </div>
+    </div>
+</div>
+
+

@@ -443,6 +443,8 @@
     <Content Include="wwwroot\scss\theme.scss" />
     <Content Include="wwwroot\scss\_variables.scss" />
     <Content Include="Views\Home\Carretilla.cshtml" />
+    <Content Include="Views\Home\_Detalle.cshtml" />
+    <Content Include="Views\Home\Gracias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

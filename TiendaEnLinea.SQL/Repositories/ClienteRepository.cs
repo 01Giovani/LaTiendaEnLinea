@@ -16,5 +16,14 @@ namespace TiendaEnLinea.SQL.Repositories
         {
             _db = context as TiendaEnLineaContext;
         }
+
+        public Cliente GuardarCliente(Cliente cliente)
+        {
+
+            _db.Cliente.Add(cliente);
+            _db.SaveChanges();
+
+            return cliente;
+        }
     }
 }

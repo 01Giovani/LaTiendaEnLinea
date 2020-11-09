@@ -54,7 +54,7 @@
                 <div class="row align-items-md-end no-gutters">
                     <div class="col-md-auto">
                         <div class="logo-container">
-                            <a asp-action="Index" asp-controller="Home" class="logo"><img src="~/wwwroot/img/logo.png" alt="Tienda"></a>
+                            <a href="@Url.Action("Index")" class="logo"><img src="~/wwwroot/img/logo.png" alt="Tienda"></a>
                         </div>
                     </div>
                     <div class="col-md">
@@ -144,7 +144,7 @@
         </div>
     </footer>
 
-    <input type="hidden" id="endpoints" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")"/> 
+    <input type="hidden" id="endpoints" data-check="@Url.Action("CheckClient")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")"/> 
 
     <script src="~/wwwroot/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
@@ -168,6 +168,94 @@
     <script src="~/wwwroot/lib/toastr/scripts/toastr.js"></script>
 
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var bandera = '@ViewBag.gracias';
+            var co = getCookie("pedido");
+
+            if (co == "" && bandera == "") {
+
+                var url = $("#endpoints").data("check");
+
+                Swal.mixin({
+                    input: 'text',
+                    confirmButtonText: 'Continuar',
+                    progressSteps: ['1', '2'],
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                }).queue([
+                    {
+                        title: 'Gracias por elegir comprar con nosotros!',
+                        text: 'Para atenderte mejor por favor ingresa un número de teléfono',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Campo requerido'
+                            }
+                        }
+                    }, {
+                        text: 'Ahora por favor ingresa tu nombre',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Campo requerido'
+                            }
+                        }
+                    }
+                    
+                ]).then((result) => {
+                    if (result.value) {
+
+                        var payload = { "Telefono":result.value[0],"Nombre":result.value[1]};
+                        peticionAjaxPostCheck(url,payload);
+                       
+                    }
+                });
+
+            }
+          
+
+        });
+
+        function peticionAjaxPostCheck(url, data) {
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+
+                    Swal.fire({
+                        title: '¡Gracias!',
+                        html: 'Ya puedes comenzar a comprar',
+                        confirmButtonText: 'Cerrar'
+                    });
+                   
+                },
+                error: function (error) {
+                    console.log("Error:" + error);
+                }
+            });
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+    </script>
 
 </body>
 </html>

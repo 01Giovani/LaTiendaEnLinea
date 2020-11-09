@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TiendaEnLinea.Core.DTOs.Pedido
 {
-    public class AgregarDTO
+    public class ClienteDTO
     {
-        public Guid IdProducto { get; set; }
-        public decimal Cantidad { get; set; }
-        public int? codigoDetalle { get; set; }
+        public string Telefono { get; set; }
+        public string Nombre { get; set; }
     }
 }

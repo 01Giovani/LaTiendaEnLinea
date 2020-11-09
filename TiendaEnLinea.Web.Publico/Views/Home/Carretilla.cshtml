@@ -1,8 +1,30 @@
-﻿@model TiendaEnLinea.Core.DTOs.Pedido.CarretillaDTO
+﻿
 
 @{
     ViewData["Title"] = "Carretilla";
 }
+<style>
+    .input2 input {
+        text-align: center;
+        width: 45%;
+        height: 28px;
+        color: #456D33;
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .input2 button {
+        width: 25%;
+        height: 28px;
+        color: #456D33;
+        padding: initial;
+    }
+
+    .input2 {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+</style>
 
 <div class="main-content">
 
@@ -20,87 +42,139 @@
         </div>
     </div>
 
-    <div class="wrap container-fluid mb-5">
-        <div class="bg-white px-3">
-            <table class="table tabla-productos">
-                <thead>
-                    <tr>
-                        <th class="img"></th>
-                        <th class="des">Detalle</th>
-                        <th class="pre">Precio</th>
-                        <th class="can">Cantidad</th>
-                        <th class="sto">Subtotal</th>
-                        <th class="del"></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @if (Model != null && Model.Pedido != null) {
-                        foreach (var det in Model.Pedido.ProductosPedidos)
-                        {
-                            int cantidad =(int)det.Cantidad;
-                            <tr>
-                                <td class="img">
-                                    <img src="@Url.Action("GetMedia", new { id = det.Producto.Multimedias.FirstOrDefault()?.IdMultimedia})">
-                                </td>
-                                <td class="des">
-                                    <h3>@det.Producto.Nombre</h3>
-                                    <p>@det.Producto.Descripcion</p>
-                                </td>
-                                <td class="pre">
-                                    <span class="label-movil">Precio: </span>
-                                    <strong class="mw">
-
-                                        @if (det.Producto.PrecioOferta != null)
-                                        {
-                                            @(det.Producto.PrecioOferta.Value.ToString("$0.00"))
-                                        }
-                                        else
-                                        {
-
-                                            @(det.Producto.Precio.ToString("$0.00"))
-                                        }
-
-                                    </strong>
-                                </td>
-                                <td class="can">
-                                    <div class="add-box">
-                                        <div class="input">
-                                            <button class="ctrl up"><i class="icon-mas"></i></button>
-                                            <input type="text" value="@cantidad">
-                                            <button class="ctrl down"><i class="icon-menos"></i></button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="sto">
-                                    <span class="label-movil">Sub-total: </span>
-                                    <strong class="mw">@det.SubTotal.ToString("$0.00")</strong>
-                                </td>
-                                <td class="del"><a href="" class="remove"><i class="icon-basurero"></i></a></td>
-                            </tr>
-                        }
-                    }
-              
-                </tbody>
-            </table>
-        </div>
-
-        <div class="row table-totales no-gutters py-3">
-            <div class="col pr-3">
-                <strong>Total a pagar</strong>
-            </div>
-            <div class="col-auto stot">
-                <strong></strong>
-            </div>
-        </div>
-
-
-        <div class="row justify-content-center pt-4 pb-5">
-            <div class="col-8 col-md-4 order-md-2 mb-3">
-                <a href="" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Enviar mi pedido</a>
-            </div>
-        </div>
+    <div id="detail-container">
+        @Html.Action("_Detalle")
     </div>
 
+    <div class="row justify-content-center pt-4 pb-5">
+        <div class="col-8 col-md-4 order-md-2 mb-3">
+            <a href="@Url.Action("Index")" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Seguir comprando</a>
+            <a href="@Url.Action("FinalizarPedido")" class="btn btn-primary text-uppercase btn-block py-2 shadow">Enviar mi pedido</a>
+        </div>
+    </div>
 </div>
 
+
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('state');
+
+            if (myParam && myParam === "invalid") {
+
+                Swal.fire("Espera!", "El pedido no posee productos", "warning");
+            }
+        });
+
+
+        $(document).on("click", ".btnmenos", function () {
+            var caja = $(this).data("caja");
+            var producto = $(this).data("producto");
+            var fuente = $("#endpoints");
+            var url = fuente.data("modificar");
+            var urlRecarga = fuente.data("carretilla");
+            
+
+            var step = 0;
+            step = $(this).data("step") * 1;
+
+            var textbox = $("#" + caja);
+
+            if (isNumber(textbox.val()) === false) {
+                textbox.val(step);
+            }
+
+            textbox.val(function (i, val) {
+                var aux = 0.00;
+                aux = val * 1;
+
+                if (aux % step !== 0) {
+                    aux = aux - (aux % step);
+                } else {
+                    aux = aux - step;
+                }
+
+                if (aux < step) {
+                    aux = step * 1;
+                    return aux;
+                }
+
+                var payload = { "IdProducto": producto, "Cantidad": aux };
+                Swal.showLoading();
+                peticionAjaxPost(url, payload, urlRecarga);
+
+                return aux;
+            });
+        });
+
+        $(document).on("click", ".btnmas", function () {
+            var caja = $(this).data("caja");
+            var textbox = $("#" + caja);
+            var producto = $(this).data("producto");
+            var fuente = $("#endpoints");
+            var url = fuente.data("modificar");
+            var urlRecarga = fuente.data("carretilla");
+
+            var step = 0;
+            step = $(this).data("step") * 1;
+
+            if (isNumber(textbox.val()) === false) {
+                textbox.val(step);
+            }
+
+            textbox.val(function (i, val) {
+                var aux = 0.00;
+                aux = val * 1;
+
+                if (aux % step !== 0) {
+                    aux = aux + step - (aux % step);
+                } else {
+                    aux = aux + step;
+                }
+
+                if (aux < step)
+                    aux = step * 1;
+
+                
+                
+                var payload = { "IdProducto": producto, "Cantidad": aux };
+                Swal.showLoading();
+                peticionAjaxPost(url, payload, urlRecarga);
+
+
+                return aux;
+            });
+        });
+
+      
+       
+        function peticionAjaxPost(url, data,callback) {
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+
+                    $("#detail-container").empty();
+                    $("#detail-container").load(callback, function () {
+                        Swal.hideLoading();
+                        Swal.fire(data.titulo, data.mensaje, data.tipo);
+                    });            
+                },
+                error: function (error) {
+                    console.log("Error:" + error);
+                }
+            });
+        }
+
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+    </script>
+}
