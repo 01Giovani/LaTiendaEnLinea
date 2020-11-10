@@ -36,7 +36,10 @@ namespace TiendaEnLinea.Service
 
         public List<Pedido> GetPedidosPendientes()
         {
-            return _pedidoRepository.GetLista(x => x.Despachado == false).OrderBy(x=>x.FechaIngreso).ToList();
+            return _pedidoRepository.GetLista(x => x.Despachado == false,null,new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
+                x=>x.Cliente,
+                x=>x.ProductosPedidos
+            }).OrderBy(x=>x.FechaIngreso).ToList();
         }
 
         public Pedido IniciarPedido(Guid id,string idCliente)
@@ -44,7 +47,8 @@ namespace TiendaEnLinea.Service
             return _pedidoRepository.Inicializar(new Pedido() { 
                 Codigo= id,
                 Completado = false,
-                IdCliente = idCliente
+                IdCliente = idCliente,
+                IdEstado = EstadoPedido.Abierto
             });
         }
 

@@ -194,6 +194,14 @@
                             if (!value) {
                                 return 'Campo requerido'
                             }
+                            if (value) {
+
+                                var myRe = /[0-9]{8}/;
+                                if (!myRe.test(value)) {
+                                    return 'Por favor ingrese un número valido'
+                                }
+
+                            }
                         }
                     }, {
                         text: 'Ahora por favor ingresa tu nombre',

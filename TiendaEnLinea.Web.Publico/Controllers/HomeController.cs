@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Bitworks.Abstract.Notificaciones.Email;
+using Bitworks.Notificaciones.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +18,16 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         private static IMapper _mapper;
         private IProductoService _productoService;
         private IPedidoService _pedidoService;
+        private ICheckOutService _checkOutService;
         public HomeController(
             IProductoService productoService,
-            IPedidoService pedidoService
+            IPedidoService pedidoService,
+            ICheckOutService checkOutService
             )
         {
             _productoService = productoService;
             _pedidoService = pedidoService;
+            _checkOutService = checkOutService;
         }
 
         static HomeController()
@@ -230,13 +235,44 @@ namespace TiendaEnLinea.Web.Publico.Controllers
 
             pedido.Completado = true;
             pedido.FechaCompletado = DateTime.Now;
+            pedido.IdEstado = EstadoPedido.Enviado;
             _pedidoService.ModificarPedido(pedido);
 
-            DeleteCookie();
+            //DeleteCookie();
+            _checkOutService.CrearListaCheckout(pedido.Codigo);
+            try
+            {
+                EnviarNotificacion(pedido.Codigo);
+            }
+            catch
+            {
+
+            }
 
            return RedirectToAction("Gracias");
         }
 
+
+        private void EnviarNotificacion(Guid id)
+        {
+            NotificacionEmailService noti = new NotificacionEmailService(null);
+
+            string origen = System.Configuration.ConfigurationManager.AppSettings["correoOrigen"];
+            string correo = System.Configuration.ConfigurationManager.AppSettings["destinoNotificacion"];
+            string dominio = System.Configuration.ConfigurationManager.AppSettings["dominio"];
+            dominio = dominio + "Pedido/Detalle/" + id;
+
+            noti.PrepararEnvio(new DireccionEmail("Tienda en linea", origen),
+            new DireccionEmail("Admin", correo), "Nuevo pedido", "Accede al detalle del pedido aquí: "+dominio );
+            noti.enviarMensaje();
+        }
+
+        [HttpGet]
+        public ActionResult dummy()
+        {
+            EnviarNotificacion(Guid.NewGuid());
+            return RedirectToAction("Index");
+        }
 
         private decimal GetSubTotal(Producto producto, decimal cantidad)
         {           

@@ -16,5 +16,11 @@ namespace TiendaEnLinea.SQL.Repositories
         {
             _db = context as TiendaEnLineaContext;
         }
+
+        public void GuardarLista(List<CheckOut> detalles)
+        {
+            _db.CheckOut.AddRange(detalles);
+            _db.SaveChanges();
+        }
     }
 }

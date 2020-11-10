@@ -836,11 +836,11 @@
     <Content Include="Views\Shared\_LayoutNoLogin.cshtml" />
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Detalle.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Pedido\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

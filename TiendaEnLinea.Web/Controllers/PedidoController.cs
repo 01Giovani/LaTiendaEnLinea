@@ -33,15 +33,52 @@ namespace TiendaEnLinea.Web.Controllers
 
         }
 
-        [CaracteristicasAccion("Lista de pedidos",false,true)]
+        [CaracteristicasAccion("pedidos pendientes preparar",false,true)]
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult PendientePreparar()
         {
 
             List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
-            List<ListaPedidosDTO> model = _mapper.Map<List<ListaPedidosDTO>>(pedidos);
+            
 
-            return View(model);
+            return View("Index",pedidos);
         }
+
+        [CaracteristicasAccion("pedidos preparados", false, true)]
+        [HttpGet]
+        public ActionResult Preparados()
+        {
+
+            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
+
+
+            return View(pedidos);
+        }
+
+
+
+        [CaracteristicasAccion("pedidos no enviados por cliente", false, true)]
+        [HttpGet]
+        public ActionResult NoEnviados()
+        {
+
+            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
+
+
+            return View(pedidos);
+        }
+
+    
+        [CaracteristicasAccion("Lista de pedidos entregados", false, true)]
+        [HttpGet]
+        public ActionResult Entregados()
+        {
+
+            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
+
+
+            return View(pedidos);
+        }
+
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="Repositories\IPedidoRepository.cs" />
     <Compile Include="Repositories\IProductoPedidoRepository.cs" />
     <Compile Include="Repositories\IProductoRepository.cs" />
+    <Compile Include="Services\ICheckOutService.cs" />
     <Compile Include="Services\IPedidoService.cs" />
     <Compile Include="Services\IProductoService.cs" />
   </ItemGroup>

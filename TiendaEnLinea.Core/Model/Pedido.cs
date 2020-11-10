@@ -25,9 +25,36 @@ namespace TiendaEnLinea.Core.Model
         public bool Completado { get; set; }
         public DateTime? FechaCompletado { get; set; }
 
+        public EstadoPedido IdEstado { get; set; }
+
         public Cliente Cliente { get; set; }
         public Beneficiario Beneficiario { get; set; }
         public List<ProductosPedido> ProductosPedidos { get; set; }
 
+    }
+
+    public enum EstadoPedido
+    {
+        /// <summary>
+        /// Pedido en proceso, iniciado por cliente
+        /// </summary>
+        Abierto=1,
+        /// <summary>
+        /// Pedido fue completado por el cliente y enviado
+        /// </summary>
+        Enviado=2,
+        /// <summary>
+        /// Pedido fue preparado por el admin y solo esta pendiente de entrega
+        /// </summary>
+        Preparado=3,
+        /// <summary>
+        /// Pedido fue entregado al cliente
+        /// </summary>
+        Entregado=4,
+        /// <summary>
+        /// Pedido fue no pudo ser entregado 
+        /// </summary>
+        NoEntregado=5
+        
     }
 }

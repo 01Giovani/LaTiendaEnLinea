@@ -1,0 +1,66 @@
+﻿@model List<TiendaEnLinea.Core.Model.Pedido>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Pedidos pendientes entrega</h2>
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    @*<a href="@Url.Action("Detalle","Producto")" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus text-white">
+        </i> Agregar Producto
+    </a><br />*@
+
+    <table class="footable table table-stripped">
+        ​<!-- Encabezado de la tabla -->
+
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Total</th>
+                <th>Fecha Ingreso</th>
+                <th>Fecha Enviado</th>
+                <th>Cantidad Productos</th>
+               
+                <th></th>
+            </tr>
+        </thead>
+        ​<!-- -->
+        ​<!-- Cuerpo de la tabla -->
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>@item.Cliente.NombreCompleto</td>
+                    <td>@item.Cliente.Codigo</td>
+                    <td>@item.Total.Value.ToString("$0.00")</td>
+                    <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss")</td>
+                    <td>@item.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")</td>
+                    <td>@item.ProductosPedidos.Count</td>
+                    <td>
+                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle","Producto", new {id =item.Codigo })">
+                            <i class="fa fa-eye"></i> Ver detalle
+                        </a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+

@@ -10,5 +10,6 @@ namespace TiendaEnLinea.Core.Repositories
 {
     public interface ICheckoutRepository: IGenericRepository<CheckOut>
     {
+        void GuardarLista(List<CheckOut> detalles);
     }
 }
