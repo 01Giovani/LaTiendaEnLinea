@@ -7,16 +7,88 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
 
-        <h2>Pedidos pendientes entrega</h2>
+        <h2>Listado de pedidos</h2>
 
     </div>
 </div>
 
 <div class="wrapper wrapper-content">
-    @*<a href="@Url.Action("Detalle","Producto")" class="btn btn-primary btn-sm">
-        <i class="fa fa-plus text-white">
-        </i> Agregar Producto
-    </a><br />*@
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="ibox">
+
+                <div class="ibox-title">
+                    <h5>Filtrar Pedidos</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+                    <form action="@Url.Action("Listado")" method="get">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <h4>RANGO DE FECHA CREACIÓN</h4>
+                                <div class="form-group">
+                                    <div class="input-daterange input-group date" id="datepicker">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" name="fi" class="form-control" value="@ViewBag.fi" style="background-color:white" />
+                                        <span class="input-group-addon">Hasta</span>
+                                        <input type="text" name="ff" class="form-control" value="@ViewBag.ff" style="background-color:white" />
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <h4>ESTADO DE PEDIDO</h4>
+                                <div class="form-group">
+                                    <select name="estado" class="form-control">
+
+                                        @foreach (var item in new List<SelectListItem>() {
+                                            new SelectListItem { Text="Todos",Value="-1" },
+                                            new SelectListItem { Text="Incompleto",Value="1" },
+                                            new SelectListItem { Text="Pendiente de preparar",Value="2" },
+                                            new SelectListItem { Text="Pendiente de entrega",Value="3" },
+                                            new SelectListItem { Text="Entregado",Value="4" },
+                                            new SelectListItem { Text="No entregado",Value="5" }
+                                        })
+                                        {
+                                            if (ViewBag.estado == item.Value)
+                                            {
+                                                <option value="@item.Value" selected="selected">@item.Text</option>
+
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-primary btn-sm" type="submit">Aplicar Filtros</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <table class="footable table table-stripped">
         ​<!-- Encabezado de la tabla -->
@@ -27,9 +99,8 @@
                 <th>Teléfono</th>
                 <th>Total</th>
                 <th>Fecha Ingreso</th>
-                <th>Fecha Enviado</th>
-                <th>Cantidad Productos</th>
-               
+                <th data-hide="phone,tablet">Cantidad Productos</th>
+                <th data-hide="phone,tablet">Estado</th>
                 <th></th>
             </tr>
         </thead>
@@ -45,10 +116,10 @@
                     <td>@item.Cliente.Codigo</td>
                     <td>@item.Total.Value.ToString("$0.00")</td>
                     <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss")</td>
-                    <td>@item.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")</td>
                     <td>@item.ProductosPedidos.Count</td>
+                    <td>@GetNombreEstado(item.IdEstado)</td>
                     <td>
-                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle","Producto", new {id =item.Codigo })">
+                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle", new {id =item.Codigo })">
                             <i class="fa fa-eye"></i> Ver detalle
                         </a>
                     </td>
@@ -62,5 +133,50 @@
 
 </div>
 
+@helper  GetNombreEstado(TiendaEnLinea.Core.Model.EstadoPedido idEstado)
+{
+
+    switch (idEstado)
+    {
+        case TiendaEnLinea.Core.Model.EstadoPedido.Abierto:
+            @("Incompleto")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Entregado:
+            @("Entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Enviado:
+            @("Pendiente de preparar")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
+            @("No entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
+            @("Pendiente de entrega")
+            break;
+        
+    }
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
 
 
+            $('.input-group.date').datepicker({
+                language: "es",
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                constrainInput: false
+            });
+
+        });
+
+
+    </script>
+}

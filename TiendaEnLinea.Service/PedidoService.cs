@@ -34,9 +34,11 @@ namespace TiendaEnLinea.Service
             _productoPedidoRepository.Eliminar(Codigo);
         }
 
-        public List<Pedido> GetPedidosPendientes()
+        public List<Pedido> GetPedidosAdmin(DateTime fi,DateTime ff, EstadoPedido? idEstado = null)
         {
-            return _pedidoRepository.GetLista(x => x.Despachado == false,null,new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
+            return _pedidoRepository.GetLista(x => (x.FechaIngreso <= ff && x.FechaIngreso >= fi) && (idEstado == null || x.IdEstado == idEstado),
+                null,
+                new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
                 x=>x.Cliente,
                 x=>x.ProductosPedidos
             }).OrderBy(x=>x.FechaIngreso).ToList();
@@ -101,6 +103,14 @@ namespace TiendaEnLinea.Service
         public Cliente GuardarCliente(Cliente cliente)
         {
             return _clienteRepository.GuardarCliente(cliente);
+        }
+
+        public Pedido GetPedidoDetalle(Guid id)
+        {
+            return _pedidoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
+                x=>x.Cliente,
+                x=>x.ProductosPedidos.Select(c=>c.Producto.Multimedias)
+            });
         }
     }
 }

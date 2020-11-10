@@ -1,0 +1,228 @@
+﻿@model TiendaEnLinea.Core.Model.Pedido
+@{
+    ViewBag.Title = "Detalle";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Detalle de pedido</h2>
+
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <a href="" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus text-white">
+            </i> Preparar
+        </a>
+
+        <a href="" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus text-white">
+            </i> Entregado
+        </a>
+
+        <a href="" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus text-white">
+            </i> Cancelado
+        </a>
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+
+
+
+    <form class="form-horizontal">
+
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Cliente</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+                        
+                        <input class="form-control" value="@Model.Cliente.NombreCompleto" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Teléfono cliente</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        
+                        <input class="form-control" value="@Model.Cliente.Codigo" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Fecha de ingreso</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        
+                        <input class="form-control" value="@Model.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Estado</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        
+                        <input class="form-control" value="@GetNombreEstado(Model.IdEstado)" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Fecha entregado</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        @if (Model.FechaEntregado != null)
+                        {
+                            
+                            <input class="form-control" value="@Model.FechaEntregado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Fecha enviado por cliente</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        @if (Model.FechaCompletado != null)
+                        {
+                            
+                            <input class="form-control" value="@Model.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Cantidad productos</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        
+                        <input class="form-control" value="@Model.ProductosPedidos.Count()" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+    <div class="row">
+
+        <table class="table">
+            ​<!-- Encabezado de la tabla -->
+
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th data-hide="phone,tablet">Cantidad</th>
+                    <th data-hide="phone,tablet">Sub Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            ​<!-- -->
+            ​<!-- Cuerpo de la tabla -->
+            <tbody>
+                @foreach (var item in Model.ProductosPedidos)
+                {
+
+                    <tr>
+                        <td>@item.Producto.Nombre</td>
+                        <td>
+                            @if (item.Producto.PrecioOferta != null)
+                            {
+                                @item.Producto.PrecioOferta.Value.ToString("$0.00")
+                            }
+                            else
+                            {
+                                @item.Producto.Precio.ToString("$0.00")
+                            }
+
+                        </td>
+                        <td>@string.Format("{0:0.##}", item.Cantidad)</td>
+                        <td>@item.SubTotal.ToString("$0.00")</td>
+                        <td></td>
+                    </tr>
+                }
+                <tr style="border-top:solid 3px;">
+                    <td colspan="2"></td>
+                    <td><b>TOTAL</b></td>
+                    <td><b>@Model.Total.Value.ToString("$0.00")</b></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@helper  GetNombreEstado(TiendaEnLinea.Core.Model.EstadoPedido idEstado)
+{
+
+    switch (idEstado)
+    {
+        case TiendaEnLinea.Core.Model.EstadoPedido.Abierto:
+            @("Incompleto")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Entregado:
+            @("Entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Enviado:
+            @("Pendiente de preparar")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
+            @("No entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
+            @("Pendiente de entrega")
+            break;
+
+    }
+
+}

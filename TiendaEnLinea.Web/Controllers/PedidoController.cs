@@ -33,51 +33,59 @@ namespace TiendaEnLinea.Web.Controllers
 
         }
 
-        [CaracteristicasAccion("pedidos pendientes preparar",false,true)]
+        [CaracteristicasAccion("Listado de pedidos",false,true)]
         [HttpGet]
-        public ActionResult PendientePreparar()
+        public ActionResult Listado(string fi,string ff,string estado)
         {
-
-            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
+            DateTime fInicio;
+            DateTime fFIn;
             
+
+            if (string.IsNullOrEmpty(fi))            
+                fInicio = DateTime.Today.AddMonths(-1);            
+            else 
+                fInicio = DateTime.Parse(fi).AddMonths(-1);
+            
+
+            if (string.IsNullOrEmpty(ff))            
+                fFIn = DateTime.Today.AddDays(1).AddSeconds(-1);            
+            else            
+                fFIn = DateTime.Parse(ff).AddDays(1).AddSeconds(-1);
+
+
+            EstadoPedido? idEstado = null;
+
+            if (string.IsNullOrEmpty(estado))
+                estado = "2";
+
+            if (estado != "-1")
+                idEstado = (EstadoPedido)int.Parse(estado);
+
+            List<Pedido> pedidos = _pedidoService.GetPedidosAdmin(fInicio, fFIn, idEstado);
+
+            ViewBag.fi = fInicio.ToString("dd/MM/yyyy");
+            ViewBag.ff = fFIn.ToString("dd/MM/yyyy");
+            ViewBag.estado = estado;
 
             return View("Index",pedidos);
         }
 
-        [CaracteristicasAccion("pedidos preparados", false, true)]
+        [CaracteristicasAccion("Detalle pedido",false,true)]
         [HttpGet]
-        public ActionResult Preparados()
+        public ActionResult Detalle(Guid id)
         {
 
-            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
+            Pedido pedido = _pedidoService.GetPedidoDetalle(id);
 
-
-            return View(pedidos);
+            return View(pedido);
         }
 
 
-
-        [CaracteristicasAccion("pedidos no enviados por cliente", false, true)]
+        [CaracteristicasAccion("Preparar pedido", false, true)]
         [HttpGet]
-        public ActionResult NoEnviados()
+        public ActionResult Preparacion(Guid id)
         {
-
-            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
-
-
-            return View(pedidos);
-        }
-
-    
-        [CaracteristicasAccion("Lista de pedidos entregados", false, true)]
-        [HttpGet]
-        public ActionResult Entregados()
-        {
-
-            List<Pedido> pedidos = _pedidoService.GetPedidosPendientes();
-
-
-            return View(pedidos);
+            return View();
         }
 
     }

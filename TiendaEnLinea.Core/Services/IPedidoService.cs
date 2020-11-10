@@ -9,7 +9,7 @@ namespace TiendaEnLinea.Core.Services
 {
     public interface IPedidoService
     {
-        List<Pedido> GetPedidosPendientes();
+        List<Pedido> GetPedidosAdmin(DateTime fi, DateTime ff, EstadoPedido? idEstado = null);
 
         Pedido IniciarPedido(Guid id, string idCliente);
 
@@ -30,5 +30,7 @@ namespace TiendaEnLinea.Core.Services
         Pedido GetPedidoByCliente(string id);
 
         Cliente GuardarCliente(Cliente cliente);
+
+        Pedido GetPedidoDetalle(Guid id);
     }
 }
