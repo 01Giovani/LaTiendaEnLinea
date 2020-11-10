@@ -802,6 +802,7 @@
     <Content Include="js\plugins\chartist\chartist.min.js.map" />
     <Content Include="js\plugins\diff_match_patch\COPYING" />
     <Content Include="js\plugins\justified-gallery\README.md" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

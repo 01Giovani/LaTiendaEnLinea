@@ -304,6 +304,7 @@
     <Content Include="wwwroot\lib\toastr\scripts\toastr.js" />
     <Content Include="wwwroot\lib\toastr\scripts\toastr.min.js" />
     <Content Include="wwwroot\logo.png" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
