@@ -161,11 +161,16 @@
                 dataType: "json",
                 success: function (data) {
 
-                    $("#detail-container").empty();
-                    $("#detail-container").load(callback, function () {
-                        Swal.hideLoading();
-                        Swal.fire(data.titulo, data.mensaje, data.tipo);
-                    });            
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                 
+                        $("#detail-container").empty();
+                        $("#detail-container").load(callback, function () {
+                            Swal.hideLoading();
+                            Swal.fire(data.titulo, data.mensaje, data.tipo);
+                        }); 
+                    }      
                 },
                 error: function (error) {
                     console.log("Error:" + error);

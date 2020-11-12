@@ -291,10 +291,14 @@
             dataType: "json",
             success: function (data) {
 
-                button.prop("disabled", false);
-                Swal.hideLoading();
-                Swal.fire(data.titulo, data.mensaje, data.tipo);
-                
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    button.prop("disabled", false);
+                    Swal.hideLoading();
+                    Swal.fire(data.titulo, data.mensaje, data.tipo);
+                }
+                             
             },
             error: function (error) {
                 console.log("Error:"+error);

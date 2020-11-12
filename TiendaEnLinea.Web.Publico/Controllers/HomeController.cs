@@ -87,6 +87,13 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Preguntas()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult CheckClient(ClienteDTO cliente)
         {
@@ -142,6 +149,10 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         public ActionResult AgregarProducto(AgregarDTO data)
         {
             string pedido = GetCookieCliente();           
+            if(string.IsNullOrEmpty(pedido))
+                return Json(new { url=Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+
             Guid id = new Guid(pedido);
             Producto producto = _productoService.GetProducto(data.IdProducto,false);
 
@@ -179,7 +190,10 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         [HttpPost]
         public ActionResult ModificarDetalle(AgregarDTO data)
         {
-            string pedido = GetCookieCliente();            
+            string pedido = GetCookieCliente();
+            if (string.IsNullOrEmpty(pedido))
+                return Json(new { url = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
             Guid id = new Guid(pedido);
             Pedido remoto = _pedidoService.GetPedidoNoTracking(id);
             Producto producto = _productoService.GetProducto(data.IdProducto, false);
@@ -204,6 +218,9 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         public ActionResult EliminarDetalle(int codigo)
         {
             string pedido = GetCookieCliente();
+            if (string.IsNullOrEmpty(pedido))
+                return RedirectToAction("Index");
+
             Guid id = new Guid(pedido);
 
             ProductosPedido detalle = _pedidoService.GetDetalleByCodigo(codigo);

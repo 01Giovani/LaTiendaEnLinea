@@ -455,6 +455,7 @@
     <Content Include="Views\Home\Carretilla.cshtml" />
     <Content Include="Views\Home\_Detalle.cshtml" />
     <Content Include="Views\Home\Gracias.cshtml" />
+    <Content Include="Views\Home\Preguntas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

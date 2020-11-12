@@ -35,8 +35,10 @@
                         <hr class="d-md-none">
                         <nav class="nav nav-ppal">
                             @*<a asp-controller="Seccion" asp-action="Nosotros" class="nav-link">Nosotros</a>
-                                <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
-                            <a asp-controller="Contacto" asp-action="Index" class="nav-link">Contacto</a>
+        <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
+                            <a href="@Url.Action("Index","Home")" class="nav-link">Lista de productos</a>
+                            <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>
+                            <a href="@Url.Action("Preguntas","Home")" class="nav-link">Preguntas frecuentes</a>
                         </nav>
                     </div>
                     <div class="col-md-auto">
@@ -125,7 +127,7 @@
             <div class="row align-items-center">
 
                 <div class="col-6 col-md-auto">
-                    <img src="~/wwwroot/img/logo.png" class="logo" alt="Tienda Morena">
+                    <img src="~/wwwroot/img/logo.png" class="logo" alt="Tienda en línea">
                 </div>
                 <div class="col-6 col-md">
                     <div class="d-flex justify-content-center align-items-center">
@@ -133,7 +135,7 @@
                     </div>
                 </div>
                 <div class="col col-md-auto text-md-right pt-3 pt-md-0">
-                    <p class="copy">Todos los derechos Reservados 2020 <br>TIENDA EN LÍNEA <br>PBX: 2222-2222</p>
+                    <p class="copy">Todos los derechos Reservados 2020 <br>TIENDA EN LÍNEA <br>TELÉFONO: 2222-2222</p>
                 </div>
                 <div class="col-auto pt-3 pt-md-0">
                     <nav class="nav social justify-content-end">
@@ -146,26 +148,26 @@
 
     <input type="hidden" id="endpoints" data-check="@Url.Action("CheckClient")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")"/> 
 
-    <script src="~/wwwroot/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/wwwroot/lib/slick-1.8.1/slick.min.js"></script>
-    <script src="~/wwwroot/lib/fancybox/dist/jquery.fancybox.min.js"></script>
-    <script src="~/wwwroot/lib/outclick.min.js"></script>
-    <script src="~/wwwroot/js/site.js" asp-append-version="true"></script>
-    <script src="~/wwwroot/js/diseno.js" asp-append-version="true"></script>
+    <script src="@Url.Content("~/wwwroot/lib/jquery/dist/jquery.min.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/jquery-validation/dist/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/slick-1.8.1/slick.min.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/fancybox/dist/jquery.fancybox.min.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/outclick.min.js")"></script>
+    <script src="@Url.Content("~/wwwroot/js/site.js")"></script>
+    <script src="@Url.Content("~/wwwroot/js/diseno.js")"></script>
 
-    <script src="~/wwwroot/js/bitworks/plugginConfig.js"></script>
-    <script src="~/wwwroot/js/bitworks/utilidadesBitworks.js"></script>
-    <script src="~/wwwroot/js/tienda/beneficiarios.js"></script>
-    <script src="~/wwwroot/js/tienda/carretilla.js"></script>
-    <script src="~/wwwroot/js/tienda/pago.js"></script>
+    <script src="@Url.Content("~/wwwroot/js/bitworks/plugginConfig.js")"></script>
+    <script src="@Url.Content("~/wwwroot/js/bitworks/utilidadesBitworks.js")"></script>
+    <script src="@Url.Content("~/wwwroot/js/tienda/beneficiarios.js")"></script>
+    <script src="@Url.Content("~/wwwroot/js/tienda/carretilla.js")"></script>
+    <script src="@Url.Content("~/wwwroot/js/tienda/pago.js")"></script>
 
-    <script src="~/wwwroot/js/Productos/Productos.js"></script>
+    <script src="@Url.Content("~/wwwroot/js/Productos/Productos.js")"></script>
 
-    <script src="~/wwwroot/lib/sweetalert2-9.10.6/sweetalert2.js"></script>
-    <script src="~/wwwroot/lib/toastr/scripts/toastr.js"></script>
+    <script src="@Url.Content("~/wwwroot/lib/sweetalert2-9.10.6/sweetalert2.js")"></script>
+    <script src="@Url.Content("~/wwwroot/lib/toastr/scripts/toastr.js")"></script>
 
     @RenderSection("scripts", required: false)
 
@@ -173,12 +175,16 @@
 
         $(document).ready(function () {
 
+            
+
             var bandera = '@ViewBag.gracias';
             var co = getCookie("pedido");
 
             if (co == "" && bandera == "") {
 
                 var url = $("#endpoints").data("check");
+
+               
 
                 Swal.mixin({
                     input: 'text',
@@ -211,17 +217,17 @@
                             }
                         }
                     }
-                    
+
                 ]).then((result) => {
                     if (result.value) {
 
-                        var payload = { "Telefono":result.value[0],"Nombre":result.value[1]};
-                        peticionAjaxPostCheck(url,payload);
-                       
+                        var payload = { "Telefono": result.value[0], "Nombre": result.value[1] };
+                        peticionAjaxPostCheck(url, payload);
+
                     }
                 });
 
-            }
+            } 
           
 
         });
