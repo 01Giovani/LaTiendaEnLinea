@@ -13,11 +13,14 @@ namespace TiendaEnLinea.Web.Controllers
 {
     public class PedidoController : Controller
     {
+        private ICheckOutService _checkOutService;
         private static IMapper _mapper;
         private IPedidoService _pedidoService;
-        public PedidoController(IPedidoService pedidoService)
+        public PedidoController(IPedidoService pedidoService,
+            ICheckOutService checkOutService)
         {
             _pedidoService = pedidoService;
+            _checkOutService = checkOutService;
         }
 
         static PedidoController()
@@ -85,7 +88,56 @@ namespace TiendaEnLinea.Web.Controllers
         [HttpGet]
         public ActionResult Preparacion(Guid id)
         {
-            return View();
+            Pedido pedido = _pedidoService.GetPedidoDetalle(id);
+            if (pedido.IdEstado != EstadoPedido.Enviado)
+                return RedirectToAction("Listado");
+
+            CheckoutListaDTO model = new CheckoutListaDTO() { 
+                Pedido = pedido,
+                Detalles = _checkOutService.GetPedidoCheckout(id)
+            };
+
+            return View(model);
+        }
+
+        [CaracteristicasAccion("Marcar preaparado",false,true)]
+        [HttpPost]
+        public ActionResult Preparado(PreracionDTO data)
+        {
+            _checkOutService.ModificarDetalle(data.IdDetalle, data.Preparado, data.Comentario);
+
+            return Json(new { titulo = "Exito!", mensaje = "Se marco como preparado", tipo = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [CaracteristicasAccion("Marcar pedido como pendiente entrega",false,true)]
+        [HttpGet]
+        public ActionResult PedidoPreparado(Guid idPedido)
+        {
+
+            Pedido ped = _pedidoService.GetPedidoNoTracking(idPedido);
+            ped.IdEstado = EstadoPedido.Preparado;
+            _pedidoService.ModificarPedido(ped);
+
+            Pedido siguiente = _pedidoService.GetSiguientePreparar();
+
+            if (siguiente != null)
+                return RedirectToAction("Preparacion",new { id = siguiente.Codigo });
+            else
+                return RedirectToAction("Listado");
+            
+        }
+
+
+        [CaracteristicasAccion("Cancelar pedido",false,true)]
+        [HttpGet]
+        public ActionResult Cancelar(Guid id)
+        {
+
+            Pedido pedido = _pedidoService.GetPedidoNoTracking(id);
+            pedido.IdEstado = EstadoPedido.NoEntregado;
+            _pedidoService.ModificarPedido(pedido);
+
+            return RedirectToAction("Detalle", new { id });
         }
 
     }

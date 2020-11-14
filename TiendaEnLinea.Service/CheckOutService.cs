@@ -41,5 +41,21 @@ namespace TiendaEnLinea.Service
             _checkoutRepository.GuardarLista(pedidoDetalles);
 
         }
+
+        public List<CheckOut> GetPedidoCheckout(Guid idPedido)
+        {
+            return _checkoutRepository.GetLista(x => x.IdPedido == idPedido, null, new System.Linq.Expressions.Expression<Func<CheckOut, object>>[] { 
+                x=>x.Detalle.Producto.Multimedias
+            });
+        }
+
+        public void ModificarDetalle(int codigo,bool preparado,string comentario)
+        {
+            CheckOut detalle = _checkoutRepository.FindByTracking(x => x.Codigo == codigo);
+            detalle.Comentario = comentario;
+            detalle.Preparado = preparado;
+
+            _checkoutRepository.SaveChanges();
+        }
     }
 }

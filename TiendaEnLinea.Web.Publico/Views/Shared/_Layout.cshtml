@@ -146,7 +146,7 @@
         </div>
     </footer>
 
-    <input type="hidden" id="endpoints" data-check="@Url.Action("CheckClient")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")"/> 
+    <input type="hidden" id="endpoints" data-verificar="@Url.Action("VerificarCliente")" data-check="@Url.Action("CheckClient")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")"/> 
 
     <script src="@Url.Content("~/wwwroot/lib/jquery/dist/jquery.min.js")"></script>
     <script src="@Url.Content("~/wwwroot/lib/jquery-validation/dist/jquery.validate.js")"></script>
@@ -189,31 +189,66 @@
                 Swal.mixin({
                     input: 'text',
                     confirmButtonText: 'Continuar',
-                    progressSteps: ['1', '2'],
+                    progressSteps: ['1', '2','3'],
                     allowEscapeKey: false,
                     allowOutsideClick: false,
                 }).queue([
                     {
                         title: 'Gracias por elegir comprar con nosotros!',
-                        text: 'Para atenderte mejor por favor ingresa un número de teléfono',
+                        text: 'Por favor ingresa tu número de teléfono',
+                        showLoaderOnConfirm: true,
+                        allowOutsideClick: () => !Swal.isLoading(),
                         inputValidator: (value) => {
                             if (!value) {
-                                return 'Campo requerido'
+                                return 'Teléfono requerido'
                             }
                             if (value) {
 
-                                var myRe = /[0-9]{8}/;
+                                var myRe = /^[0-9]{8}$/;
                                 if (!myRe.test(value)) {
                                     return 'Por favor ingrese un número valido'
-                                }
-
+                                }                              
                             }
+                        }, preConfirm: (value) => {
+
+                            
+                            var urlcheck = $("#endpoints").data("verificar") + "/"+value;
+                          
+                            return fetch(urlcheck)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(response.statusText)
+                                    }
+
+                                    return response.json();                                    
+                                })
+                                .then(data => {
+
+                                    if (data.nuevo === 0) {
+                                        window.location.href = data.url;
+                                    }                                    
+                                })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                        `Request failed: ${error}`
+                                    )
+                                })
+
+                            
                         }
                     }, {
-                        text: 'Ahora por favor ingresa tu nombre',
+                        text: 'Ahora, por favor ingresa tu nombre',
                         inputValidator: (value) => {
                             if (!value) {
-                                return 'Campo requerido'
+                                return 'Nombre requerido'
+                            }
+                        }
+                    },
+                    {
+                        text: 'Para finalizar, por favor ingresa la dirección de tu domicilio',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Dirección requerida'
                             }
                         }
                     }
@@ -221,7 +256,7 @@
                 ]).then((result) => {
                     if (result.value) {
 
-                        var payload = { "Telefono": result.value[0], "Nombre": result.value[1] };
+                        var payload = { "Telefono": result.value[0], "Nombre": result.value[1], "Direccion": result.value[2] };
                         peticionAjaxPostCheck(url, payload);
 
                     }
@@ -269,6 +304,27 @@
             }
             return "";
         }
+
+
+        function peticionAjaxVerificarCliente(url, data) {
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.nuevo === 0)
+                        window.location.href = data.url;
+
+                },
+                error: function (error) {
+                    console.log("Error:" + error);
+                }
+            });
+        }
+
     </script>
 
 </body>

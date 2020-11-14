@@ -1,0 +1,243 @@
+﻿@model TiendaEnLinea.Core.DTOs.Pedido.CheckoutListaDTO
+@{
+    ViewBag.Title = "Preparacion";
+}
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Prepación de pedido</h2>
+
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12 text-right">
+
+
+      
+        @if (Model.Pedido.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Enviado)
+        {
+
+            <a href="@Url.Action("PedidoPreparado",new { idPedido = Model.Pedido.Codigo  })" class="btn btn-primary btn-sm completarped">
+                <i class="fa fa-check">
+                </i> Completar preparación
+            </a>
+        }
+
+
+
+
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+
+
+
+    <form class="form-horizontal">
+
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Cliente</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <input class="form-control" value="@Model.Pedido.Cliente.NombreCompleto" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Teléfono cliente</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+
+                        <input class="form-control" value="@Model.Pedido.Cliente.Telefono" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Fecha de ingreso</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+
+                        <input class="form-control" value="@Model.Pedido.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Total</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+
+                        <input class="form-control" value="@Model.Pedido.Total.Value.ToString("$0.00")" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+    <hr />
+    <br />
+
+    <div class="row">
+
+
+
+        <table class="table">
+            ​<!-- Encabezado de la tabla -->
+
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th data-hide="phone,tablet">Cantidad</th>
+                    <th data-hide="phone,tablet">Sub Total</th>
+                    <th data-hide="phone,tablet">Comentario</th>
+                    <th data-hide="phone,tablet">Preparado</th>
+                    
+                </tr>
+            </thead>
+            ​<!-- -->
+            ​<!-- Cuerpo de la tabla -->
+            <tbody>
+                @foreach (var item in Model.Detalles)
+                {
+
+                    <tr>
+                        <td>@item.Detalle.Producto.Nombre</td>
+                        <td>
+                            @if (item.Detalle.Producto.PrecioOferta != null)
+                            {
+                                @item.Detalle.Producto.PrecioOferta.Value.ToString("$0.00")
+                            }
+                            else
+                            {
+                                @item.Detalle.Producto.Precio.ToString("$0.00")
+                            }
+
+                        </td>
+                        <td>@string.Format("{0:0.##}", item.Detalle.Cantidad)</td>
+                        <td>@item.Detalle.SubTotal.ToString("$0.00")</td>
+                        <td><input id="@("co")@item.Codigo" type="text" value="@item.Comentario" class="form-control"/></td>
+                        <td><input @(item.Preparado ? "checked" : "") data-codigo="@item.Codigo" data-co="@("co")@item.Codigo" data-url="@Url.Action("Preparado")" type="checkbox" class="form-control controlchk"/></td>
+                        
+                    </tr>
+                }
+                
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@helper  GetNombreEstado(TiendaEnLinea.Core.Model.EstadoPedido idEstado)
+{
+
+    switch (idEstado)
+    {
+        case TiendaEnLinea.Core.Model.EstadoPedido.Abierto:
+            @("Incompleto")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Entregado:
+            @("Entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Enviado:
+            @("Pendiente de preparar")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
+            @("Cancelado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
+            @("Pendiente de entrega")
+            break;
+
+    }
+
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        function peticionAjaxPost(url, data) {
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    Bitworks.Ventanas.ocultarLoading();   
+
+                    //swal(data.titulo, data.mensaje, data.tipo);
+                },
+                error: function (error) {
+                    console.log("Error:" + error);
+                }
+            });
+        }
+
+        $(document).on("change", ".controlchk", function () {
+
+            var valor = $(this).prop("checked");
+            var codigo = $(this).data("codigo");
+            var texbox = $("#" + $(this).data("co"));
+            var comentario = texbox.val();
+            var url = $(this).data("url");
+
+            var payload = { "IdDetalle": codigo, "Comentario": comentario, "Preparado": valor };
+
+            Bitworks.Ventanas.mostrarLoading();
+
+            peticionAjaxPost(url, payload);
+
+        });
+
+
+        $(document).on("click", ".completarped", function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr("href");
+
+            swal({
+                title: "¿Está seguro?",
+                text: "El pedido pasara a estado PENDIENTE DE ENTREGA",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Sí!",
+                closeOnConfirm: false
+            }, function () {
+                Bitworks.Ventanas.mostrarLoading();
+                window.location.href = url;
+            });
+
+        });
+
+    </script>
+}

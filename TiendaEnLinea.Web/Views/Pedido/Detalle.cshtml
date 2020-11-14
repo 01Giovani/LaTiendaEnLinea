@@ -15,20 +15,32 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
 
-        <a href="" class="btn btn-primary btn-sm">
-            <i class="fa fa-plus text-white">
-            </i> Preparar
-        </a>
+        @if (Model.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Enviado)
+        {
+            <a href="@Url.Action("Preparacion",new { id = Model.Codigo })" class="btn btn-primary btn-sm">
+                <i class="fa fa-cogs text-white">
+                </i> Preparar
+            </a>
+        }
 
-        <a href="" class="btn btn-primary btn-sm">
-            <i class="fa fa-plus text-white">
-            </i> Entregado
-        </a>
 
-        <a href="" class="btn btn-primary btn-sm">
-            <i class="fa fa-plus text-white">
-            </i> Cancelado
-        </a>
+        @if (Model.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Preparado)
+        {
+            <a href="" class="btn btn-primary btn-sm">
+                <i class="fa fa-check text-white">
+                </i> Entregado
+            </a>
+        }
+
+
+        @if (Model.IdEstado != TiendaEnLinea.Core.Model.EstadoPedido.Entregado && Model.IdEstado != TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado)
+        {
+            <a href="@Url.Action("Cancelar",new { id = Model.Codigo })" class="btn btn-primary btn-sm cancelar">
+                <i class="fa fa-minus-circle text-white">
+                </i> Cancelar
+            </a>
+        }
+
 
     </div>
 </div>
@@ -45,8 +57,8 @@
             <div class="col-lg-10">
                 <div class="row">
                     <div class="col-md-4">
-                        
-                        <input class="form-control" value="@Model.Cliente.NombreCompleto" readonly/>
+
+                        <input class="form-control" value="@Model.Cliente.NombreCompleto" readonly />
                     </div>
                 </div>
             </div>
@@ -58,7 +70,7 @@
                 <div class="row">
                     <div class="col-md-4">
 
-                        
+
                         <input class="form-control" value="@Model.Cliente.Codigo" readonly />
                     </div>
                 </div>
@@ -71,8 +83,8 @@
                 <div class="row">
                     <div class="col-md-4">
 
-                        
-                        <input class="form-control" value="@Model.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
+
+                        <input class="form-control" value="@Model.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss tt")" readonly />
 
                     </div>
                 </div>
@@ -85,7 +97,7 @@
                 <div class="row">
                     <div class="col-md-4">
 
-                        
+
                         <input class="form-control" value="@GetNombreEstado(Model.IdEstado)" readonly />
                     </div>
                 </div>
@@ -95,60 +107,65 @@
 
 
 
+        @if (Model.FechaEntregado != null)
+        {
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Fecha entregado</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-md-4">
 
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Fecha entregado</label>
-            <div class="col-lg-10">
-                <div class="row">
-                    <div class="col-md-4">
 
-                        @if (Model.FechaEntregado != null)
-                        {
-                            
+
                             <input class="form-control" value="@Model.FechaEntregado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
-                        }
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Fecha enviado por cliente</label>
-            <div class="col-lg-10">
-                <div class="row">
-                    <div class="col-md-4">
-
-                        @if (Model.FechaCompletado != null)
-                        {
                             
-                            <input class="form-control" value="@Model.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
-                        }
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
 
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Cantidad productos</label>
-            <div class="col-lg-10">
-                <div class="row">
-                    <div class="col-md-4">
 
-                        
-                        <input class="form-control" value="@Model.ProductosPedidos.Count()" readonly />
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Fecha enviado por cliente</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            @if (Model.FechaCompletado != null)
+                            {
+
+                                <input class="form-control" value="@Model.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
+                            }
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Cantidad productos</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-md-4">
 
 
-    </form>
+                            <input class="form-control" value="@Model.ProductosPedidos.Count()" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    
+    <hr />
+    <br />
 
     <div class="row">
+
+
 
         <table class="table">
             ​<!-- Encabezado de la tabla -->
@@ -217,7 +234,7 @@
             @("Pendiente de preparar")
             break;
         case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
-            @("No entregado")
+            @("Cancelado")
             break;
         case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
             @("Pendiente de entrega")
@@ -225,4 +242,31 @@
 
     }
 
+}
+
+@section scripts{
+<script type="text/javascript">
+
+
+    $(document).on("click", ".cancelar", function (e) {
+        e.preventDefault();
+
+        var url = $(this).attr("href");
+
+        swal({
+            title: "¿Está seguro?",
+            text: "Deseas marcar el pedido como cancelado",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sí!",
+            closeOnConfirm: false
+        }, function () {
+                Bitworks.Ventanas.mostrarLoading();
+                window.location.href = url;
+        });
+
+    });
+
+</script>    
 }

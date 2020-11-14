@@ -103,7 +103,9 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             {
                 cli = _pedidoService.GuardarCliente(new Cliente() { 
                     Codigo =cliente.Telefono,
-                    NombreCompleto = cliente.Nombre
+                    NombreCompleto = cliente.Nombre,
+                    Telefono = cliente.Telefono,
+                    Direccion = cliente.Direccion
                 });
             }
             
@@ -119,6 +121,26 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             SetCookieCliente(ped.Codigo);
                            
             return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult VerificarCliente(string id)
+        {
+            Cliente cli = _pedidoService.GetCliente(id);
+            if (cli != null)
+            {
+                Pedido ped = _pedidoService.GetPedidoByCliente(cli.Codigo);
+                if (ped == null)
+                {
+                    //inicializo el pedido
+                    Guid nuevo = Guid.NewGuid();
+                    ped = _pedidoService.IniciarPedido(nuevo, cli.Codigo);
+                }
+                SetCookieCliente(ped.Codigo);
+                return Json(new { nuevo=0, url = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Json(new { nuevo = 1 }, JsonRequestBehavior.AllowGet);            
         }
 
         [HttpGet]
@@ -163,6 +185,7 @@ namespace TiendaEnLinea.Web.Publico.Controllers
                 if (nuevaCantidad <= 0)
                     nuevaCantidad = 1;
 
+                existente.Precio = producto.PrecioOferta != null ? producto.PrecioOferta.Value : producto.Precio;
                 existente.SubTotal = GetSubTotal(producto, nuevaCantidad);
                 existente.Cantidad = nuevaCantidad;
                 existente.Modificado = true;
@@ -176,13 +199,12 @@ namespace TiendaEnLinea.Web.Publico.Controllers
                     IdPedido = id,
                     Cantidad = data.Cantidad,
                     SubTotal = GetSubTotal(producto, data.Cantidad),
-                    Modificado = false
+                    Modificado = false,
+                    Precio = producto.PrecioOferta != null ? producto.PrecioOferta.Value : producto.Precio
                 });
             }
 
-            Pedido remoto = _pedidoService.GetPedidoNoTracking(id);
-            remoto.Total = remoto.Total.GetValueOrDefault(0) + existente.SubTotal;
-            _pedidoService.ModificarPedido(remoto);
+            _pedidoService.ActualizarTotal(id);
                        
             return Json(new { titulo= "Exito!", mensaje= "El producto fue agregado", tipo= "success" }, JsonRequestBehavior.AllowGet);
         }
@@ -195,20 +217,17 @@ namespace TiendaEnLinea.Web.Publico.Controllers
                 return Json(new { url = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
 
             Guid id = new Guid(pedido);
-            Pedido remoto = _pedidoService.GetPedidoNoTracking(id);
+            
             Producto producto = _productoService.GetProducto(data.IdProducto, false);
 
-            ProductosPedido enBase = _pedidoService.GetDetallePedido(id, data.IdProducto);
-            remoto.Total = remoto.Total - enBase.SubTotal;
-
-
+            ProductosPedido enBase = _pedidoService.GetDetallePedido(id, data.IdProducto);     
             enBase.Cantidad = data.Cantidad;
             enBase.SubTotal = GetSubTotal(producto, data.Cantidad);
             enBase.Modificado = true;
+            enBase.Precio = producto.PrecioOferta != null ? producto.PrecioOferta.Value : producto.Precio;
             _pedidoService.ModificarDetallePedido(enBase);
 
-            remoto.Total = remoto.Total.GetValueOrDefault(0) + enBase.SubTotal;
-            _pedidoService.ModificarPedido(remoto);
+            _pedidoService.ActualizarTotal(id);
 
             return Json(new { titulo = "Exito!", mensaje = "Pedido modificado", tipo = "success" }, JsonRequestBehavior.AllowGet);
         }
@@ -228,11 +247,7 @@ namespace TiendaEnLinea.Web.Publico.Controllers
                 return Json(new { titulo = "Ops!", mensaje = "Parece que algo salio mal", tipo = "error" }, JsonRequestBehavior.AllowGet);
 
             _pedidoService.EliminarDetalle(codigo);
-
-          
-            Pedido remoto = _pedidoService.GetPedidoNoTracking(id);
-            remoto.Total = remoto.Total - detalle.SubTotal;
-            _pedidoService.ModificarPedido(remoto);
+            _pedidoService.ActualizarTotal(id);
 
             return RedirectToAction("Carretilla");
         }

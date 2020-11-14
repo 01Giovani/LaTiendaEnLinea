@@ -112,5 +112,20 @@ namespace TiendaEnLinea.Service
                 x=>x.ProductosPedidos.Select(c=>c.Producto.Multimedias)
             });
         }
+
+        public void ActualizarTotal(Guid idPedido)
+        {
+            decimal total = _productoPedidoRepository.GetLista(x => x.IdPedido == idPedido).Sum(x => x.SubTotal);
+            Pedido pedido = _pedidoRepository.FindByTracking(x => x.Codigo == idPedido);
+            pedido.Total = total;
+            _pedidoRepository.SaveChanges();
+        }
+
+        public Pedido GetSiguientePreparar()
+        {
+            return _pedidoRepository
+                .GetLista(x => x.IdEstado == EstadoPedido.Enviado && x.FechaCompletado != null)
+                .OrderBy(x => x.FechaCompletado).FirstOrDefault();
+        }
     }
 }

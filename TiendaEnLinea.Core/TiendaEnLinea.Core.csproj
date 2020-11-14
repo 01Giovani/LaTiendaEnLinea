@@ -48,8 +48,10 @@
   <ItemGroup>
     <Compile Include="DTOs\Pedido\AgregarDTO.cs" />
     <Compile Include="DTOs\Pedido\CarretillaDTO.cs" />
+    <Compile Include="DTOs\Pedido\CheckoutListaDTO.cs" />
     <Compile Include="DTOs\Pedido\ClienteDTO.cs" />
     <Compile Include="DTOs\Pedido\ListaPedidosDTO.cs" />
+    <Compile Include="DTOs\Pedido\PreracionDTO.cs" />
     <Compile Include="DTOs\ProductoPublico\ProductoCatalogoDTO.cs" />
     <Compile Include="DTOs\Producto\DetalleProductoDTO.cs" />
     <Compile Include="DTOs\Producto\ListaProductoDTO.cs" />

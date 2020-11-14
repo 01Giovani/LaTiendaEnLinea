@@ -57,7 +57,7 @@
                                             new SelectListItem { Text="Pendiente de preparar",Value="2" },
                                             new SelectListItem { Text="Pendiente de entrega",Value="3" },
                                             new SelectListItem { Text="Entregado",Value="4" },
-                                            new SelectListItem { Text="No entregado",Value="5" }
+                                            new SelectListItem { Text="Cancelado",Value="5" }
                                         })
                                         {
                                             if (ViewBag.estado == item.Value)
@@ -115,7 +115,7 @@
                     <td>@item.Cliente.NombreCompleto</td>
                     <td>@item.Cliente.Codigo</td>
                     <td>@item.Total.Value.ToString("$0.00")</td>
-                    <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss")</td>
+                    <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
                     <td>@item.ProductosPedidos.Count</td>
                     <td>@GetNombreEstado(item.IdEstado)</td>
                     <td>
@@ -148,7 +148,7 @@
             @("Pendiente de preparar")
             break;
         case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
-            @("No entregado")
+            @("Cancelado")
             break;
         case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
             @("Pendiente de entrega")

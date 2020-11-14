@@ -187,26 +187,31 @@
     }
 
     @if (Model.Multimedias != null)
-    {
-        <div class="col-md-12">
+    {       
+
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
 
             @foreach (var imagen in Model.Multimedias)
             {
-            <div class="col-md-2">
-                <a class="btn btn-white btn-bitbucket" href="@Url.Action("EliminarImagen", new { id = imagen.Codigo, idProducto = Model.Codigo })">
-                    <i class="fa fa-trash"></i> Eliminar
-                </a>
-                <img style="width:100%" src="@Url.Action("GetMultimediaConLlave", "Producto", new { id = imagen.IdMultimedia })" />
 
-            </div>
+                <tr>
+                    <td>
+                        <img style="width:100%" src="@Url.Action("GetMultimediaConLlave", "Producto", new { id = imagen.IdMultimedia })" />
+                    </td>
+                    <td>
+                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("EliminarImagen", new { id = imagen.Codigo, idProducto = Model.Codigo })">
+                            <i class="fa fa-trash"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
 
             }
+        </table>
 
-        </div>
-
-        <br />
-        <hr />
-        <br />
     }
 
 

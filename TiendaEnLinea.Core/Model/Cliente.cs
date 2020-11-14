@@ -13,6 +13,8 @@ namespace TiendaEnLinea.Core.Model
         public string Telefono { get; set; }
         public string DUI { get; set; }
 
+        public string Direccion { get; set; }
+
         public List<Beneficiario> Beneficiarios { get; set; }
     }
 }

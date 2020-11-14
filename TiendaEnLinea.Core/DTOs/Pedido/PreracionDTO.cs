@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TiendaEnLinea.Core.DTOs.Pedido
 {
-    public class ClienteDTO
+    public class PreracionDTO
     {
-        public string Telefono { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
+        public int IdDetalle { get; set; }
+        public string Comentario { get; set; }
+        public bool Preparado { get; set; }
     }
 }

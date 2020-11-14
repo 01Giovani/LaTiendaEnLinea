@@ -32,5 +32,9 @@ namespace TiendaEnLinea.Core.Services
         Cliente GuardarCliente(Cliente cliente);
 
         Pedido GetPedidoDetalle(Guid id);
+
+        void ActualizarTotal(Guid idPedido);
+
+        Pedido GetSiguientePreparar();
     }
 }

@@ -13,7 +13,7 @@ namespace TiendaEnLinea.Core.Model
         public Guid IdPedido { get; set; }
         public decimal Cantidad { get; set; }
         public decimal SubTotal { get; set; }
-
+        public decimal Precio { get; set; }
         /// <summary>
         /// se coloca true si el detalle fue modificado luego de ser enviado
         /// </summary>
