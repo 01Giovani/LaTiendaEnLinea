@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda en línea - @ViewBag.Title</title>
+    <title>La tienda online - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/plugins")
     @Styles.Render("~/css/bitworkstyles")
@@ -136,14 +136,14 @@
                                 }
                             </span>
                         </li>
-                        <li class="dropdown">
+                        @*<li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-bars"></i>  </a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="@Url.Action("CambiarContrasena", "Cuenta")">Cambiar Contraseña</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                         <li>
                             <a href="@Url.Action("Logout", "Cuenta")">
                                 <i class="fa fa-sign-out"></i> Cerrar Sesión
@@ -180,11 +180,11 @@
             <!-- Footer -->
             <div class="footer">
                 <div class="pull-right">
-                    Tienda en línea &copy; 2020
+                    La tienda online &copy; 2020
                 </div>
-                <div>
+                @*<div>
                     <strong>Tienda en línea</strong>
-                </div>
+                </div>*@
             </div>
             <!-- -->
 

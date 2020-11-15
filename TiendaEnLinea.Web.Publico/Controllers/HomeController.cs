@@ -261,6 +261,8 @@ namespace TiendaEnLinea.Web.Publico.Controllers
                 return RedirectToAction("Index");
 
             Pedido pedido = _pedidoService.GetPedidoNoTracking(id,true);
+            if(pedido != null && pedido.IdEstado == EstadoPedido.Enviado)
+                return RedirectToAction("Index");
 
             if (pedido.ProductosPedidos == null || pedido.ProductosPedidos.Count == 0)
                 return RedirectToAction("Carretilla", new { state = "invalid" });

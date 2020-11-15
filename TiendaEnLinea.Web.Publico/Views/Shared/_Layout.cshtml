@@ -196,8 +196,7 @@
                     {
                         title: 'Gracias por elegir comprar con nosotros!',
                         text: 'Por favor ingresa tu número de teléfono',
-                        showLoaderOnConfirm: true,
-                        allowOutsideClick: () => !Swal.isLoading(),
+                        showLoaderOnConfirm: true,                        
                         inputValidator: (value) => {
                             if (!value) {
                                 return 'Teléfono requerido'

@@ -59,11 +59,11 @@
                     <div class="col-6 col-md-4 col-lg-3 mb-3 mb-md-4">
                         <div class="item-producto">
                             <figure style="background-image: url(@url)">
-                                <a href="detalle.html"><img src="@Url.Action("GetMedia",new{ id = prod.Fotos.FirstOrDefault() })" alt=""></a>
+                                <a href="#"><img src="@Url.Action("GetMedia",new{ id = prod.Fotos.FirstOrDefault() })" alt=""></a>
                             </figure>
                             <div class="pcontent">
                                 <div class="info" style="height:110px;">
-                                    <h3><a href="detalle.html">@prod.Nombre</a></h3>
+                                    <h3><a href="#">@prod.Nombre</a></h3>
                                     <div class="precios">
                                         <div class="left">
                                             <strong class="antes">@prod.Precio.ToString("$0.00")</strong>
@@ -112,11 +112,11 @@
 						</div>
 						<div class="col-auto pt-3 pt-md-0">
 							<div class="sldr-tools sldr-promo-tools">
-								<a href="" class="btn-grid text-white"><i class="icon-grid"></i></a>
+								@*<a href="" class="btn-grid text-white"><i class="icon-grid"></i></a>
 								<div class="sldr-arrows text-white ml-2">
 									<a href="" class="sldr-arrow prev" id="prevSldrPromos"><i class="icon-arrow-left"></i></a>
 									<a href="" class="sldr-arrow next" id="nextSldrPromos"><i class="icon-arrow-right"></i></a>
-								</div>
+								</div>*@
 							</div>
 						</div>
 					</div>
@@ -136,11 +136,11 @@
                                     <div class="item">
                                         <div class="item-producto">
                                             <figure style="background-image: url(@url)">
-                                                <a href="detalle.html"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
+                                                <a href="#"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
                                             </figure>
                                             <div class="pcontent">
                                                 <div class="info" style="height:110px;">
-                                                    <h3><a href="detalle.html">@dest.Nombre</a></h3>
+                                                    <h3><a href="#">@dest.Nombre</a></h3>
                                                     <div class="precios">
                                                         <div class="left">
                                                             <strong class="antes">@dest.Precio.ToString("$0.00")</strong>
