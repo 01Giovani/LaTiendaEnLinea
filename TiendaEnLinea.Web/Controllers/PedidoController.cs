@@ -140,5 +140,45 @@ namespace TiendaEnLinea.Web.Controllers
             return RedirectToAction("Detalle", new { id });
         }
 
+
+        [CaracteristicasAccion("Pedido entregado", false, true)]
+        [HttpPost]
+        public ActionResult Entregado(Guid id,string comentario,string accion=null)
+        {
+            Pedido pedido = _pedidoService.GetPedidoNoTracking(id);
+            pedido.IdEstado = EstadoPedido.Entregado;
+            pedido.Comentario = comentario;
+            pedido.Despachado = true;
+            _pedidoService.ModificarPedido(pedido);
+
+
+            if(accion!= null)
+                return RedirectToAction("Detalle",new { id = id});
+
+            return RedirectToAction("PendientesEntrega");
+        }
+
+
+        [CaracteristicasAccion("Pedido pendientes entrega", false, true)]
+        [HttpGet]
+        public ActionResult PendientesEntrega()
+        {
+            List<Pedido> pedidos = _pedidoService.GetPedidosNoEntregados().OrderBy(x=>x.OrdenEntrega).ToList();
+
+            return View(pedidos);
+        }
+
+
+        [CaracteristicasAccion("Cambiar order pedido",false,true)]
+        [HttpGet]
+        public ActionResult CambiarOrden(Guid idPedido,int nuevoOrden)
+        {
+
+            _pedidoService.CambiarOrderPedido(idPedido, nuevoOrden);
+
+            return RedirectToAction("PendientesEntrega");
+        }
+
+
     }
 }

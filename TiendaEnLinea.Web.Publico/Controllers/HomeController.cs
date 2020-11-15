@@ -268,6 +268,7 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             pedido.Completado = true;
             pedido.FechaCompletado = DateTime.Now;
             pedido.IdEstado = EstadoPedido.Enviado;
+            pedido.OrdenEntrega = _pedidoService.GetMaxOrderEntrega();
             _pedidoService.ModificarPedido(pedido);
 
             //DeleteCookie();

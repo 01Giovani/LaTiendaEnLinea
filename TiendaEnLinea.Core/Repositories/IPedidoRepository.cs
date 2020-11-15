@@ -13,5 +13,6 @@ namespace TiendaEnLinea.Core.Repositories
         Pedido Inicializar(Pedido pedido);
 
         Pedido Modificar(Pedido pedido);
+        int GeTMaxOrden();
     }
 }

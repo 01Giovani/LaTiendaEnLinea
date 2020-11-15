@@ -43,5 +43,10 @@ namespace TiendaEnLinea.SQL.Repositories
 
             return remoto;
         }
+
+        public int GeTMaxOrden()
+        {
+            return _db.Pedido.Where(x=>x.IdEstado == EstadoPedido.Enviado).Max(x => x.OrdenEntrega).GetValueOrDefault(0) +1;
+        }
     }
 }

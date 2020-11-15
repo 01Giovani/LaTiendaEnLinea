@@ -840,6 +840,7 @@
     <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Views\Pedido\Detalle.cshtml" />
     <Content Include="Views\Pedido\Preparacion.cshtml" />
+    <Content Include="Views\Pedido\PendientesEntrega.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

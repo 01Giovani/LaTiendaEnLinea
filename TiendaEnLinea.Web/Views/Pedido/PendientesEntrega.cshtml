@@ -1,0 +1,196 @@
+﻿@model List<TiendaEnLinea.Core.Model.Pedido>
+@{
+    ViewBag.Title = "PendientesEntrega";
+    int max = Model.Max(x => x.OrdenEntrega).GetValueOrDefault(0);
+    int min = Model.Min(x => x.OrdenEntrega).GetValueOrDefault(0);
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Pedidos a entregar</h2>
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+
+    <table class="footable table table-stripped">
+        ​<!-- Encabezado de la tabla -->
+
+        <thead>
+            <tr>
+                <th>Orden</th>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Total</th>
+                <th data-hide="phone,tablet">Direccion</th>
+                <th data-hide="phone,tablet">Fecha Enviado</th>
+                <th data-hide="phone,tablet">Cantidad Productos</th>
+                <th data-hide="phone,tablet">Estado</th>
+                <th data-hide="phone,tablet"></th>
+                <th data-hide="phone,tablet"></th>
+                <th>Cambiar Orden</th>
+
+            </tr>
+        </thead>
+        ​<!-- -->
+        ​<!-- Cuerpo de la tabla -->
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.OrdenEntrega</td>
+                    <td>@item.Cliente.NombreCompleto</td>
+                    <td>@item.Cliente.Codigo</td>
+                    <td>@item.Total.Value.ToString("$0.00")</td>
+                    <td>@item.Cliente.Direccion</td>
+                    <td>@item.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                    <td>@item.ProductosPedidos.Count</td>
+                    <td>@GetNombreEstado(item.IdEstado)</td>
+                    <td>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#det@(item.Codigo)">
+                            <i class="fa fa-eye"></i>
+                            Ver productos
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#ent@(item.Codigo)">
+                            <i class="fa fa-check"></i>
+                            Entregado
+                        </button>
+                    </td>
+                    <td>
+                        @if (item.OrdenEntrega > min)
+                        {
+                            <a class="btn btn-white" href="@Url.Action("CambiarOrden", new {idPedido = item.Codigo,nuevoOrden = (item.OrdenEntrega.Value - 1) })">
+                                <i class="fa fa-arrow-up"></i>
+                            </a>
+                        }
+
+                        @if (item.OrdenEntrega < max)
+                        {
+                            <a class="btn btn-white" href="@Url.Action("CambiarOrden", new {idPedido = item.Codigo,nuevoOrden = (item.OrdenEntrega.Value + 1) })">
+                                <i class="fa fa-arrow-down"></i>
+                            </a>
+                        }
+
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@foreach (var ped in Model)
+{
+    <div class="modal inmodal fade" id="det@(ped.Codigo)" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Pedido de @ped.Cliente.NombreCompleto</h4>
+                    
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var det in ped.ProductosPedidos)
+                            {
+
+                                <tr>
+                                    <td>@det.Producto.Nombre</td>
+                                    <td>@string.Format("{0:0.##}", det.Cantidad)</td>
+                                    <td>@det.SubTotal.ToString("$0.00")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal inmodal fade" id="ent@(ped.Codigo)" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Pedido de @ped.Cliente.NombreCompleto</h4>
+                   
+                </div>
+                <div class="modal-body">
+                    <form id="frm@(ped.Codigo)" method="post" action="@Url.Action("Entregado")">
+                        <input type="hidden" value="@ped.Codigo" name="id"/>
+                        <div class="form-group">
+                            <input type="text" name="comentario" placeholder="Comentario" class="form-control">
+                        </div>
+                       
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" data-frm="frm@(ped.Codigo)" class="btn btn-primary submitfrm">Entregado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@helper  GetNombreEstado(TiendaEnLinea.Core.Model.EstadoPedido idEstado)
+{
+
+    switch (idEstado)
+    {
+        case TiendaEnLinea.Core.Model.EstadoPedido.Abierto:
+            @("Incompleto")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Entregado:
+            @("Entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Enviado:
+            @("Pendiente de preparar")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
+            @("Cancelado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
+            @("Pendiente de entrega")
+            break;
+
+    }
+
+}
+
+@section scripts{
+<script type="text/javascript">
+    $(document).on("click", ".submitfrm", function () {
+
+        Bitworks.Ventanas.mostrarLoading();
+        var form = $("#" + $(this).data("frm"));
+        form.submit();
+
+    });
+</script>
+}

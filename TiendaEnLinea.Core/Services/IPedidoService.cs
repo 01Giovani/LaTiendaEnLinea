@@ -36,5 +36,9 @@ namespace TiendaEnLinea.Core.Services
         void ActualizarTotal(Guid idPedido);
 
         Pedido GetSiguientePreparar();
+        List<Pedido> GetPedidosNoEntregados();
+
+        int GetMaxOrderEntrega();
+        void CambiarOrderPedido(Guid idPedido, int orden);
     }
 }

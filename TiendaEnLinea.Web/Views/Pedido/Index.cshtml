@@ -114,7 +114,17 @@
 
                     <td>@item.Cliente.NombreCompleto</td>
                     <td>@item.Cliente.Codigo</td>
-                    <td>@item.Total.Value.ToString("$0.00")</td>
+                    <td>
+                        @if (item.Total != null)
+                        {
+                            @item.Total.Value.ToString("$0.00")
+                        }
+                        else
+                        {
+                            @("$0.00")
+                        }
+
+                    </td>
                     <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
                     <td>@item.ProductosPedidos.Count</td>
                     <td>@GetNombreEstado(item.IdEstado)</td>

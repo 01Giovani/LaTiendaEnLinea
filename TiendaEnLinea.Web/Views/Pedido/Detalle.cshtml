@@ -26,10 +26,10 @@
 
         @if (Model.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Preparado)
         {
-            <a href="" class="btn btn-primary btn-sm">
-                <i class="fa fa-check text-white">
-                </i> Entregado
-            </a>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#entregar">
+                <i class="fa fa-check"></i>
+                Entregado
+            </button>
         }
 
 
@@ -118,7 +118,7 @@
 
 
                             <input class="form-control" value="@Model.FechaEntregado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
-                            
+
 
                         </div>
                     </div>
@@ -126,40 +126,42 @@
             </div>
         }
 
-
+        @if (Model.FechaCompletado != null)
+        {
             <div class="form-group">
                 <label class="col-lg-2 control-label">Fecha enviado por cliente</label>
                 <div class="col-lg-10">
                     <div class="row">
                         <div class="col-md-4">
 
-                            @if (Model.FechaCompletado != null)
-                            {
 
-                                <input class="form-control" value="@Model.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
-                            }
+
+                            <input class="form-control" value="@Model.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss")" readonly />
+
 
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-lg-2 control-label">Cantidad productos</label>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-md-4">
+        }
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Cantidad productos</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
 
 
-                            <input class="form-control" value="@Model.ProductosPedidos.Count()" readonly />
-                        </div>
+                        <input class="form-control" value="@Model.ProductosPedidos.Count()" readonly />
                     </div>
                 </div>
             </div>
+        </div>
 
 
-        </form>
-    
+    </form>
+
     <hr />
     <br />
 
@@ -206,7 +208,22 @@
                 <tr style="border-top:solid 3px;">
                     <td colspan="2"></td>
                     <td><b>TOTAL</b></td>
-                    <td><b>@Model.Total.Value.ToString("$0.00")</b></td>
+                    <td>
+                        <b>
+
+
+                            @if (Model.Total != null)
+                            {
+                                @Model.Total.Value.ToString("$0.00")
+                            }
+                            else
+                            {
+                                @("$0.00")
+                            }
+
+
+                        </b>
+                    </td>
                     <td></td>
                 </tr>
 
@@ -218,6 +235,33 @@
 
 </div>
 
+
+<div class="modal inmodal fade" id="entregar" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Pedido de @Model.Cliente.NombreCompleto</h4>
+
+            </div>
+            <div class="modal-body">
+                <form id="frm@(Model.Codigo)" method="post" action="@Url.Action("Entregado")">
+                    <input type="hidden" value="@Model.Codigo" name="id" />
+                    <input type="hidden" value="Detalle" name="accion"/>
+                    <div class="form-group">
+                        <input type="text" name="comentario" placeholder="Comentario" class="form-control">
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                <button type="button" data-frm="frm@(Model.Codigo)" class="btn btn-primary submitfrm">Entregado</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @helper  GetNombreEstado(TiendaEnLinea.Core.Model.EstadoPedido idEstado)
 {
@@ -245,28 +289,37 @@
 }
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
 
 
-    $(document).on("click", ".cancelar", function (e) {
-        e.preventDefault();
+        $(document).on("click", ".cancelar", function (e) {
+            e.preventDefault();
 
-        var url = $(this).attr("href");
+            var url = $(this).attr("href");
 
-        swal({
-            title: "¿Está seguro?",
-            text: "Deseas marcar el pedido como cancelado",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Sí!",
-            closeOnConfirm: false
-        }, function () {
+            swal({
+                title: "¿Está seguro?",
+                text: "Deseas marcar el pedido como cancelado",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Sí!",
+                closeOnConfirm: false
+            }, function () {
                 Bitworks.Ventanas.mostrarLoading();
                 window.location.href = url;
+            });
+
         });
 
-    });
 
-</script>    
+        $(document).on("click", ".submitfrm", function () {
+
+            Bitworks.Ventanas.mostrarLoading();
+            var form = $("#" + $(this).data("frm"));
+            form.submit();
+
+        });
+
+    </script>
 }

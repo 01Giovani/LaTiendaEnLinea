@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TiendaEnLinea.Core.Model;
 using TiendaEnLinea.Core.Repositories;
 using TiendaEnLinea.Core.Services;
@@ -18,7 +16,8 @@ namespace TiendaEnLinea.Service
             IPedidoRepository pedidoRepository,
             IProductoPedidoRepository productoPedidoRepository,
             IClienteRepository clienteRepository
-            ) {
+            )
+        {
             _pedidoRepository = pedidoRepository;
             _productoPedidoRepository = productoPedidoRepository;
             _clienteRepository = clienteRepository;
@@ -34,20 +33,21 @@ namespace TiendaEnLinea.Service
             _productoPedidoRepository.Eliminar(Codigo);
         }
 
-        public List<Pedido> GetPedidosAdmin(DateTime fi,DateTime ff, EstadoPedido? idEstado = null)
+        public List<Pedido> GetPedidosAdmin(DateTime fi, DateTime ff, EstadoPedido? idEstado = null)
         {
             return _pedidoRepository.GetLista(x => (x.FechaIngreso <= ff && x.FechaIngreso >= fi) && (idEstado == null || x.IdEstado == idEstado),
                 null,
-                new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
+                new System.Linq.Expressions.Expression<Func<Pedido, object>>[] {
                 x=>x.Cliente,
                 x=>x.ProductosPedidos
-            }).OrderBy(x=>x.FechaIngreso).ToList();
+            }).OrderBy(x => x.FechaIngreso).ToList();
         }
 
-        public Pedido IniciarPedido(Guid id,string idCliente)
+        public Pedido IniciarPedido(Guid id, string idCliente)
         {
-            return _pedidoRepository.Inicializar(new Pedido() { 
-                Codigo= id,
+            return _pedidoRepository.Inicializar(new Pedido()
+            {
+                Codigo = id,
                 Completado = false,
                 IdCliente = idCliente,
                 IdEstado = EstadoPedido.Abierto
@@ -59,10 +59,10 @@ namespace TiendaEnLinea.Service
             return _pedidoRepository.Modificar(pedido);
         }
 
-        public Pedido GetPedidoNoTracking(Guid id,bool incluirDetalle = false)
+        public Pedido GetPedidoNoTracking(Guid id, bool incluirDetalle = false)
         {
-            if(incluirDetalle)
-                return _pedidoRepository.FindBy(x => x.Codigo == id,new System.Linq.Expressions.Expression<Func<Pedido, object>>[] {x=>x.ProductosPedidos });
+            if (incluirDetalle)
+                return _pedidoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { x => x.ProductosPedidos });
             else
                 return _pedidoRepository.FindBy(x => x.Codigo == id);
 
@@ -76,12 +76,13 @@ namespace TiendaEnLinea.Service
 
         public Pedido GetPedidoCarretilla(Guid idPedido)
         {
-            return _pedidoRepository.FindBy(x => x.Codigo == idPedido, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
-                x=>x.ProductosPedidos.Select(c=>c.Producto.Multimedias)            
+            return _pedidoRepository.FindBy(x => x.Codigo == idPedido, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] {
+                x=>x.ProductosPedidos.Select(c=>c.Producto.Multimedias)
             });
         }
 
-        public ProductosPedido GetDetallePedido(Guid idPedido,Guid idProducto) {
+        public ProductosPedido GetDetallePedido(Guid idPedido, Guid idProducto)
+        {
             return _productoPedidoRepository.FindBy(x => x.IdPedido == idPedido && x.IdProducto == idProducto);
         }
 
@@ -107,7 +108,7 @@ namespace TiendaEnLinea.Service
 
         public Pedido GetPedidoDetalle(Guid id)
         {
-            return _pedidoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { 
+            return _pedidoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] {
                 x=>x.Cliente,
                 x=>x.ProductosPedidos.Select(c=>c.Producto.Multimedias)
             });
@@ -126,6 +127,38 @@ namespace TiendaEnLinea.Service
             return _pedidoRepository
                 .GetLista(x => x.IdEstado == EstadoPedido.Enviado && x.FechaCompletado != null)
                 .OrderBy(x => x.FechaCompletado).FirstOrDefault();
+        }
+
+        public List<Pedido> GetPedidosNoEntregados()
+        {
+            return _pedidoRepository.GetLista(X => X.IdEstado == EstadoPedido.Preparado, null,
+                new System.Linq.Expressions.Expression<Func<Pedido, object>>[] {
+                    x=>x.Cliente,
+                    x=>x.ProductosPedidos.Select(c=>c.Producto)
+                });
+        }
+
+
+        public int GetMaxOrderEntrega()
+        {
+            return _pedidoRepository.GeTMaxOrden();
+        }
+
+        public void CambiarOrderPedido(Guid idPedido,int orden)
+        {
+            int orderViejo;
+            if (orden < 1)
+                orden = 1; 
+            Pedido pedidoACambiar = _pedidoRepository.FindByTracking(x => x.Codigo == idPedido);
+            orderViejo = pedidoACambiar.OrdenEntrega.Value;
+            pedidoACambiar.OrdenEntrega = orden;
+
+            Pedido pedidoReem = _pedidoRepository.FindByTracking(x => x.IdEstado == EstadoPedido.Preparado && x.OrdenEntrega == orden);
+            if(pedidoReem != null)
+                pedidoReem.OrdenEntrega = orderViejo;
+
+            _pedidoRepository.SaveChanges();
+
         }
     }
 }
