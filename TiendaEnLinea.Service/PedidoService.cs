@@ -160,5 +160,32 @@ namespace TiendaEnLinea.Service
             _pedidoRepository.SaveChanges();
 
         }
+
+        public Pedido GetPedidoAbiertoCliente(string idCliente)
+        {
+            return _pedidoRepository.FindBy(x => x.IdEstado == EstadoPedido.Abierto && x.IdCliente == idCliente);
+        }
+
+        public List<Pedido> GetResumenPedidos(string rango,string idCliente)
+        {
+            switch (rango)
+            {
+                case "mes":
+                    DateTime toda = DateTime.Today;
+                    DateTime parametro = new DateTime(toda.Year, toda.Month, 1);
+                    return _pedidoRepository.GetLista(x => x.IdEstado != EstadoPedido.Abierto && x.IdCliente == idCliente && x.FechaCompletado >= parametro);
+                    
+                case "mesanterior":
+                    DateTime parametro2 = DateTime.Today.AddMonths(-1);
+                    return _pedidoRepository.GetLista(x => x.IdEstado != EstadoPedido.Abierto && x.IdCliente == idCliente && x.FechaCompletado >= parametro2);
+                case "tresmeses":
+                    DateTime parametro3 = DateTime.Today.AddMonths(-3);
+                    return _pedidoRepository.GetLista(x => x.IdEstado != EstadoPedido.Abierto && x.IdCliente == idCliente && x.FechaCompletado >= parametro3);
+                default:
+                    DateTime toda1 = DateTime.Today;
+                    DateTime parametro4 = new DateTime(toda1.Year, toda1.Month, 1);
+                    return _pedidoRepository.GetLista(x => x.IdEstado != EstadoPedido.Abierto && x.IdCliente == idCliente && x.FechaCompletado >= parametro4);
+            }
+        }
     }
 }

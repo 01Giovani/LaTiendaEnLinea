@@ -1,0 +1,113 @@
+﻿@model List<TiendaEnLinea.Core.Model.Pedido>
+@{
+    ViewData["Title"] = "Mis Pedidos";
+}
+
+<div class="main-content">
+
+    <div class="bg-white">
+        <div class="wrap">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Mis Pedidos</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="bg-white py-3 py-md-4 mt-1">
+        <div class="wrap container-fluid">
+            <div class="row align-items-end">
+                <div class="col-lg-auto col-xl-7 text-primary">
+                    <h2 class="tt-main"><span class="st text-secondary">Historial</span> <span class="tt">de pedidos</span></h2>
+                </div>
+                <div class="col-lg col-xl-5">
+                    <form action="" method="get">
+                        <div class="row filtros no-gutters pt-3 pt-lg-0">
+                            <div class="col-md f-col">
+                                <select name="rango" class="form-control">
+                                    <option value="">Filtrar por fecha...</option>
+                                    <option value="mes">Este mes</option>
+                                    <option value="mesanterior">Mes anterior</option>
+                                    <option value="tresmeses">Últimos 3 meses</option>
+                                </select>
+                            </div>
+                            <div class="col-md-auto f-col">
+                                <button type="submit" class="btn btn-secondary btn-block"><i class="icon-lupa"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-3 pt-md-4 pb-5">
+        <div class="wrap container-fluid">
+            <!-- CUANDO NO HAY PEDIDOS -->
+            <!-- <div class="alert alert-primary py-3 my-4 text-center">
+                <span class="h4">No has realizado pedidos aún</span>
+            </div> -->
+            <!-- LISTA DE PEDIDOS -->
+            <div class="row">
+
+                @if (Model != null)
+                {
+                    foreach (var ped in Model.OrderByDescending(x => x.FechaCompletado))
+                    {
+
+                        <div class="col-md-6 mb-4">
+                            <div class="bg-white pedido-item">
+                                <h4><a href="">@ped.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")</a></h4>
+                                <p><strong>Codigo de pedido:</strong> <span class="text-primary">@ped.Codigo</span></p>
+                                <p><strong>Costo total:</strong> @ped.Total.Value.ToString("$0.00")</p>
+                                <p><strong>Estado:</strong> @GetNombreEstado(ped.IdEstado)</p>
+                                <div class="pt-3">
+                                    <a href="" class="btn btn-outline-primary">Ver detalle</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-primary py-3 my-4 text-center">
+                        <span class="h4">No has realizado pedidos aún</span>
+                    </div>
+                }
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+@helper  GetNombreEstado(TiendaEnLinea.Core.Model.EstadoPedido idEstado)
+{
+
+    switch (idEstado)
+    {
+        case TiendaEnLinea.Core.Model.EstadoPedido.Abierto:
+            @("Incompleto")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Entregado:
+            @("Entregado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Enviado:
+            @("Pendiente de preparar")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.NoEntregado:
+            @("Cancelado")
+            break;
+        case TiendaEnLinea.Core.Model.EstadoPedido.Preparado:
+            @("Pendiente de entrega")
+            break;
+
+    }
+
+}

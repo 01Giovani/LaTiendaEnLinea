@@ -29,6 +29,7 @@
                             <td class="des">
                                 <h3>@det.Producto.Nombre</h3>
                                 <p>@det.Producto.Descripcion</p>
+                                <p>@det.Producto.PrefijoVenta</p>
                             </td>
                             <td class="pre">
                                 <span class="label-movil">Precio: </span>
@@ -50,7 +51,7 @@
                                 <div class="add-box">
                                     <div class="input2">
                                         <button class="ctrl down btnmenos" data-caja="@("des-")@det.IdProducto" data-step="@det.Producto.MultiploVenta" data-producto="@det.IdProducto"><i class="icon-menos"></i></button>
-                                        <input type="text" id="@("des-")@det.IdProducto" value="@string.Format("{0:0.##}", det.Cantidad)">
+                                        <input type="text" readonly="readonly" id="@("des-")@det.IdProducto" value="@string.Format("{0:0.##}", det.Cantidad)">
                                         <button class="ctrl up btnmas" data-caja="@("des-")@det.IdProducto" data-step="@det.Producto.MultiploVenta" data-producto="@det.IdProducto"><i class="icon-mas"></i></button>
                                     </div>
                                 </div>

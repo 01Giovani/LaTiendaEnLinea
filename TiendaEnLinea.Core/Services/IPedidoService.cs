@@ -40,5 +40,9 @@ namespace TiendaEnLinea.Core.Services
 
         int GetMaxOrderEntrega();
         void CambiarOrderPedido(Guid idPedido, int orden);
+
+        Pedido GetPedidoAbiertoCliente(string idCliente);
+
+        List<Pedido> GetResumenPedidos(string rango, string idCliente);
     }
 }

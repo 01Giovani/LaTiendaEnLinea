@@ -34,7 +34,7 @@
 	<div class="wrap container-fluid mb-3">
         <div class="row align-items-end py-4 pb-lg-5">
             <div class="col-lg-auto col-xl-5 text-primary">
-                <h2 class="tt-main"><span class="st text-secondary">Catálogo</span> <span class="tt">de productos</span></h2>
+                <h2 class="tt-main"><span class="st text-secondary">Listado</span> <span class="tt">de productos</span></h2>
             </div>
             <div class="col-lg col-xl-7">
                 <div class="row filtros no-gutters pt-3 pt-lg-0">
@@ -82,7 +82,7 @@
                                     <div class="add-box">
                                         <div class="input2">
                                             <button class="ctrl down btnmenos" data-caja="@("nor-")@prod.Codigo" data-step="@prod.MultiploVenta"><i class="icon-menos"></i></button>
-                                            <input type="text" id="@("nor-")@prod.Codigo" value="@string.Format("{0:0.##}", prod.MultiploVenta)">
+                                            <input type="text" readonly="readonly" id="@("nor-")@prod.Codigo" value="@string.Format("{0:0.##}", prod.MultiploVenta)">
                                             <button class="ctrl up btnmas" data-caja="@("nor-")@prod.Codigo" data-step="@prod.MultiploVenta"><i class="icon-mas"></i></button>
                                         </div>
                                         <button data-producto="@prod.Codigo" data-caja="@("nor-")@prod.Codigo" class="add-cart agregarbtn">Agregar</button>
@@ -108,7 +108,7 @@
 				<div class="wrap container-fluid py-4">
 					<div class="row align-items-end">
 						<div class="col-md">
-							<h2 class="tt-main"><span class="st">Promociones</span> <span class="tt">Re-comendadas</span></h2>
+							<h2 class="tt-main"><span class="st">Promociones</span> <span class="tt">Recomendadas</span></h2>
 						</div>
 						<div class="col-auto pt-3 pt-md-0">
 							<div class="sldr-tools sldr-promo-tools">
@@ -162,7 +162,7 @@
                                                     <div class="add-box">
                                                         <div class="input2">
                                                             <button class="ctrl down btnmenos" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-menos"></i></button>
-                                                            <input id="@("des-")@dest.Codigo" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
+                                                            <input id="@("des-")@dest.Codigo" readonly="readonly" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
                                                             <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
                                                         </div>
                                                         <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
@@ -193,7 +193,15 @@
 @section scripts{
 <script type="text/javascript">
 
+    $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('state');
 
+        if (myParam && myParam === "noproducts") {
+
+            Swal.fire("Espera!", "Aún no has agregado ningun producto", "warning");
+        }
+    });
 
    
     $(document).on("click", ".btnmenos", function () {
@@ -275,7 +283,8 @@
         var payload = { "IdProducto": producto, "Cantidad": cantidad };
 
         button.prop("disabled", true);
-        Swal.showLoading();
+        //Swal.showLoading();
+        showloanding();
         peticionAjaxPost(url, payload,button);
 
     });
@@ -295,7 +304,8 @@
                     window.location.href = data.url;
                 } else {
                     button.prop("disabled", false);
-                    Swal.hideLoading();
+                    //Swal.hideLoading();
+                    hideLoanding();
                     Swal.fire(data.titulo, data.mensaje, data.tipo);
                 }
                              

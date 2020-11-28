@@ -18,6 +18,34 @@
     <link href="~/wwwroot/lib/sweetalert2-9.10.6/sweetalert2.css" rel="stylesheet" />
     <link href="~/wwwroot/lib/toastr/content/toastr.min.css" rel="stylesheet" />
     @*<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>*@
+    <style>
+        /**************** PARA LOANDING ***************/
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            bottom: -40px;
+            right: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.5);
+            z-index: 9;
+            display: none;
+        }
+
+        .loading {
+            width: 65px;
+            height: 50px;
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            margin-top: -36px;
+            margin-right: -36px;
+            background-color: rgba(0,0,0,.90);
+            border-radius: 5px 5px 5px 5px;
+            -moz-border-radius: 5px 5px 5px 5px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            z-index: 9;
+        }
+    </style>
 </head>
 <body>
 
@@ -35,10 +63,11 @@
                         <hr class="d-md-none">
                         <nav class="nav nav-ppal">
                             @*<a asp-controller="Seccion" asp-action="Nosotros" class="nav-link">Nosotros</a>
-        <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
+                                <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
                             <a href="@Url.Action("Index","Home")" class="nav-link">Lista de productos</a>
                             <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>
-                            <a href="@Url.Action("Preguntas","Home")" class="nav-link">Preguntas frecuentes</a>
+                            <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>
+                            <a href="@Url.Action("Pedidos","Home")" class="nav-link">Historial de pedidos</a>
                         </nav>
                     </div>
                     <div class="col-md-auto">
@@ -82,8 +111,8 @@
 
                             </div>
                             <div class="col-auto d-none d-md-block pl-3">
-                              
-                                    @*<div class="user-box">
+
+                                @*<div class="user-box">
                                         <span class="icono"><i class="icon-persona"></i></span>
                                         <a href="" class="link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span>julio</span>
@@ -94,8 +123,8 @@
                                             <a asp-controller="Cuenta" asp-action="LogOut" class="dropdown-item">Cerrar Sesión</a>
                                         </div>
                                     </div>*@
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
@@ -146,7 +175,14 @@
         </div>
     </footer>
 
-    <input type="hidden" id="endpoints" data-verificar="@Url.Action("VerificarCliente")" data-check="@Url.Action("CheckClient")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")"/> 
+    <input type="hidden" id="endpoints" data-verificar="@Url.Action("VerificarCliente")" data-check="@Url.Action("GuardarCliente")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")" />
+
+
+    <div class="loading-overlay">
+        <div class="loading">            
+            <img src="@Url.Content("~/wwwroot/img/loa.gif")" style="width:65px"/>
+        </div>
+    </div>
 
     <script src="@Url.Content("~/wwwroot/lib/jquery/dist/jquery.min.js")"></script>
     <script src="@Url.Content("~/wwwroot/lib/jquery-validation/dist/jquery.validate.js")"></script>
@@ -173,18 +209,26 @@
 
     <script type="text/javascript">
 
+        function showloanding() {
+            $('.loading-overlay').fadeIn(500);
+        }
+
+        function hideLoanding() {
+            $('.loading-overlay').fadeOut(500);
+        }
+
         $(document).ready(function () {
 
-            
+
 
             var bandera = '@ViewBag.gracias';
-            var co = getCookie("pedido");
+            var co = getCookie("cliente");
 
             if (co == "" && bandera == "") {
 
                 var url = $("#endpoints").data("check");
 
-               
+
 
                 Swal.mixin({
                     input: 'text',
@@ -196,7 +240,7 @@
                     {
                         title: 'Gracias por elegir comprar con nosotros!',
                         text: 'Por favor ingresa tu número de teléfono',
-                        showLoaderOnConfirm: true,                        
+                        showLoaderOnConfirm: true,
                         inputValidator: (value) => {
                             if (!value) {
                                 return 'Teléfono requerido'
@@ -206,34 +250,40 @@
                                 var myRe = /^[0-9]{8}$/;
                                 if (!myRe.test(value)) {
                                     return 'Por favor ingrese un número valido'
-                                }                              
+                                }
                             }
                         }, preConfirm: (value) => {
 
-                            
+
                             var urlcheck = $("#endpoints").data("verificar") + "/"+value;
-                          
+                            showloanding();
                             return fetch(urlcheck)
                                 .then(response => {
                                     if (!response.ok) {
                                         throw new Error(response.statusText)
                                     }
 
-                                    return response.json();                                    
+                                    return response.json();
                                 })
                                 .then(data => {
-
+                                    hideLoanding();
                                     if (data.nuevo === 0) {
-                                        window.location.href = data.url;
-                                    }                                    
+                                        //window.location.href = data.url;
+                                        Swal.fire({
+                                            title: '¡Bienvenido!',
+                                            html: 'Ya puedes comenzar a comprar',
+                                            confirmButtonText: 'Cerrar'
+                                        });
+                                    }
                                 })
                                 .catch(error => {
+                                    hideLoanding();
                                     Swal.showValidationMessage(
                                         `Request failed: ${error}`
                                     )
                                 })
 
-                            
+
                         }
                     }, {
                         text: 'Ahora, por favor ingresa tu nombre',
@@ -254,19 +304,19 @@
 
                 ]).then((result) => {
                     if (result.value) {
-
+                        showloanding();
                         var payload = { "Telefono": result.value[0], "Nombre": result.value[1], "Direccion": result.value[2] };
-                        peticionAjaxPostCheck(url, payload);
+                        peticionAjaxGuardarCliente(url, payload);
 
                     }
                 });
 
-            } 
-          
+            }
+
 
         });
 
-        function peticionAjaxPostCheck(url, data) {
+        function peticionAjaxGuardarCliente(url, data) {
 
             $.ajax({
                 type: "POST",
@@ -275,14 +325,16 @@
                 dataType: "json",
                 success: function (data) {
 
+                    hideLoanding();
                     Swal.fire({
                         title: '¡Gracias!',
                         html: 'Ya puedes comenzar a comprar',
                         confirmButtonText: 'Cerrar'
                     });
-                   
+
                 },
                 error: function (error) {
+                    
                     console.log("Error:" + error);
                 }
             });
@@ -305,24 +357,24 @@
         }
 
 
-        function peticionAjaxVerificarCliente(url, data) {
+        //function peticionAjaxVerificarCliente(url, data) {
 
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                dataType: "json",
-                success: function (data) {
+        //    $.ajax({
+        //        type: "POST",
+        //        url: url,
+        //        data: data,
+        //        dataType: "json",
+        //        success: function (data) {
 
-                    if (data.nuevo === 0)
-                        window.location.href = data.url;
+        //            if (data.nuevo === 0)
+        //                window.location.href = data.url;
 
-                },
-                error: function (error) {
-                    console.log("Error:" + error);
-                }
-            });
-        }
+        //        },
+        //        error: function (error) {
+        //            console.log("Error:" + error);
+        //        }
+        //    });
+        //}
 
     </script>
 

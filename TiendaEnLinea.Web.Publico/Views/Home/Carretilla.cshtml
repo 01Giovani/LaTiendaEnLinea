@@ -76,18 +76,19 @@
 
             Swal.fire({
                 title: 'Finalizar pedido?',
-                text: "Tu pedido sera enviado para su revisión",
+                text: "Tu pedido sera enviado para su revisión, puedes incluir un comentario a ser tomado en cuenta",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, enviarlo',
-                cancelButtonText: 'No, seguir comprando',
-                showLoaderOnConfirm: true,
-                allowOutsideClick: () => !Swal.isLoading(),
+                cancelButtonText: 'Seguir comprando',                                
+                input:'text'
             }).then((result) => {
-                if (result.value === true) {
-                    window.location.href = url;
+
+                if (result.value != undefined) {
+                    showloanding();
+                    window.location.href = url + "?comentario=" +encodeURI(result.value);
 
                 }
             });
@@ -127,7 +128,8 @@
                 }
 
                 var payload = { "IdProducto": producto, "Cantidad": aux };
-                Swal.showLoading();
+                //Swal.showLoading();
+                showloanding();
                 peticionAjaxPost(url, payload, urlRecarga);
 
                 return aux;
@@ -165,7 +167,8 @@
                 
                 
                 var payload = { "IdProducto": producto, "Cantidad": aux };
-                Swal.showLoading();
+                //Swal.showLoading();
+                showloanding();
                 peticionAjaxPost(url, payload, urlRecarga);
 
 
@@ -190,7 +193,8 @@
                  
                         $("#detail-container").empty();
                         $("#detail-container").load(callback, function () {
-                            Swal.hideLoading();
+                            //Swal.hideLoading();
+                            hideLoanding();
                             Swal.fire(data.titulo, data.mensaje, data.tipo);
                         }); 
                     }      

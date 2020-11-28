@@ -202,6 +202,7 @@
     <Content Include="wwwroot\img\icons\play-button-red.svg" />
     <Content Include="wwwroot\img\image-not-found-old.png" />
     <Content Include="wwwroot\img\image-not-found.jpg" />
+    <Content Include="wwwroot\img\loa.gif" />
     <Content Include="wwwroot\img\logo-blanco.png" />
     <Content Include="wwwroot\img\logo-blanco.svg" />
     <Content Include="wwwroot\img\logo.png" />
@@ -304,6 +305,9 @@
     <Content Include="wwwroot\lib\toastr\scripts\toastr.js" />
     <Content Include="wwwroot\lib\toastr\scripts\toastr.min.js" />
     <Content Include="wwwroot\logo.png" />
+    <None Include="Properties\PublishProfiles\dlafinca - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\dlafinca - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\dlafinca - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -456,6 +460,8 @@
     <Content Include="Views\Home\_Detalle.cshtml" />
     <Content Include="Views\Home\Gracias.cshtml" />
     <Content Include="Views\Home\Preguntas.cshtml" />
+    <Content Include="Views\Home\Pedidos.cshtml" />
+    <Content Include="Views\Home\DetallePedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
