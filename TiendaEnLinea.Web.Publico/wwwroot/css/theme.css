@@ -23,8 +23,8 @@
     --white: #fff;
     --gray: #6c757d;
     --gray-dark: #343a40;
-    --primary: #1F363D;
-    --secondary: #70A9A1;
+    --primary: #A8201A;
+    --secondary: #EC9A29;
     --success: #28a745;
     --info: #17a2b8;
     --warning: #ffc107;
@@ -149,7 +149,7 @@ sup {
 }
 
 a {
-    color: #1F363D;
+    color: #A8201A;
     text-decoration: none;
     background-color: transparent
 }
@@ -2355,7 +2355,7 @@ pre {
     font-size: 1rem;
     font-weight: bold;
     line-height: 1.5;
-    color: #70A9A1;
+    color: #EC9A29;
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #DDDEDF;
@@ -2380,11 +2380,11 @@ pre {
 
 .form-control:-moz-focusring {
     color: transparent;
-    text-shadow: 0 0 0 #70A9A1
+    text-shadow: 0 0 0 #EC9A29
 }
 
 .form-control:focus {
-    color: #70A9A1;
+    color: #EC9A29;
     background-color: #fff;
     border-color: #b86799;
     outline: 0;
@@ -2418,7 +2418,7 @@ pre {
 }
 
 select.form-control:focus::-ms-value {
-    color: #70A9A1;
+    color: #EC9A29;
     background-color: #fff
 }
 
@@ -2901,8 +2901,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #1F363D;
-    border-color: #1F363D
+    background-color: #A8201A;
+    border-color: #A8201A
 }
 
     .btn-primary:hover {
@@ -2921,8 +2921,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
     .btn-primary.disabled, .btn-primary:disabled {
         color: #fff;
-        background-color: #1F363D;
-        border-color: #1F363D
+        background-color: #A8201A;
+        border-color: #A8201A
     }
 
     .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
@@ -2938,8 +2938,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-secondary {
     color: #fff;
-    background-color: #70A9A1;
-    border-color: #70A9A1
+    background-color: #EC9A29;
+    border-color: #EC9A29
 }
 
     .btn-secondary:hover {
@@ -2958,8 +2958,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
     .btn-secondary.disabled, .btn-secondary:disabled {
         color: #fff;
-        background-color: #70A9A1;
-        border-color: #70A9A1
+        background-color: #EC9A29;
+        border-color: #EC9A29
     }
 
     .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
@@ -3196,14 +3196,14 @@ a.btn.disabled, fieldset:disabled a.btn {
         }
 
 .btn-outline-primary {
-    color: #1F363D;
-    border-color: #1F363D
+    color: #A8201A;
+    border-color: #A8201A
 }
 
     .btn-outline-primary:hover {
         color: #fff;
-        background-color: #1F363D;
-        border-color: #1F363D
+        background-color: #A8201A;
+        border-color: #A8201A
     }
 
     .btn-outline-primary:focus, .btn-outline-primary.focus {
@@ -3212,14 +3212,14 @@ a.btn.disabled, fieldset:disabled a.btn {
     }
 
     .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-        color: #1F363D;
+        color: #A8201A;
         background-color: transparent
     }
 
     .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
         color: #fff;
-        background-color: #1F363D;
-        border-color: #1F363D
+        background-color: #A8201A;
+        border-color: #A8201A
     }
 
         .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus {
@@ -3228,14 +3228,14 @@ a.btn.disabled, fieldset:disabled a.btn {
         }
 
 .btn-outline-secondary {
-    color: #70A9A1;
-    border-color: #70A9A1
+    color: #EC9A29;
+    border-color: #EC9A29
 }
 
     .btn-outline-secondary:hover {
         color: #fff;
-        background-color: #70A9A1;
-        border-color: #70A9A1
+        background-color: #EC9A29;
+        border-color: #EC9A29
     }
 
     .btn-outline-secondary:focus, .btn-outline-secondary.focus {
@@ -3244,14 +3244,14 @@ a.btn.disabled, fieldset:disabled a.btn {
     }
 
     .btn-outline-secondary.disabled, .btn-outline-secondary:disabled {
-        color: #70A9A1;
+        color: #EC9A29;
         background-color: transparent
     }
 
     .btn-outline-secondary:not(:disabled):not(.disabled):active, .btn-outline-secondary:not(:disabled):not(.disabled).active, .show > .btn-outline-secondary.dropdown-toggle {
         color: #fff;
-        background-color: #70A9A1;
-        border-color: #70A9A1
+        background-color: #EC9A29;
+        border-color: #EC9A29
     }
 
         .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
@@ -3453,7 +3453,7 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-link {
     font-weight: 400;
-    color: #1F363D;
+    color: #A8201A;
     text-decoration: none
 }
 
@@ -3756,7 +3756,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     .dropdown-item.active, .dropdown-item:active {
         color: #fff;
         text-decoration: none;
-        background-color: #1F363D
+        background-color: #A8201A
     }
 
     .dropdown-item.disabled, .dropdown-item:disabled {
@@ -4002,7 +4002,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #70A9A1;
+    color: #EC9A29;
     text-align: center;
     white-space: nowrap;
     background-color: #e9ecef;
@@ -4075,8 +4075,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
     .custom-control-input:checked ~ .custom-control-label::before {
         color: #fff;
-        border-color: #1F363D;
-        background-color: #1F363D
+        border-color: #A8201A;
+        background-color: #A8201A
     }
 
     .custom-control-input:focus ~ .custom-control-label::before {
@@ -4141,8 +4141,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
-    border-color: #1F363D;
-    background-color: #1F363D
+    border-color: #A8201A;
+    background-color: #A8201A
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
@@ -4218,7 +4218,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     font-size: 1rem;
     font-weight: bold;
     line-height: 1.5;
-    color: #70A9A1;
+    color: #EC9A29;
     vertical-align: middle;
     background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
     border: 1px solid #DDDEDF;
@@ -4236,7 +4236,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     }
 
         .custom-select:focus::-ms-value {
-            color: #70A9A1;
+            color: #EC9A29;
             background-color: #fff
         }
 
@@ -4257,7 +4257,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
     .custom-select:-moz-focusring {
         color: transparent;
-        text-shadow: 0 0 0 #70A9A1
+        text-shadow: 0 0 0 #EC9A29
     }
 
 .custom-select-sm {
@@ -4321,7 +4321,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     padding: .375rem .75rem;
     font-weight: bold;
     line-height: 1.5;
-    color: #70A9A1;
+    color: #EC9A29;
     background-color: #fff;
     border: 1px solid #DDDEDF;
     border-radius: 3px
@@ -4337,7 +4337,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         height: calc(1.5em + .75rem);
         padding: .375rem .75rem;
         line-height: 1.5;
-        color: #70A9A1;
+        color: #EC9A29;
         content: "Browse";
         background-color: #e9ecef;
         border-left: inherit;
@@ -4379,7 +4379,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         width: 1rem;
         height: 1rem;
         margin-top: -.25rem;
-        background-color: #1F363D;
+        background-color: #A8201A;
         border: 0;
         border-radius: 1rem;
         -webkit-transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
@@ -4414,7 +4414,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .custom-range::-moz-range-thumb {
     width: 1rem;
     height: 1rem;
-    background-color: #1F363D;
+    background-color: #A8201A;
     border: 0;
     border-radius: 1rem;
     -webkit-transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
@@ -4452,7 +4452,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     margin-top: 0;
     margin-right: .2rem;
     margin-left: .2rem;
-    background-color: #1F363D;
+    background-color: #A8201A;
     border: 0;
     border-radius: 1rem;
     -webkit-transition: background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
@@ -4555,7 +4555,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     }
 
 .nav-tabs {
-    border-bottom: 1px solid #1F363D
+    border-bottom: 1px solid #A8201A
 }
 
     .nav-tabs .nav-item {
@@ -4579,9 +4579,9 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         }
 
         .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-            color: #1F363D;
+            color: #A8201A;
             background-color: #fff;
-            border-color: #1F363D #1F363D #fff
+            border-color: #A8201A #A8201A #fff
         }
 
     .nav-tabs .dropdown-menu {
@@ -4596,7 +4596,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
         color: #fff;
-        background-color: #1F363D
+        background-color: #A8201A
     }
 
 .nav-fill .nav-item {
@@ -5371,7 +5371,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     padding: .5rem .75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: #1F363D;
+    color: #A8201A;
     background-color: #fff;
     border: 1px solid #dee2e6
 }
@@ -5405,8 +5405,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #1F363D;
-    border-color: #1F363D
+    background-color: #A8201A;
+    border-color: #A8201A
 }
 
 .page-item.disabled .page-link {
@@ -5493,7 +5493,7 @@ a.badge:hover, a.badge:focus {
 
 .badge-primary {
     color: #fff;
-    background-color: #1F363D
+    background-color: #A8201A
 }
 
 a.badge-primary:hover, a.badge-primary:focus {
@@ -5509,7 +5509,7 @@ a.badge-primary:focus, a.badge-primary.focus {
 
 .badge-secondary {
     color: #fff;
-    background-color: #70A9A1
+    background-color: #EC9A29
 }
 
 a.badge-secondary:hover, a.badge-secondary:focus {
@@ -5824,7 +5824,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    background-color: #1F363D;
+    background-color: #A8201A;
     -webkit-transition: width 0.6s ease;
     transition: width 0.6s ease
 }
@@ -5925,8 +5925,8 @@ a.badge-dark:focus, a.badge-dark.focus {
     .list-group-item.active {
         z-index: 2;
         color: #fff;
-        background-color: #1F363D;
-        border-color: #1F363D
+        background-color: #A8201A;
+        border-color: #A8201A
     }
 
     .list-group-item + .list-group-item {
@@ -7152,7 +7152,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-    background-color: #1F363D !important
+    background-color: #A8201A !important
 }
 
 a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-primary:focus {
@@ -7160,7 +7160,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 }
 
 .bg-secondary {
-    background-color: #70A9A1 !important
+    background-color: #EC9A29 !important
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus, button.bg-secondary:hover, button.bg-secondary:focus {
@@ -7264,11 +7264,11 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
 }
 
 .border-primary {
-    border-color: #1F363D !important
+    border-color: #A8201A !important
 }
 
 .border-secondary {
-    border-color: #70A9A1 !important
+    border-color: #EC9A29 !important
 }
 
 .border-success {
@@ -10789,7 +10789,7 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
 }
 
 .text-primary {
-    color: #1F363D !important
+    color: #A8201A !important
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -10797,7 +10797,7 @@ a.text-primary:hover, a.text-primary:focus {
 }
 
 .text-secondary {
-    color: #70A9A1 !important
+    color: #EC9A29 !important
 }
 
 a.text-secondary:hover, a.text-secondary:focus {
@@ -11091,7 +11091,7 @@ a {
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
-        background-color: #70A9A1;
+        background-color: #EC9A29;
         border-radius: 3px;
         padding: 2px
     }
@@ -11113,7 +11113,7 @@ a {
 
         #hdr .buscador button {
             height: 32px;
-            background: #70A9A1;
+            background: #EC9A29;
             border: none;
             outline: none;
             color: white;
@@ -11133,7 +11133,7 @@ a {
         border-radius: 3px;
         border: 1px solid #ddd;
         height: 36px;
-        color: #1F363D;
+        color: #A8201A;
         padding: 0 5px;
         -webkit-box-align: center;
         -ms-flex-align: center;
@@ -11151,7 +11151,7 @@ a {
 
             #hdr .carretilla-box .iconos i {
                 font-size: 28px;
-                color: #1F363D
+                color: #A8201A
             }
 
             #hdr .carretilla-box .iconos .number {
@@ -11159,7 +11159,7 @@ a {
                 font-size: 12px;
                 border-radius: 5px;
                 padding: 1px 3px;
-                background-color: #70A9A1;
+                background-color: #EC9A29;
                 color: white;
                 position: absolute;
                 right: -2px;
@@ -11176,7 +11176,7 @@ a {
         border-radius: 3px;
         border: 1px solid #ddd;
         height: 48px;
-        color: #1F363D;
+        color: #A8201A;
         background-color: white;
         position: relative;
         padding: 0 0 0 10px
@@ -11189,7 +11189,7 @@ a {
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background-color: #1F363D;
+            background-color: #A8201A;
             margin-right: 10px;
             color: white;
             -webkit-box-pack: center;
@@ -11263,7 +11263,7 @@ a {
 
 @media (max-width: 767.98px) {
     #hdr .hdr-middle-bar {
-        background-color: #1F363D;
+        background-color: #A8201A;
         color: white;
         -webkit-box-align: center;
         -ms-flex-align: center;
@@ -11307,7 +11307,7 @@ a {
             position: relative;
             font-size: 18px;
             line-height: 1;
-            color: #1F363D;
+            color: #A8201A;
             padding: 10px 15px 10px 45px;
             text-transform: uppercase
         }
@@ -11395,19 +11395,19 @@ a {
                     }
 
                     #categorias .panel ul.menu li a.active {
-                        color: #70A9A1;
+                        color: #EC9A29;
                         background-color: rgba(237,25,65,0.05);
                         background-image: url(../img/ic-arrow-right-secondary.png)
                     }
 
                     #categorias .panel ul.menu li a.all {
                         background-color: rgba(109,51,87,0.05);
-                        color: #1F363D
+                        color: #A8201A
                     }
 
                 #categorias .panel ul.menu li.top {
                     padding: 10px 15px;
-                    background-color: #70A9A1;
+                    background-color: #EC9A29;
                     color: white;
                     display: none
                 }
@@ -11421,7 +11421,7 @@ a {
 
             #categorias .panel ul.menu.l2 li:first-child a, #categorias .panel ul.menu.l3 li:first-child a {
                 font-weight: bold;
-                color: #1F363D
+                color: #A8201A
             }
 
         #categorias .panel.level-1 .menu.l2, #categorias .panel.level-1 .menu.l3 {
@@ -11512,7 +11512,7 @@ a {
                 text-overflow: ellipsis;
                 overflow: hidden;
                 color: white;
-                background: #1F363D url(../img/ic-arrow-left-white.png) 10px center no-repeat;
+                background: #A8201A url(../img/ic-arrow-left-white.png) 10px center no-repeat;
                 background-size: 8px 16px;
                 display: -webkit-box;
                 display: -ms-flexbox;
@@ -11647,7 +11647,7 @@ body.open_categorias {
 
 @media (min-width: 768px) {
     .menu-ppal {
-        background-color: #1F363D;
+        background-color: #A8201A;
         color: white
     }
 
@@ -11941,7 +11941,7 @@ body.open_categorias {
         text-align: left;
         margin-left: 20px;
         padding-left: 20px;
-        border-left: 2px solid #1F363D
+        border-left: 2px solid #A8201A
     }
 
 .breadcrumb {
@@ -11972,13 +11972,13 @@ body.open_categorias {
 }
 
     .add-box .input {
-        border: 1px solid #1F363D;
+        border: 1px solid #A8201A;
         position: relative;
         height: 28px;
         padding: 0 28px;
         border-radius: 3px;
         overflow: hidden;
-        color: #70A9A1;
+        color: #EC9A29;
         margin: 0 0 5px 0
     }
 
@@ -11999,8 +11999,8 @@ body.open_categorias {
             height: 100%;
             background-color: transparent;
             border: none;
-            color: #1F363D;
-            border-color: #1F363D;
+            color: #A8201A;
+            border-color: #A8201A;
             border-width: 0;
             border-style: solid;
             font-size: 16px;
@@ -12018,22 +12018,22 @@ body.open_categorias {
             }
 
             .add-box .input .ctrl:hover {
-                color: #1F363D;
+                color: #A8201A;
                 background-color: #f8f9fa
             }
 
         .add-box .input:hover {
-            border-color: #1F363D
+            border-color: #A8201A
         }
 
             .add-box .input:hover .ctrl {
-                border-color: #1F363D
+                border-color: #A8201A
             }
 
     .add-box .add-cart {
         width: 100%;
         height: 28px;
-        background-color: #70A9A1;
+        background-color: #EC9A29;
         border: none;
         color: white;
         font-weight: 700;
@@ -12044,7 +12044,7 @@ body.open_categorias {
     }
 
         .add-box .add-cart:hover {
-            background-color: #1F363D;
+            background-color: #A8201A;
             color: white
         }
 
@@ -12107,7 +12107,7 @@ body.open_categorias {
 }
 
 .variante-st1 .add-box .add-cart {
-    background-color: #1F363D
+    background-color: #A8201A
 }
 
 .item-producto {
@@ -12158,7 +12158,7 @@ body.open_categorias {
     }
 
         .item-producto .pcontent h3 {
-            color: #70A9A1;
+            color: #EC9A29;
             font-size: 14px
         }
 
@@ -12190,13 +12190,13 @@ body.open_categorias {
                 flex: 0 0 auto;
                 width: auto;
                 max-width: 100%;
-                color: #1F363D;
+                color: #A8201A;
                 text-align: right
             }
 
                 .item-producto .pcontent .precios .ppal strong {
                     font-size: 18px;
-                    color: #70A9A1;
+                    color: #EC9A29;
                     display: block;
                     font-family: "Sarabun",sans-serif
                 }
@@ -12315,7 +12315,7 @@ body.open_categorias {
             }
 
         .thumbs-detalle ul li.active figure::before {
-            border: 2px solid #70A9A1
+            border: 2px solid #EC9A29
         }
 
         .thumbs-detalle ul li:first-child:last-child {
@@ -12323,7 +12323,7 @@ body.open_categorias {
         }
 
 .detalle-producto h1 {
-    color: #1F363D;
+    color: #A8201A;
     font-family: "Sarabun",sans-serif;
     font-weight: bold
 }
@@ -12364,13 +12364,13 @@ body.open_categorias {
         flex: 0 0 auto;
         width: auto;
         max-width: 100%;
-        color: #1F363D;
+        color: #A8201A;
         text-align: right
     }
 
         .detalle-producto .precios .ppal strong {
             font-size: 24px;
-            color: #70A9A1;
+            color: #EC9A29;
             display: block;
             font-family: "Sarabun",sans-serif
         }
@@ -12424,7 +12424,7 @@ body.open_categorias {
     align-items: center;
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    color: #1F363D
+    color: #A8201A
 }
 
     .sldr-tools .sldr-arrows {
@@ -12434,9 +12434,9 @@ body.open_categorias {
         border-width: 1px;
         border-style: solid;
         border-radius: 6px;
-        border-color: #1F363D;
+        border-color: #A8201A;
         height: 32px;
-        color: #1F363D
+        color: #A8201A
     }
 
         .sldr-tools .sldr-arrows a.sldr-arrow {
@@ -12479,7 +12479,7 @@ a.btn-grid {
     border-width: 1px;
     border-style: solid;
     border-radius: 6px;
-    border-color: #1F363D;
+    border-color: #A8201A;
     color: inherit;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
@@ -12511,7 +12511,7 @@ a.btn-grid {
         top: -1px;
         left: 0;
         display: block;
-        background-color: #70A9A1;
+        background-color: #EC9A29;
         content: "";
         width: 100%;
         height: 151px;
@@ -12594,7 +12594,7 @@ a.btn-grid {
 
 @media (max-width: 767.98px) {
     .slider-novedades::before {
-        background-color: #70A9A1;
+        background-color: #EC9A29;
         content: "";
         display: block;
         position: absolute;
@@ -12608,7 +12608,7 @@ a.btn-grid {
 
 @media (max-width: 767.98px) {
     .novedades-tools {
-        background-color: #70A9A1;
+        background-color: #EC9A29;
         margin-top: -1px;
         position: relative;
         z-index: 3;
@@ -12674,7 +12674,7 @@ a.btn-grid {
 }
 
 .filtros .form-control {
-    color: #70A9A1;
+    color: #EC9A29;
     height: 36px
 }
 
@@ -12719,7 +12719,7 @@ a.btn-grid {
                 border-radius: 0 !important;
                 text-transform: uppercase;
                 font-size: 22px;
-                color: #70A9A1;
+                color: #EC9A29;
                 padding: 15px 30px 15px 15px
             }
 
@@ -12734,7 +12734,7 @@ a.btn-grid {
     }
 
         .box-login .form-login label {
-            color: #1F363D
+            color: #A8201A
         }
 
 @media (min-width: 768px) {
@@ -12787,7 +12787,7 @@ a.btn-grid {
             width: 50%;
             height: 3px;
             left: 0;
-            background-color: #70A9A1;
+            background-color: #EC9A29;
             border: none
         }
 
@@ -12802,7 +12802,7 @@ a.btn-grid {
             padding-top: 40px;
             min-width: 38px;
             z-index: 2;
-            color: #70A9A1;
+            color: #EC9A29;
             font-family: "Sarabun",sans-serif
         }
 
@@ -12818,7 +12818,7 @@ a.btn-grid {
                 border-radius: 50%;
                 background-color: white;
                 border-width: 5px;
-                border-color: #70A9A1;
+                border-color: #EC9A29;
                 border-style: solid
             }
 
@@ -12866,7 +12866,7 @@ a.btn-grid {
 }
 
     .tabla-productos th {
-        color: #70A9A1;
+        color: #EC9A29;
         border: none;
         border-bottom: 1px solid #ddd;
         text-transform: uppercase
@@ -12888,7 +12888,7 @@ a.btn-grid {
         }
 
         .tabla-productos td.des h3 {
-            color: #1F363D;
+            color: #A8201A;
             font-weight: 700;
             margin-bottom: 2px;
             font-size: 1rem
@@ -12905,7 +12905,7 @@ a.btn-grid {
         }
 
             .tabla-productos td.pre strong, .tabla-productos td.sto strong {
-                color: #1F363D;
+                color: #A8201A;
                 font-family: "Sarabun",sans-serif
             }
 
@@ -12917,8 +12917,8 @@ a.btn-grid {
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;
-        color: #70A9A1;
-        border: 1px solid #70A9A1;
+        color: #EC9A29;
+        border: 1px solid #EC9A29;
         border-radius: 3px;
         font-size: 20px;
         width: 28px;
@@ -12934,7 +12934,7 @@ a.btn-grid {
     }
 
         .tabla-productos a.remove:hover {
-            background-color: #70A9A1;
+            background-color: #EC9A29;
             color: white
         }
 
@@ -13012,7 +13012,7 @@ a.btn-grid {
 }
 
 .table-totales {
-    background-color: #1F363D;
+    background-color: #A8201A;
     color: white;
     text-align: right;
     font-family: "Sarabun",sans-serif
@@ -13035,7 +13035,7 @@ table.table-resumen-pedido {
 
     table.table-resumen-pedido th {
         text-transform: uppercase;
-        color: #70A9A1;
+        color: #EC9A29;
         border: none !important;
         font-size: 12px
     }
@@ -13051,7 +13051,7 @@ table.table-resumen-pedido {
     table.table-resumen-pedido tr.total td {
         text-transform: uppercase;
         font-weight: bold;
-        color: #1F363D
+        color: #A8201A
     }
 
     table.table-resumen-pedido th:first-child, table.table-resumen-pedido td:first-child {
@@ -13096,7 +13096,7 @@ table.table-resumen-pedido {
 }
 
     .pedido-item h4 {
-        color: #70A9A1
+        color: #EC9A29
     }
 
         .pedido-item h4 a {
@@ -13158,11 +13158,11 @@ table.table-resumen-pedido {
         }
 
         .tabs-radio .nav-link.active::before {
-            border-color: #70A9A1
+            border-color: #EC9A29
         }
 
         .tabs-radio .nav-link.active::after {
-            background-color: #70A9A1
+            background-color: #EC9A29
         }
 
 @media (min-width: 768px) {
@@ -13192,7 +13192,7 @@ table.table-resumen-pedido {
 }
 
     .box-direccion h3 {
-        color: #1F363D;
+        color: #A8201A;
         font-size: 16px
     }
 
@@ -13239,7 +13239,7 @@ table.table-resumen-pedido {
 }
 
     .contacto-sucursal h4 {
-        color: #1F363D
+        color: #A8201A
     }
 
     .contacto-sucursal p {
@@ -13280,14 +13280,14 @@ table.table-resumen-pedido {
 
     .box-sucursal .hdr {
         text-align: center;
-        border-bottom: 1px dashed #1F363D;
+        border-bottom: 1px dashed #A8201A;
         padding-bottom: 20px;
         position: relative
     }
 
         .box-sucursal .hdr .tt {
             text-transform: uppercase;
-            color: #1F363D;
+            color: #A8201A;
             margin: 0
         }
 
@@ -13304,7 +13304,7 @@ table.table-resumen-pedido {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background-color: #1F363D;
+            background-color: #A8201A;
             border: 6px solid white;
             z-index: 1;
             bottom: -18px
@@ -13350,7 +13350,7 @@ table.table-resumen-pedido {
                     content: "";
                     width: 6px;
                     height: 6px;
-                    background-color: #70A9A1;
+                    background-color: #EC9A29;
                     border-radius: 50%;
                     display: block;
                     position: absolute;
@@ -13368,19 +13368,19 @@ table.table-resumen-pedido {
 
             .box-sucursal .info a:hover {
                 text-decoration: underline;
-                color: #1F363D
+                color: #A8201A
             }
 
     .box-sucursal:hover .hdr {
-        border-bottom: 1px dashed #70A9A1
+        border-bottom: 1px dashed #EC9A29
     }
 
         .box-sucursal:hover .hdr h3 {
-            color: #70A9A1
+            color: #EC9A29
         }
 
         .box-sucursal:hover .hdr::before {
-            background-color: #70A9A1
+            background-color: #EC9A29
         }
 
     .box-sucursal .btns {
@@ -13469,14 +13469,14 @@ table.table-resumen-pedido {
                 -webkit-box-align: center;
                 -ms-flex-align: center;
                 align-items: center;
-                color: #70A9A1;
+                color: #EC9A29;
                 background-color: white;
                 border-radius: 50%;
                 font-size: 24px
             }
 
             .box-ideas .box a.play:hover span {
-                background-color: #70A9A1;
+                background-color: #EC9A29;
                 color: white;
                 -webkit-transform: scale(1.1);
                 transform: scale(1.1)
@@ -13512,7 +13512,7 @@ table.table-resumen-pedido {
     .box-ideas h3.tt {
         font-size: 1rem;
         font-family: "Sarabun",sans-serif;
-        color: #1F363D;
+        color: #A8201A;
         font-weight: 400;
         text-align: center;
         padding-top: 10px
@@ -13767,7 +13767,7 @@ p.st {
         }
 
         .ls-faq > li h3 {
-            color: #1F363D;
+            color: #A8201A;
             font-family: "BarlowCondensed",sans-serif;
             font-size: 20px
         }

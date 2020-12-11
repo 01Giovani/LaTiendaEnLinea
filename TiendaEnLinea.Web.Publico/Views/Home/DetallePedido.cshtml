@@ -1,11 +1,11 @@
-﻿
+﻿@model TiendaEnLinea.Core.Model.Pedido  
 @{
     ViewData["Title"] = "Detalle del pedido";
 }
 
 <div class="main-content">
 
-    <div class="bg-white">
+    @*<div class="bg-white">
         <div class="wrap">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -15,15 +15,15 @@
                 </ol>
             </nav>
         </div>
-    </div>
+    </div>*@
 
     <div class="bg-white py-3 py-md-4 mt-1">
         <div class="wrap container-fluid">
             <!-- Cuando es detalle de pedido -->
             <!-- <h1 class="tt-main"><span class="st text-secondary">Detalle pedido</span> <span class="tt text-primary"># 4545454</span></h1> -->
             <!-- Cuando es pedido exitoso -->
-            <h1 class="tt-main"><span class="st text-secondary">Pedido realizado</span> <span class="tt text-primary">Exitosamente</span></h1>
-            <h4 class="mb-0 pt-2 text-muted">¡Gracias por su compra!</h4>
+            <h1 class="tt-main"><span class="st text-secondary">Detalle de </span> <span class="tt text-primary">pedido</span></h1>
+            @*<h4 class="mb-0 pt-2 text-muted">¡Gracias por su compra!</h4>*@
         </div>
     </div>
 
@@ -34,24 +34,24 @@
                 <div class="col-md-6 pb-3">
                     <div class="bg-white info-pedido p-3">
                         <h4 class="text-secondary text-uppercase">Información del pedido</h4>
-                        <p><strong>No. de pedido:</strong> <span class="text-primary">00000000</span></p>
-                        <p><strong>Fecha de compra:</strong> 10/10/2020</p>
-                        <p><strong>Costo total:</strong> $150.00</p>
+                        <p><strong>No. de pedido:</strong> <span class="text-primary">@Model.Codigo</span></p>
+                        <p><strong>Fecha de compra:</strong>@Model.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
+                        <p><strong>Costo total:</strong> @Model.Total.Value.ToString("$0.00")</p>
                     </div>
                     <div class="bg-white info-pedido p-3 mt-3">
                         <h4 class="text-secondary text-uppercase">Información de entrega</h4>
-                        <p><strong>Forma de entrega:</strong> A domicilio</p>
-                        <p><strong>Persona que recibe:</strong> Juan Perez</p>
-                        <p><strong>Dirección de entrega:</strong> Final C. Arturo Ambroji, psj. El Privado #5, San Salvador</p>
+                        @*<p><strong>Forma de entrega:</strong> A domicilio</p>*@
+                        <p><strong>Persona que recibe:</strong> @Model.Cliente.NombreCompleto</p>
+                        <p><strong>Dirección de entrega:</strong> @Model.Cliente.Direccion</p>
                     </div>
-                    <div class="bg-white info-pedido p-3 mt-3">
+                    @*<div class="bg-white info-pedido p-3 mt-3">
                         <h4 class="text-secondary text-uppercase">Información de pago</h4>
                         <p><strong>Forma de pago:</strong> Tarjeta de crédito/débito</p>
                         <p><strong>No. Tarjeta:</strong> xxxxxxxx-000</p>
                         <p><strong>No. Autorización:</strong> 2222222222</p>
                         <p><strong>Fecha procesado:</strong> 10/10/2020</p>
                         <p><strong>Monto pagado:</strong> $150.00</p>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="col-md-6 pb-3">
                     <div class="bg-white p-3" style="min-height:100%;">
@@ -66,26 +66,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <p><a href="">Lectus fringilla  lurus arcu</a></p>
-                                        <p>SKU 000000</p>
-                                        <p class="d-md-none">Precio: $70.75</p>
-                                    </td>
-                                    <td class="pre hide-movil">$70.75</td>
-                                    <td class="can">2</td>
-                                    <td class="sto">$21.50</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p><a href="">Lectus fringilla  lurus arcu</a></p>
-                                        <p>SKU 000000</p>
-                                        <p class="d-md-none">Precio: $70.75</p>
-                                    </td>
-                                    <td class="pre hide-movil">$70.75</td>
-                                    <td class="can">2</td>
-                                    <td class="sto">$21.50</td>
-                                </tr>
+                                @foreach (var item in Model.ProductosPedidos)
+                                {
+                                    <tr>
+                                        <td>
+                                            <p><a>@item.Producto.Nombre</a></p>
+                                            <p>@item.Producto.Descripcion</p>
+                                            <p class="d-md-none">Precio: @item.Precio.ToString("$0.00")</p>
+                                        </td>
+                                        <td class="pre hide-movil">@item.Precio.ToString("$0.00")</td>
+                                        <td class="can">@string.Format("{0:0.##}", item.Cantidad)</td>
+                                        <td class="sto">@item.SubTotal.ToString("$0.00")</td>
+                                    </tr>
+                                }
+
                             </tbody>
                         </table>
                         <div class="text-right border-top pt-3">
@@ -94,15 +88,15 @@
                                     <tbody>
                                         <tr>
                                             <td class="pr-2">Total compra:</td>
-                                            <td>$145.00</td>
+                                            <td>@Model.Total.Value.ToString("$0.00")</td>
                                         </tr>
-                                        <tr>
+                                        @*<tr>
                                             <td class="pr-2">Costo de envío:</td>
                                             <td>$5.00</td>
                                         </tr>
                                         <tr class="text-primary">
                                             <td class="pr-2">Total pagado:</td>
-                                            <td><strong>$150.00</strong></td>
+                                            <td><strong>$150.00</strong></td>*@
                                         </tr>
                                     </tbody>
                                 </table>

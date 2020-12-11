@@ -59,12 +59,12 @@
 
                         <div class="col-md-6 mb-4">
                             <div class="bg-white pedido-item">
-                                <h4><a href="">@ped.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")</a></h4>
+                                <h4><a href="@Url.Action("DetallePedido",new {idpedido= ped.Codigo })">@ped.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")</a></h4>
                                 <p><strong>Codigo de pedido:</strong> <span class="text-primary">@ped.Codigo</span></p>
                                 <p><strong>Costo total:</strong> @ped.Total.Value.ToString("$0.00")</p>
                                 <p><strong>Estado:</strong> @GetNombreEstado(ped.IdEstado)</p>
                                 <div class="pt-3">
-                                    <a href="" class="btn btn-outline-primary">Ver detalle</a>
+                                    <a href="@Url.Action("DetallePedido",new {idpedido= ped.Codigo })" class="btn btn-outline-primary">Ver detalle</a>
                                 </div>
                             </div>
                         </div>

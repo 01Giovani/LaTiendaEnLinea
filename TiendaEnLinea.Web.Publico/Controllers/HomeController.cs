@@ -391,9 +391,16 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         }
 
         [HttpGet]
-        public ActionResult DetallePedido()
+        public ActionResult DetallePedido(Guid idPedido)
         {
-            return View();
+            string cliente = GetCookieCliente();
+
+            Pedido ped = _pedidoService.GetPedidoDetalle(idPedido);
+
+            if (ped.IdCliente != cliente)
+                return RedirectToAction("Index");
+
+            return View(ped);
         }
     }
 }

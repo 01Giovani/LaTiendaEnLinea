@@ -65,15 +65,14 @@
                             @*<a asp-controller="Seccion" asp-action="Nosotros" class="nav-link">Nosotros</a>
                                 <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
                             <a href="@Url.Action("Index","Home")" class="nav-link">Lista de productos</a>
-                            <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>
-                            <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>
+                            <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>                            
                             <a href="@Url.Action("Pedidos","Home")" class="nav-link">Historial de pedidos</a>
                         </nav>
                     </div>
                     <div class="col-md-auto">
                         <hr class="d-md-none">
                         <nav class="nav social">
-                            <a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>
+                            @*<a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>*@
                         </nav>
                     </div>
                 </div>
@@ -156,7 +155,7 @@
             <div class="row align-items-center">
 
                 <div class="col-6 col-md-auto">
-                    <img src="~/wwwroot/img/logo.png" class="logo" alt="Tienda en línea">
+                    <img src="@Url.Content("~/wwwroot/img/logo.png")" class="logo" alt="D'LaFinca">
                 </div>
                 <div class="col-6 col-md">
                     <div class="d-flex justify-content-center align-items-center">
@@ -164,11 +163,11 @@
                     </div>
                 </div>
                 <div class="col col-md-auto text-md-right pt-3 pt-md-0">
-                    <p class="copy">Todos los derechos Reservados 2020 <br>TIENDA EN LÍNEA <br>TELÉFONO: 2222-2222</p>
+                    <p class="copy">Todos los derechos Reservados 2020 <br>D'LaFinca <br>@*TELÉFONO: 2222-2222*@</p>
                 </div>
                 <div class="col-auto pt-3 pt-md-0">
                     <nav class="nav social justify-content-end">
-                        <a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>
+                        @*<a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>*@
                     </nav>
                 </div>
             </div>
