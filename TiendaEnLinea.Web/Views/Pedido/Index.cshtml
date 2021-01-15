@@ -1,6 +1,8 @@
 ﻿@model List<TiendaEnLinea.Core.Model.Pedido>
 @{
     ViewBag.Title = "Index";
+    int max = Model.Where(x=>x.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Enviado || x.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Preparado).Max(x => x.OrdenEntrega).GetValueOrDefault(0);
+    int min = Model.Where(x => x.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Enviado || x.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Preparado).Min(x => x.OrdenEntrega).GetValueOrDefault(0);
 }
 
 
@@ -89,19 +91,24 @@
         </div>
     </div>
 
+    <span>Ultima actualización: <b>@(DateTime.Now.ToString("hh:mm:ss tt"))</b></span><br />
 
     <table class="footable table table-stripped">
         ​<!-- Encabezado de la tabla -->
-
+        
         <thead>
             <tr>
+                <th>Orden</th>
                 <th>Cliente</th>
-                <th>Teléfono</th>
+                <th data-hide="phone,tablet">Dirección</th>
+                @*<th>Teléfono</th>*@
                 <th>Total</th>
                 <th>Fecha Ingreso</th>
-                <th data-hide="phone,tablet">Cantidad Productos</th>
+                @*<th data-hide="phone,tablet">Cantidad Productos</th>*@
                 <th data-hide="phone,tablet">Estado</th>
-                <th></th>
+
+                <th data-hide="phone,tablet"></th>
+                <th>Cambiar Orden</th>
             </tr>
         </thead>
         ​<!-- -->
@@ -110,30 +117,59 @@
             @foreach (var item in Model)
             {
 
-                <tr>
+            <tr>
+                <td>
+                    @if (item.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Enviado ||
+                        item.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Preparado)
+                    {
+                        @item.OrdenEntrega
+                    }
+                </td>
+                <td>@item.Cliente.NombreCompleto @("-") @item.IdCliente</td>
+                <td>@item.Cliente.Direccion</td>
+                @*<td>@item.Cliente.Codigo</td>*@
+                <td>
+                    @if (item.Total != null)
+                    {
+                        @item.Total.Value.ToString("$0.00")
+                    }
+                    else
+                    {
+                        @("$0.00")
+                    }
 
-                    <td>@item.Cliente.NombreCompleto</td>
-                    <td>@item.Cliente.Codigo</td>
-                    <td>
-                        @if (item.Total != null)
+                </td>
+                <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                @*<td>@item.ProductosPedidos.Count</td>*@
+                <td>@GetNombreEstado(item.IdEstado)</td>
+
+                <td>
+                    <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle", new {id =item.Codigo })">
+                        <i class="fa fa-eye"></i> Ver detalle
+                    </a>
+                </td>
+
+                <td>
+                    @if (item.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Enviado ||
+                        item.IdEstado == TiendaEnLinea.Core.Model.EstadoPedido.Preparado)
+                    {
+
+                        if (item.OrdenEntrega > min)
                         {
-                            @item.Total.Value.ToString("$0.00")
-                        }
-                        else
-                        {
-                            @("$0.00")
+                            <a class="btn btn-white" href="@Url.Action("CambiarOrden", new {idPedido = item.Codigo,nuevoOrden = (item.OrdenEntrega.Value - 1), view = "Listado",fi=ViewBag.fi,  ff=ViewBag.ff,  estado=ViewBag.estado })">
+                                <i class="fa fa-arrow-up"></i>
+                            </a>
                         }
 
-                    </td>
-                    <td>@item.FechaIngreso.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
-                    <td>@item.ProductosPedidos.Count</td>
-                    <td>@GetNombreEstado(item.IdEstado)</td>
-                    <td>
-                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle", new {id =item.Codigo })">
-                            <i class="fa fa-eye"></i> Ver detalle
-                        </a>
-                    </td>
-                </tr>
+                        if (item.OrdenEntrega < max)
+                        {
+                            <a class="btn btn-white" href="@Url.Action("CambiarOrden", new {idPedido = item.Codigo,nuevoOrden = (item.OrdenEntrega.Value + 1), view = "Listado",fi=ViewBag.fi,  ff=ViewBag.ff,  estado=ViewBag.estado })">
+                                <i class="fa fa-arrow-down"></i>
+                            </a>
+                        }
+                    }
+                </td>
+            </tr>
             }
 
 
@@ -173,6 +209,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            window.setTimeout(function () {
+                window.location.reload();
+            }, 30000)
 
             $('.input-group.date').datepicker({
                 language: "es",

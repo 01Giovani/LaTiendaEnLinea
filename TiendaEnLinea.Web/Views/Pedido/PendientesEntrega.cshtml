@@ -3,6 +3,7 @@
     ViewBag.Title = "PendientesEntrega";
     int max = Model.Max(x => x.OrdenEntrega).GetValueOrDefault(0);
     int min = Model.Min(x => x.OrdenEntrega).GetValueOrDefault(0);
+    List<TiendaEnLinea.Core.Model.CheckOut> detallesCheckout = ViewBag.detalles;
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -28,6 +29,7 @@
                 <th data-hide="phone,tablet">Fecha Enviado</th>
                 <th data-hide="phone,tablet">Cantidad Productos</th>
                 <th data-hide="phone,tablet">Estado</th>
+                <th data-hide="phone,tablet">Comentario</th>
                 <th data-hide="phone,tablet"></th>
                 <th data-hide="phone,tablet"></th>
                 <th>Cambiar Orden</th>
@@ -49,6 +51,7 @@
                     <td>@item.FechaCompletado.Value.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
                     <td>@item.ProductosPedidos.Count</td>
                     <td>@GetNombreEstado(item.IdEstado)</td>
+                    <td>@item.Comentario</td>
                     <td>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#det@(item.Codigo)">
                             <i class="fa fa-eye"></i>
@@ -103,6 +106,7 @@
                             <tr>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
+                                <th>Comentario preparación</th>
                                 <th>Sub Total</th>
                             </tr>
                         </thead>
@@ -113,6 +117,7 @@
                                 <tr>
                                     <td>@det.Producto.Nombre</td>
                                     <td>@string.Format("{0:0.##}", det.Cantidad)</td>
+                                    <td>@(detallesCheckout.FirstOrDefault(c=>c.IdDetallePedido == det.Codigo)?.Comentario)</td>
                                     <td>@det.SubTotal.ToString("$0.00")</td>
                                 </tr>
                             }

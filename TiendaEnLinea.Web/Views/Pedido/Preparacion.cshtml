@@ -42,6 +42,19 @@
 
 
         <div class="form-group">
+            <label class="col-lg-2 control-label">Orden entrega</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <input class="form-control" value="@Model.Pedido.OrdenEntrega" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
             <label class="col-lg-2 control-label">Cliente</label>
             <div class="col-lg-10">
                 <div class="row">
@@ -61,6 +74,20 @@
 
 
                         <input class="form-control" value="@Model.Pedido.Cliente.Telefono" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Dirección</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+
+                        <input class="form-control" value="@Model.Pedido.Cliente.Direccion" readonly />
+
                     </div>
                 </div>
             </div>
@@ -88,6 +115,20 @@
 
 
                         <input class="form-control" value="@Model.Pedido.Total.Value.ToString("$0.00")" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Comentario cliente</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-4">
+
+
+                        <input class="form-control" value="@Model.Pedido.Comentario" readonly />
 
                     </div>
                 </div>
@@ -183,6 +224,13 @@
 
 @section scripts{
     <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            window.setTimeout(function () {
+                window.location.reload();
+            }, 30000)
+        });
 
         function peticionAjaxPost(url, data) {
 

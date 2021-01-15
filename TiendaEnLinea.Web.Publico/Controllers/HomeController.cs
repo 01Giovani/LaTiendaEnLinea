@@ -3,6 +3,7 @@ using Bitworks.Abstract.Notificaciones.Email;
 using Bitworks.Notificaciones.Email;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,8 @@ using TiendaEnLinea.Core.DTOs.Pedido;
 using TiendaEnLinea.Core.DTOs.ProductoPublico;
 using TiendaEnLinea.Core.Model;
 using TiendaEnLinea.Core.Services;
+using Bitworks.Extensiones.Bytes;
+using Bitworks.Extensiones.Imagenes;
 
 namespace TiendaEnLinea.Web.Publico.Controllers
 {
@@ -165,8 +168,15 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         public ActionResult GetMedia(Guid id)
         {
             Multimedia media = _productoService.GetMultimedia(id);
-            if (media != null)
-                return File(media.Contenido, media.MimeType, media.NombreArchivo);
+            if (media != null) {
+                var r =
+                media.Contenido.bwGetImagen().bwCambiarTamanoConRelacionByte(new Size(200, 200), 70, true);
+              
+                return File(r, r.bwGetMimeType());
+                 
+                //return File(media.Contenido, media.MimeType, media.NombreArchivo);
+            }
+            
             else
                 throw new HttpException(404, "El archivo seleccionado no existe");
 

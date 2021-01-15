@@ -13,5 +13,6 @@ namespace TiendaEnLinea.Core.Services
 
         List<CheckOut> GetPedidoCheckout(Guid idPedido);
         void ModificarDetalle(int codigo, bool preparado, string comentario);
+        List<CheckOut> GetDetalles(List<Guid> pedidos);
     }
 }

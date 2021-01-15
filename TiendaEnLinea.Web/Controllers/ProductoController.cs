@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Bitworks.Extensiones.Bytes;
+using Bitworks.Extensiones.Imagenes;
 using Bitworks.Seguridad.MVC.Atributos;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -133,8 +136,14 @@ namespace TiendaEnLinea.Web.Controllers
         public ActionResult GetMultimediaConLlave(Guid id)
         {
             Multimedia media = _productoService.GetMultimedia(id);
-            if (media != null)              
-                return File(media.Contenido, media.MimeType, media.NombreArchivo);              
+            if (media != null)
+            {
+                var r =
+               media.Contenido.bwGetImagen().bwCambiarTamanoConRelacionByte(new Size(500, 500), 80, true);
+
+                return File(r, r.bwGetMimeType());
+            }  
+                            
             else
                 throw new HttpException(404, "El archivo seleccionado no existe");
 

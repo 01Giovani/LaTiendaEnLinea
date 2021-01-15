@@ -40,7 +40,7 @@ namespace TiendaEnLinea.Service
                 new System.Linq.Expressions.Expression<Func<Pedido, object>>[] {
                 x=>x.Cliente,
                 x=>x.ProductosPedidos
-            }).OrderBy(x => x.FechaIngreso).ToList();
+            }).OrderBy(x =>x.OrdenEntrega ?? 1000).ToList();
         }
 
         public Pedido IniciarPedido(Guid id, string idCliente)
@@ -50,7 +50,8 @@ namespace TiendaEnLinea.Service
                 Codigo = id,
                 Completado = false,
                 IdCliente = idCliente,
-                IdEstado = EstadoPedido.Abierto
+                IdEstado = EstadoPedido.Abierto,
+                FechaIngreso = DateTime.Now
             });
         }
 
@@ -126,7 +127,7 @@ namespace TiendaEnLinea.Service
         {
             return _pedidoRepository
                 .GetLista(x => x.IdEstado == EstadoPedido.Enviado && x.FechaCompletado != null)
-                .OrderBy(x => x.FechaCompletado).FirstOrDefault();
+                .OrderBy(x => x.OrdenEntrega ?? 10000).FirstOrDefault();
         }
 
         public List<Pedido> GetPedidosNoEntregados()
@@ -153,7 +154,7 @@ namespace TiendaEnLinea.Service
             orderViejo = pedidoACambiar.OrdenEntrega.Value;
             pedidoACambiar.OrdenEntrega = orden;
 
-            Pedido pedidoReem = _pedidoRepository.FindByTracking(x => x.IdEstado == EstadoPedido.Preparado && x.OrdenEntrega == orden);
+            Pedido pedidoReem = _pedidoRepository.FindByTracking(x => (x.IdEstado == EstadoPedido.Preparado || x.IdEstado == EstadoPedido.Enviado) && x.OrdenEntrega == orden);
             if(pedidoReem != null)
                 pedidoReem.OrdenEntrega = orderViejo;
 

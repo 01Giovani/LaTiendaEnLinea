@@ -42,12 +42,12 @@ namespace TiendaEnLinea.Web.Controllers
         {
             DateTime fInicio;
             DateTime fFIn;
-            
 
-            if (string.IsNullOrEmpty(fi))            
-                fInicio = DateTime.Today.AddMonths(-1);            
-            else 
-                fInicio = DateTime.Parse(fi).AddMonths(-1);
+
+            if (string.IsNullOrEmpty(fi))
+                fInicio = DateTime.Today.AddMonths(-1);
+            else
+                fInicio = DateTime.Parse(fi);
             
 
             if (string.IsNullOrEmpty(ff))            
@@ -164,17 +164,21 @@ namespace TiendaEnLinea.Web.Controllers
         public ActionResult PendientesEntrega()
         {
             List<Pedido> pedidos = _pedidoService.GetPedidosNoEntregados().OrderBy(x=>x.OrdenEntrega).ToList();
-
+            ViewBag.detalles = _checkOutService.GetDetalles(pedidos.Select(c => c.Codigo).ToList());
+            
             return View(pedidos);
         }
 
 
         [CaracteristicasAccion("Cambiar order pedido",false,true)]
         [HttpGet]
-        public ActionResult CambiarOrden(Guid idPedido,int nuevoOrden)
+        public ActionResult CambiarOrden(Guid idPedido,int nuevoOrden,string view =null, string fi = null, string ff= null, string estado = null)
         {
 
             _pedidoService.CambiarOrderPedido(idPedido, nuevoOrden);
+
+            if (!string.IsNullOrEmpty(view))
+                return RedirectToAction(view, new {fi,ff,estado});
 
             return RedirectToAction("PendientesEntrega");
         }

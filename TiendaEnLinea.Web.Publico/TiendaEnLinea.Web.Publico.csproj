@@ -57,6 +57,12 @@
     <Reference Include="Bitworks.Notificaciones, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bitworks.Notificaciones.1.2.0\lib\net45\Bitworks.Notificaciones.dll</HintPath>
     </Reference>
+    <Reference Include="BitworksExtensiones, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bitworks.Extensiones.1.3.0\lib\net45\BitworksExtensiones.dll</HintPath>
+    </Reference>
+    <Reference Include="BitworksUtilidadesModelo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bitworks.Utilidades.1.0.0\lib\net45\BitworksUtilidadesModelo.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>

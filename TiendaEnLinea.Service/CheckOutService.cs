@@ -57,5 +57,11 @@ namespace TiendaEnLinea.Service
 
             _checkoutRepository.SaveChanges();
         }
+
+
+        public List<CheckOut> GetDetalles(List<Guid> pedidos)
+        {
+            return _checkoutRepository.GetLista(x => pedidos.Contains(x.IdPedido));
+        }
     }
 }

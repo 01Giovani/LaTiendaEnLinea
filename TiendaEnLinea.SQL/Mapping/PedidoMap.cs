@@ -14,7 +14,7 @@ namespace TiendaEnLinea.SQL.Mapping
         {
             HasKey(x => x.Codigo);
 
-            Property(x => x.FechaIngreso).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Computed);
+            Property(x => x.FechaIngreso);
             Property(x => x.IdCliente).HasMaxLength(150);
             Property(x => x.Comentario).HasMaxLength(500);
 
