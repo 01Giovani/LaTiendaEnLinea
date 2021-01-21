@@ -63,7 +63,7 @@ namespace TiendaEnLinea.Service
         public Pedido GetPedidoNoTracking(Guid id, bool incluirDetalle = false)
         {
             if (incluirDetalle)
-                return _pedidoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { x => x.ProductosPedidos });
+                return _pedidoRepository.FindBy(x => x.Codigo == id, new System.Linq.Expressions.Expression<Func<Pedido, object>>[] { x => x.ProductosPedidos,x=>x.Cliente });
             else
                 return _pedidoRepository.FindBy(x => x.Codigo == id);
 

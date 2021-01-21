@@ -310,7 +310,7 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             _checkOutService.CrearListaCheckout(pedido.Codigo);
             try
             {
-                EnviarNotificacion(pedido.Codigo);
+                EnviarNotificacion(pedido);
             }
             catch
             {
@@ -321,24 +321,34 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         }
 
 
-        private void EnviarNotificacion(Guid id)
+        private void EnviarNotificacion(Pedido pedido)
         {
             NotificacionEmailService noti = new NotificacionEmailService(null);
 
             string origen = System.Configuration.ConfigurationManager.AppSettings["correoOrigen"];
             string correo = System.Configuration.ConfigurationManager.AppSettings["destinoNotificacion"];
             string dominio = System.Configuration.ConfigurationManager.AppSettings["dominio"];
-            dominio = dominio + "Pedido/Detalle/" + id;
+            dominio = dominio + "Pedido/Detalle/" + pedido.Codigo;
 
-            noti.PrepararEnvio(new DireccionEmail("Tienda en linea", origen),
-            new DireccionEmail("Admin", correo), "Nuevo pedido", "Accede al detalle del pedido aquí: "+dominio );
+            string[] destinos = correo.Split(',');
+            List<DireccionEmail> parametrosDestino = new List<DireccionEmail>();
+            foreach (string item in destinos)
+            {
+                parametrosDestino.Add(new DireccionEmail(item, item));
+            }
+
+            noti.PrepararEnvio(
+                new DireccionEmail("Tienda en linea", origen),
+                parametrosDestino, 
+                "Nuevo pedido", "|| Cliente: "+pedido.Cliente.NombreCompleto+" || Contacto: "+pedido.Cliente.Codigo+" || Total: "+pedido.Total.Value.ToString("$0.00")+ " || Accede al detalle del pedido aquí: "+dominio+ " ||");
             noti.enviarMensaje();
         }
 
         [HttpGet]
-        public ActionResult dummy()
+        public ActionResult dummy(Guid id)
         {
-            EnviarNotificacion(Guid.NewGuid());
+            Pedido pedido = _pedidoService.GetPedidoNoTracking(id, true);
+            EnviarNotificacion(pedido);
             return RedirectToAction("Index");
         }
 
