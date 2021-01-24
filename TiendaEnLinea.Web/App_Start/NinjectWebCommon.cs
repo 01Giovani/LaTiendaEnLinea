@@ -83,6 +83,7 @@ namespace TiendaEnLinea.Web.App_Start
             kernel.Bind<IProductoService>().To<ProductoService>().InRequestScope();
             kernel.Bind<IPedidoService>().To<PedidoService>().InRequestScope();
             kernel.Bind<ICheckOutService>().To<CheckOutService>().InRequestScope();
+            kernel.Bind<IClienteService>().To<ClienteService>().InRequestScope();
 
             //LOG
             kernel.Bind<IExtraerInfoExcepcion>().To<Bitworks.Logger.Utils.ExtraerInfoExcepcion>().InSingletonScope();

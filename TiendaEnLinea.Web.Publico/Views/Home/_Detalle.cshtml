@@ -28,7 +28,15 @@
                             </td>
                             <td class="des">
                                 <h3>@det.Producto.Nombre</h3>
-                                <p>@det.Producto.Descripcion</p>
+                                @if (string.IsNullOrEmpty(det.Producto.DescripcionOferta))
+                                {
+                                    <p>@det.Producto.Descripcion</p>
+                                }
+                                else
+                                {
+                                    <p>@det.Producto.DescripcionOferta</p>
+                                }
+
                                 <p>@det.Producto.PrefijoVenta</p>
                             </td>
                             <td class="pre">

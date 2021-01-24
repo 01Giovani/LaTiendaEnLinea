@@ -25,5 +25,26 @@ namespace TiendaEnLinea.SQL.Repositories
 
             return cliente;
         }
+
+        public void ModificarCliente(Cliente cliente)
+        {
+            Cliente cl = _db.Cliente.FirstOrDefault(x => x.Codigo == cliente.Codigo);
+
+            if(cl != null)
+            {
+                cl.NombreCompleto = cliente.NombreCompleto;
+                cl.Telefono = cliente.Telefono;
+                cl.DUI = cliente.DUI;
+                cl.Direccion = cliente.Direccion;
+
+                _db.SaveChanges();
+
+            }
+            else
+            {
+                GuardarCliente(cliente);
+            }
+            
+        }
     }
 }

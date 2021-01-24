@@ -30,7 +30,8 @@ namespace TiendaEnLinea.SQL.Repositories
                 remoto.Destacado = producto.Destacado;
                 remoto.Activo = producto.Activo;
                 remoto.MultiploVenta = producto.MultiploVenta;
-                remoto.PrefijoVenta = producto.PrefijoVenta;                       
+                remoto.PrefijoVenta = producto.PrefijoVenta;
+                remoto.DescripcionOferta = producto.DescripcionOferta;
             }
 
             _db.SaveChanges();

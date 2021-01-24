@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckOutService.cs" />
+    <Compile Include="ClienteService.cs" />
     <Compile Include="PedidoService.cs" />
     <Compile Include="ProductoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

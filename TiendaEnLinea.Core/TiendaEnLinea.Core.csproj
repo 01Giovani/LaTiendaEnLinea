@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\Cliente\ClienteDTO.cs" />
+    <Compile Include="DTOs\Cliente\ClienteInDTO.cs" />
     <Compile Include="DTOs\Pedido\AgregarDTO.cs" />
     <Compile Include="DTOs\Pedido\CarretillaDTO.cs" />
     <Compile Include="DTOs\Pedido\CheckoutListaDTO.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Repositories\IProductoPedidoRepository.cs" />
     <Compile Include="Repositories\IProductoRepository.cs" />
     <Compile Include="Services\ICheckOutService.cs" />
+    <Compile Include="Services\IClienteService.cs" />
     <Compile Include="Services\IPedidoService.cs" />
     <Compile Include="Services\IProductoService.cs" />
   </ItemGroup>

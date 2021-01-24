@@ -28,17 +28,17 @@
 </style>
 
 <div class="main-content">
-	
-	
 
-	<div class="wrap container-fluid mb-3">
+
+
+    <div class="wrap container-fluid mb-3">
         <div class="row align-items-end py-4 pb-lg-5">
             <div class="col-lg-auto col-xl-5 text-primary">
                 <h2 class="tt-main"><span class="st text-secondary">Listado</span> <span class="tt">de productos</span></h2>
             </div>
             <div class="col-lg col-xl-7">
                 <div class="row filtros no-gutters pt-3 pt-lg-0">
-                  
+
                     <div class="col-md-auto f-col">
                         <a href="@Url.Action("Carretilla")" style="font-size:24px" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Ver mi pedido</a>
                     </div>
@@ -46,7 +46,7 @@
             </div>
 
         </div>
-		
+
         <div class="row listado-productos variante-st1">
 
             @if (Model != null)
@@ -69,14 +69,30 @@
                                             <strong class="antes">@prod.Precio.ToString("$0.00")</strong>
                                             <span class="tsm texto2">@prod.PrefijoVenta</span>
                                         </div>
-                                        @if(prod.PrecioOferta  != null) {
+                                        @if (prod.PrecioOferta != null)
+                                        {
                                             <div class="ppal">
                                                 <strong>@prod.PrecioOferta.Value.ToString("$0.00")</strong>
-                                                <span class="tsm texto1"><span class="text-secondary">re</span>-bajado</span>
+                                                @if (string.IsNullOrEmpty(prod.DescripcionOferta))
+                                                {
+                                                    <span class="tsm texto1"><span class="text-secondary">precio-</span>oferta</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="tsm texto1">@prod.DescripcionOferta</span>
+                                                }
                                             </div>
                                         }
                                     </div>
-                                    <p class="desc">@prod.Descripcion</p>
+                                    @if (!string.IsNullOrEmpty(prod.DescripcionOferta))
+                                    {
+                                        <p class="desc">Antes, @prod.Descripcion</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="desc">@prod.Descripcion</p>
+                                    }
+
                                 </div>
                                 <div class="agregar">
                                     <div class="add-box">
@@ -94,99 +110,117 @@
 
                 }
 
-            }         
+            }
         </div>
-		
-		
-		
-		
-	</div>
-	
-	
-	<div class="lista-recomendados pt-2 mb-4 mb-md-5">
-			<div class="bg-secondary text-white">
-				<div class="wrap container-fluid py-4">
-					<div class="row align-items-end">
-						<div class="col-md">
-							<h2 class="tt-main"><span class="st">Promociones</span> <span class="tt">Recomendadas</span></h2>
-						</div>
-						<div class="col-auto pt-3 pt-md-0">
-							<div class="sldr-tools sldr-promo-tools">
-								@*<a href="" class="btn-grid text-white"><i class="icon-grid"></i></a>
-								<div class="sldr-arrows text-white ml-2">
-									<a href="" class="sldr-arrow prev" id="prevSldrPromos"><i class="icon-arrow-left"></i></a>
-									<a href="" class="sldr-arrow next" id="nextSldrPromos"><i class="icon-arrow-right"></i></a>
-								</div>*@
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="slider-st1 slider-promos mb-4">
-				<div class="wrap container-fluid inner">
-					<div class="sldr-wrap">
-                        <div class="slider">
 
-                            @if (Model != null && Model.Count(x => x.Destacado == true) > 0)
+
+
+
+    </div>
+
+    @if (Model != null && Model.Count(x => x.Destacado == true) > 0)
+    {
+    <div class="lista-recomendados pt-2 mb-4 mb-md-5">
+        <div class="bg-secondary text-white">
+            <div class="wrap container-fluid py-4">
+                <div class="row align-items-end">
+                    <div class="col-md">
+                        <h2 class="tt-main"><span class="st">@*Promociones*@</span> <span class="tt">Promociones</span></h2>
+                    </div>
+                    <div class="col-auto pt-3 pt-md-0">
+                        <div class="sldr-tools sldr-promo-tools">
+                            @*<a href="" class="btn-grid text-white"><i class="icon-grid"></i></a>
+                                <div class="sldr-arrows text-white ml-2">
+                                    <a href="" class="sldr-arrow prev" id="prevSldrPromos"><i class="icon-arrow-left"></i></a>
+                                    <a href="" class="sldr-arrow next" id="nextSldrPromos"><i class="icon-arrow-right"></i></a>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-st1 slider-promos mb-4">
+            <div class="wrap container-fluid inner">
+                <div class="sldr-wrap">
+                    <div class="slider">
+
+                        @if (Model != null && Model.Count(x => x.Destacado == true) > 0)
+                        {
+                            foreach (var dest in Model.Where(x => x.Destacado).ToList())
                             {
-                                foreach (var dest in Model.Where(x => x.Destacado).ToList())
-                                {
-                                    string url = Url.Action("GetMedia", new { id = dest.Fotos.FirstOrDefault() });
+                                string url = Url.Action("GetMedia", new { id = dest.Fotos.FirstOrDefault() });
 
-                                    <div class="item">
-                                        <div class="item-producto">
-                                            <figure style="background-image: url(@url)">
-                                                <a href="#"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
-                                            </figure>
-                                            <div class="pcontent">
-                                                <div class="info" style="height:110px;">
-                                                    <h3><a href="#">@dest.Nombre</a></h3>
-                                                    <div class="precios">
-                                                        <div class="left">
-                                                            <strong class="antes">@dest.Precio.ToString("$0.00")</strong>
-                                                            <span class="tsm texto2">@dest.PrefijoVenta </span>
-                                                        </div>
-                                                        @if (dest.PrecioOferta != null)
-                                                        {
-                                                            <div class="ppal">
-                                                                <strong>@dest.PrecioOferta.Value.ToString("$0.00")</strong>
-                                                                <span class="tsm texto1"><span class="text-secondary">re</span>bajado</span>
-                                                            </div>
-
-                                                        }
-
+                                <div class="item">
+                                    <div class="item-producto">
+                                        <figure style="background-image: url(@url)">
+                                            <a href="#"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
+                                        </figure>
+                                        <div class="pcontent">
+                                            <div class="info" style="height:110px;">
+                                                <h3><a href="#">@dest.Nombre</a></h3>
+                                                <div class="precios">
+                                                    <div class="left">
+                                                        <strong class="antes">@dest.Precio.ToString("$0.00")</strong>
+                                                        <span class="tsm texto2">@dest.PrefijoVenta </span>
                                                     </div>
-                                                    <p class="desc">@dest.Descripcion</p>
+                                                    @if (dest.PrecioOferta != null)
+                                                    {
+                                                        <div class="ppal">
+                                                            <strong>@dest.PrecioOferta.Value.ToString("$0.00")</strong>
+                                                            @if (string.IsNullOrEmpty(dest.DescripcionOferta))
+                                                            {
+                                                                <span class="tsm texto1"><span class="text-secondary">precio-</span>oferta</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="tsm texto1">@dest.DescripcionOferta</span>
+                                                            }
+
+                                                        </div>
+
+                                                    }
+
                                                 </div>
-                                                <div class="agregar">
-                                                    <div class="add-box">
-                                                        <div class="input2">
-                                                            <button class="ctrl down btnmenos" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-menos"></i></button>
-                                                            <input id="@("des-")@dest.Codigo" readonly="readonly" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
-                                                            <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
-                                                        </div>
-                                                        <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
+                                                @if (!string.IsNullOrEmpty(dest.DescripcionOferta))
+                                                {
+                                                    <p class="desc">Antes, @dest.Descripcion</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="desc">@dest.Descripcion</p>
+                                                }
+
+                                            </div>
+                                            <div class="agregar">
+                                                <div class="add-box">
+                                                    <div class="input2">
+                                                        <button class="ctrl down btnmenos" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-menos"></i></button>
+                                                        <input id="@("des-")@dest.Codigo" readonly="readonly" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
+                                                        <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
                                                     </div>
+                                                    <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                }
                             }
+                        }
 
 
 
 
-                        </div>
-					</div>
-					
-				</div>
-			</div>
-			
-	</div>
-	
-		
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    }
+
+
 </div>
 
 

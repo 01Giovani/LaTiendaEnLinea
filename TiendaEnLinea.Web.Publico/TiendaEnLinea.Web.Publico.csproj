@@ -195,9 +195,7 @@
     <Content Include="wwwroot\css\theme.css" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\icon.png" />
-    <Content Include="wwwroot\img\58-anios.png" />
     <Content Include="wwwroot\img\58-anios.svg" />
-    <Content Include="wwwroot\img\banner-nosotros.jpg" />
     <Content Include="wwwroot\img\banner-novedades.png" />
     <Content Include="wwwroot\img\banner-novedades.svg" />
     <Content Include="wwwroot\img\cvv.jpg" />
@@ -214,7 +212,6 @@
     <Content Include="wwwroot\img\logo.png" />
     <Content Include="wwwroot\img\logo.svg" />
     <Content Include="wwwroot\img\mastercard-secure.png" />
-    <Content Include="wwwroot\img\open-chat.png" />
     <Content Include="wwwroot\img\seccion-contacto.jpg" />
     <Content Include="wwwroot\img\seccion-ideas.jpg" />
     <Content Include="wwwroot\img\seccion-nosotros.jpg" />

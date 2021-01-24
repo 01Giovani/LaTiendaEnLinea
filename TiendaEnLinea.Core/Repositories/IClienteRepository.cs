@@ -11,5 +11,6 @@ namespace TiendaEnLinea.Core.Repositories
     public interface IClienteRepository: IGenericRepository<Cliente>
     {
         Cliente GuardarCliente(Cliente cliente);
+        void ModificarCliente(Cliente cliente);
     }
 }

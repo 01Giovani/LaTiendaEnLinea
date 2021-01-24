@@ -11,6 +11,7 @@ namespace TiendaEnLinea.Core.Model
         public Guid Codigo { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+        public string DescripcionOferta { get; set; }
         public decimal Precio { get; set; }
         public decimal? PrecioOferta { get; set; }
         public bool Destacado { get; set; }

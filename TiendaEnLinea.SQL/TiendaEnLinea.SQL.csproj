@@ -94,6 +94,10 @@
     <Compile Include="Migrations\202101150237531_quitar-defaultvalue.Designer.cs">
       <DependentUpon>202101150237531_quitar-defaultvalue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101241449593_descripcion-oferta.cs" />
+    <Compile Include="Migrations\202101241449593_descripcion-oferta.Designer.cs">
+      <DependentUpon>202101241449593_descripcion-oferta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CheckoutRepository.cs" />
@@ -140,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101150237531_quitar-defaultvalue.resx">
       <DependentUpon>202101150237531_quitar-defaultvalue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101241449593_descripcion-oferta.resx">
+      <DependentUpon>202101241449593_descripcion-oferta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

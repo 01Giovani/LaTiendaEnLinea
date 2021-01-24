@@ -170,7 +170,7 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             Multimedia media = _productoService.GetMultimedia(id);
             if (media != null) {
                 var r =
-                media.Contenido.bwGetImagen().bwCambiarTamanoConRelacionByte(new Size(200, 200), 70, true);
+                media.Contenido.bwGetImagen().bwCambiarTamanoConRelacionByte(new Size(250, 250), 75, true);
               
                 return File(r, r.bwGetMimeType());
                  

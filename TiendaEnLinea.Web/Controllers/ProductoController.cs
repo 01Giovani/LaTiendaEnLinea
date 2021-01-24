@@ -88,7 +88,8 @@ namespace TiendaEnLinea.Web.Controllers
                 Destacado = data.Destacado,
                 Activo  = data.Activo,
                 MultiploVenta = multiplo,
-                PrefijoVenta = data.PrefijoVenta
+                PrefijoVenta = data.PrefijoVenta,
+                DescripcionOferta = data.DescripcionOferta
 
             });
 

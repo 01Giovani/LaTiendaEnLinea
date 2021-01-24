@@ -17,6 +17,8 @@ namespace TiendaEnLinea.Core.DTOs.ProductoPublico
         public decimal MultiploVenta { get; set; }
         public string PrefijoVenta { get; set; }
 
+        public string DescripcionOferta { get; set; }
+
         public List<Guid> Fotos { get; set; }
     }
 }

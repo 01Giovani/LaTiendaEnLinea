@@ -1,0 +1,56 @@
+﻿@model  List<TiendaEnLinea.Core.DTOs.Cliente.ClienteDTO>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Listado de clientes</h2>
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    
+
+    <table class="footable table table-stripped">
+        ​<!-- Encabezado de la tabla -->
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th></th>
+            </tr>
+        </thead>
+        ​<!-- -->
+        ​<!-- Cuerpo de la tabla -->
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.NombreCompleto</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Direccion</td>   
+                    <td>
+                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("Detalle","Cliente", new {id =item.Codigo })">
+                            <i class="fa fa-edit"></i> Modificar
+                        </a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+

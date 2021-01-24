@@ -18,7 +18,7 @@ namespace TiendaEnLinea.Core.DTOs.Pedido
         public string Comentario { get; set; }
         public DateTime? FechaEntregado { get; set; }
 
-        public Cliente Cliente { get; set; }
+        public TiendaEnLinea.Core.Model.Cliente Cliente { get; set; }
         public Beneficiario Beneficiario { get; set; }
         public List<ProductosPedido> ProductosPedidos { get; set; }
     }

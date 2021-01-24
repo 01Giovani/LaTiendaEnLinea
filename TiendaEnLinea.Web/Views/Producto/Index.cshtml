@@ -28,6 +28,7 @@
                 <th>Precio</th>
                 <th data-hide="phone">Precio Oferta</th>
                 <th data-hide="phone,tablet">Descripción</th>
+                <th data-hide="phone,tablet">Descripción oferta</th>
                 <th data-hide="phone,tablet">Destacado</th>
                 <th>Activo</th>
                 <th data-hide="phone,tablet">Multiplo de venta</th>
@@ -47,6 +48,7 @@
                     <td>@item.Precio.ToString("$0.00")</td>
                     <td>@(item.PrecioOferta != null ? item.PrecioOferta.Value.ToString("$0.00"):"")</td>
                     <td>@item.Descripcion</td>
+                    <td>@item.DescripcionOferta </td>
                     <td>@(item.Destacado ? "Si":"No")</td>
                     <td>@(item.Activo ? "Si":"No")</td>
                     <td>@item.MultiploVenta</td>

@@ -18,7 +18,7 @@ namespace TiendaEnLinea.Core.DTOs.Producto
         public bool Activo { get; set; }
         public decimal MultiploVenta { get; set; }
         public string PrefijoVenta { get; set; }
-
+        public string DescripcionOferta { get; set; }
         public List<MediasProducto> Multimedias { get; set; }
     }
 }

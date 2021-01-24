@@ -25,6 +25,9 @@ namespace TiendaEnLinea.Core.DTOs.Producto
         public string MultiploVenta { get; set; }
         public string PrefijoVenta { get; set; }
 
+        public string DescripcionOferta { get; set; }
+
+
         public List<MediasProducto> Multimedias { get; set; }
 
 
