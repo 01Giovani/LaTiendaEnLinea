@@ -62,8 +62,8 @@
                         </nav>
                         <hr class="d-md-none">
                         <nav class="nav nav-ppal">
-                            @*<a asp-controller="Seccion" asp-action="Nosotros" class="nav-link">Nosotros</a>
-                                <a asp-controller="Seccion" asp-action="Preguntas" class="nav-link">Preguntas frecuentes</a>    *@
+                            @*<a asp-controller="Seccion" asp-action="Nosotros" class="nav-link">Nosotros</a>*@
+                            <a href="@Url.Action("Preguntas")" class="nav-link">Preguntas frecuentes</a>    
                             <a href="@Url.Action("Index","Home")" class="nav-link">Lista de productos</a>
                             <a href="@Url.Action("Carretilla","Home")" class="nav-link">Ver mi pedido</a>                            
                             <a href="@Url.Action("Pedidos","Home")" class="nav-link">Historial de pedidos</a>
@@ -72,8 +72,12 @@
                     <div class="col-md-auto">
                         <hr class="d-md-none">
                         <nav class="nav social">
-                            @*<a href="#" class="nav-link" target="_blank"><i class="icon-facebook"></i></a>*@
+                            <a href="https://wa.me/50376753319" class="nav-link" title="whatsapp 1" target="_blank"><i class="icon-whatsapp"></i></a>
+                            <a href="https://wa.me/50372428480" class="nav-link" title="whatsapp 2" target="_blank"><i class="icon-whatsapp"></i></a>
                         </nav>
+                        @*<nav class="nav social">
+                            <a href="https://wa.me/50372428480" class="nav-link" title="whatsapp 2" target="_blank"><i class="icon-whatsapp"></i></a>
+                        </nav>*@
                     </div>
                 </div>
             </div>
