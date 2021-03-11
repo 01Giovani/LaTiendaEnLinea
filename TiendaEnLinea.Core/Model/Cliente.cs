@@ -15,6 +15,11 @@ namespace TiendaEnLinea.Core.Model
 
         public string Direccion { get; set; }
 
+        /// <summary>
+        /// para saber si se toma en cuenta a este usuario
+        /// </summary>
+        public bool? RecibirNotificaciones { get; set; }
+
         public List<Beneficiario> Beneficiarios { get; set; }
     }
 }

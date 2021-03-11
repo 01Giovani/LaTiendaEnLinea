@@ -19,6 +19,8 @@ namespace TiendaEnLinea.SQL.Mapping
             Property(x => x.PrefijoVenta).HasMaxLength(50);
 
             HasMany(x => x.Multimedias).WithRequired(x => x.Producto).HasForeignKey(x => x.IdProducto);
+
+            HasOptional(x => x.Categoria).WithMany().HasForeignKey(x => x.IdCategoria);
         }
     }
 }

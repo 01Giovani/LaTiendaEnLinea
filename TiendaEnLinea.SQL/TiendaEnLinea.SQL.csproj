@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapping\BeneficiarioMap.cs" />
+    <Compile Include="Mapping\CategoriaProductoMap.cs" />
     <Compile Include="Mapping\CheckOutMap.cs" />
     <Compile Include="Mapping\ClienteMap.cs" />
     <Compile Include="Mapping\MediasProductoMap.cs" />
@@ -98,8 +99,13 @@
     <Compile Include="Migrations\202101241449593_descripcion-oferta.Designer.cs">
       <DependentUpon>202101241449593_descripcion-oferta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103110417596_categorias.cs" />
+    <Compile Include="Migrations\202103110417596_categorias.Designer.cs">
+      <DependentUpon>202103110417596_categorias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CategoriaProductoRepository.cs" />
     <Compile Include="Repositories\CheckoutRepository.cs" />
     <Compile Include="Repositories\ClienteRepository.cs" />
     <Compile Include="Repositories\MediasProductoRepository.cs" />
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101241449593_descripcion-oferta.resx">
       <DependentUpon>202101241449593_descripcion-oferta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103110417596_categorias.resx">
+      <DependentUpon>202103110417596_categorias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

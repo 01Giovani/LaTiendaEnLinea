@@ -25,6 +25,8 @@ namespace TiendaEnLinea.SQL
         public DbSet<Producto> Producto { get; set; }
         public DbSet<ProductosPedido> ProductosPedido { get; set; }
 
+        public DbSet<CategoriaProducto> CategoriaProducto { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder md)
         {
             base.OnModelCreating(md);
@@ -37,6 +39,7 @@ namespace TiendaEnLinea.SQL
             md.Configurations.Add(new PedidoMap());
             md.Configurations.Add(new ProductoMap());
             md.Configurations.Add(new ProductoPedidoMap());
+            md.Configurations.Add(new CategoriaProductoMap());
         }
         
     }

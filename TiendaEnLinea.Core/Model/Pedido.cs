@@ -27,12 +27,24 @@ namespace TiendaEnLinea.Core.Model
 
         public EstadoPedido IdEstado { get; set; }
 
+        public TipoPago? IdTipoPago { get; set; }
+
         public Cliente Cliente { get; set; }
         public Beneficiario Beneficiario { get; set; }
         public List<ProductosPedido> ProductosPedidos { get; set; }
 
     }
-
+    public enum TipoPago
+    {
+        /// <summary>
+        /// pago en efectivo
+        /// </summary>
+        Efectivo=1,
+        /// <summary>
+        /// pago via transferencia bancaria
+        /// </summary>
+        Transferencia=2
+    }
     public enum EstadoPedido
     {
         /// <summary>

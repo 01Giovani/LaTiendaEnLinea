@@ -19,6 +19,10 @@ namespace TiendaEnLinea.Core.Model
         public decimal MultiploVenta { get; set; }
         public string PrefijoVenta { get; set; }
 
+        public int? IdCategoria { get; set; }
+
         public List<MediasProducto> Multimedias { get; set; }
+
+        public CategoriaProducto Categoria { get; set; }
     }
 }
