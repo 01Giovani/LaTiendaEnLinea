@@ -801,7 +801,6 @@
     <Content Include="font-awesome\scss\_stacked.scss" />
     <Content Include="font-awesome\scss\_variables.scss" />
     <Content Include="img\00000002" />
-    <Content Include="js\plugins\chartist\chartist.min.js.map" />
     <Content Include="js\plugins\diff_match_patch\COPYING" />
     <Content Include="js\plugins\justified-gallery\README.md" />
     <Content Include="fonts\fontawesome-webfont.eot" />
