@@ -13,6 +13,8 @@ using TiendaEnLinea.Core.Model;
 using TiendaEnLinea.Core.Services;
 using Bitworks.Extensiones.Bytes;
 using Bitworks.Extensiones.Imagenes;
+using System.Net.Mail;
+using System.Net;
 
 namespace TiendaEnLinea.Web.Publico.Controllers
 {
@@ -320,28 +322,45 @@ namespace TiendaEnLinea.Web.Publico.Controllers
            return RedirectToAction("Gracias");
         }
 
-
         private void EnviarNotificacion(Pedido pedido)
-        {
-            NotificacionEmailService noti = new NotificacionEmailService(null);
-
-            string origen = System.Configuration.ConfigurationManager.AppSettings["correoOrigen"];
-            string correo = System.Configuration.ConfigurationManager.AppSettings["destinoNotificacion"];
+        {        
             string dominio = System.Configuration.ConfigurationManager.AppSettings["dominio"];
             dominio = dominio + "Pedido/Detalle/" + pedido.Codigo;
 
-            string[] destinos = correo.Split(',');
-            List<DireccionEmail> parametrosDestino = new List<DireccionEmail>();
-            foreach (string item in destinos)
-            {
-                parametrosDestino.Add(new DireccionEmail(item, item));
-            }
+            var fromAddress = new MailAddress("dlafincasvstore@gmail.com", "Tienda en línea");
+            string fromPassword = "enohp4407$";
 
-            noti.PrepararEnvio(
-                new DireccionEmail("Tienda en linea", origen),
-                parametrosDestino, 
-                "Nuevo pedido", "|| Cliente: "+pedido.Cliente.NombreCompleto+" || Contacto: "+pedido.Cliente.Codigo+" || Total: "+pedido.Total.Value.ToString("$0.00")+ " || Accede al detalle del pedido aquí: "+dominio+ " ||");
-            noti.enviarMensaje();
+            List<MailAddress> destinos = new List<MailAddress>();
+            destinos.Add(new MailAddress("stefany.preza@gmail.com", "stefany.preza@gmail.com"));
+            destinos.Add(new MailAddress("c.rivas8191@gmail.com", "c.rivas8191@gmail.com"));
+            destinos.Add(new MailAddress("julioulloa16@gmail.com", "julioulloa16@gmail.com"));
+            
+
+            string subject = "Nuevo pedido";
+            string body = "|| Cliente: " + pedido.Cliente.NombreCompleto + " || Contacto: " + pedido.Cliente.Codigo + " || Total: " + pedido.Total.Value.ToString("$0.00") + " || Accede al detalle del pedido aquí: " + dominio + " ||";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            foreach (var item in destinos)
+            {
+                using (var message = new MailMessage(fromAddress, item)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
+            
         }
 
         [HttpGet]
