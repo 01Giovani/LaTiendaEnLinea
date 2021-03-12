@@ -38,6 +38,7 @@ namespace TiendaEnLinea.SQL.Repositories
             remoto.Completado = pedido.Completado;
             remoto.FechaCompletado = pedido.FechaCompletado;
             remoto.IdEstado = pedido.IdEstado;
+            remoto.IdTipoPago = pedido.IdTipoPago;
 
             _db.SaveChanges();
 

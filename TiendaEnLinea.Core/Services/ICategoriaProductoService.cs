@@ -12,5 +12,7 @@ namespace TiendaEnLinea.Core.Services
         CategoriaProducto ModificarCategoria(CategoriaProducto categoriaProducto);
         CategoriaProducto GuardarCategoria(CategoriaProducto categoriaProducto);
         List<CategoriaProducto> GetListaCategorias();
+        CategoriaProducto GetCategoria(int id);
+        List<CategoriaProducto> GetListaCategoriasSelect();
     }
 }

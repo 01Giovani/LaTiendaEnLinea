@@ -74,22 +74,55 @@
             e.preventDefault();
             var url = $(this).attr("href");
 
+            //Swal.fire({
+            //    title: 'Finalizar pedido?',
+            //    text: "Tu pedido sera enviado para su revisión, puedes incluir un comentario a ser tomado en cuenta",
+            //    icon: 'warning',
+            //    showCancelButton: true,
+            //    confirmButtonColor: '#3085d6',
+            //    cancelButtonColor: '#d33',
+            //    confirmButtonText: 'Si, enviarlo',
+            //    cancelButtonText: 'Seguir comprando',                                
+            //    input: "text"
+
+            //}).then((result) => {
+
+            //    if (result.value != undefined) {
+            //        showloanding();
+            //        window.location.href = url + "?comentario=" +encodeURI(result.value);
+
+            //    }
+            //});
+
             Swal.fire({
-                title: 'Finalizar pedido?',
-                text: "Tu pedido sera enviado para su revisión, puedes incluir un comentario a ser tomado en cuenta",
+                title: '¿Finalizar pedido?',               
+                html: '<label>Tu pedido sera enviado para su revisión, puedes incluir un comentario a ser tomado en cuenta en este</label>' +
+                    '<input id="swal-input1" class="swal2-input" placeholder="Comentario">' +
+                    '<h1>Tipo de pago</h1>' +
+                    '<label>Realiza tus transferencias a la cuenta BAC Credomatic 114112618 a nombre de Cesar Augusto Rivas</label>'+
+                    '<select id="swal-input2" class="swal2-input">' +
+                    '<option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia bancaria</option>' +
+                    '</select>',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, enviarlo',
-                cancelButtonText: 'Seguir comprando',                                
-                input:'text'
+                cancelButtonText: 'Seguir comprando',
+                preConfirm: () => {
+                    return [
+                        document.getElementById('swal-input1').value,
+                        document.getElementById('swal-input2').value
+                    ]
+                }
+
             }).then((result) => {
 
-                if (result.value != undefined) {
+                if (!result.dismiss) {
+                    var value1 = result.value[0];
+                    var value2 = result.value[1];
                     showloanding();
-                    window.location.href = url + "?comentario=" +encodeURI(result.value);
-
+                    window.location.href = url + "?comentario=" + encodeURI(value1) +"&tipoPago="+value2;
                 }
             });
 

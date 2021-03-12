@@ -26,7 +26,7 @@ namespace TiendaEnLinea.Service
 
         public List<Producto> GetProductos()
         {
-            return _productoRepository.GetLista(x => true,null,new System.Linq.Expressions.Expression<Func<Producto, object>>[] {x=>x.Multimedias });
+            return _productoRepository.GetLista(x => true,null,new System.Linq.Expressions.Expression<Func<Producto, object>>[] {x=>x.Multimedias,x=>x.Categoria });
         }
 
         public Producto GetProducto(Guid id,bool includes = true)
@@ -68,7 +68,12 @@ namespace TiendaEnLinea.Service
 
         public List<Producto> GetProductosTienda(string palabra)
         {
-            return _productoRepository.GetLista(x => x.Activo == true && (palabra == null || x.Nombre.Contains(palabra) || x.Descripcion.Contains(palabra)),null,new System.Linq.Expressions.Expression<Func<Producto, object>>[] { x=>x.Multimedias }).OrderBy(x=>x.Nombre).ToList();
+            return _productoRepository
+                .GetLista(x => x.Activo == true && 
+                (palabra == null || x.Nombre.Contains(palabra) || x.Descripcion.Contains(palabra) || (x.Categoria != null && x.Categoria.Nombre.Contains(palabra)) )
+                ,null,
+                new System.Linq.Expressions.Expression<Func<Producto, object>>[] { 
+                    x=>x.Multimedias }).OrderBy(x=>x.Nombre).ToList();
         }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="DTOs\Pedido\ListaPedidosDTO.cs" />
     <Compile Include="DTOs\Pedido\PreracionDTO.cs" />
     <Compile Include="DTOs\ProductoPublico\ProductoCatalogoDTO.cs" />
+    <Compile Include="DTOs\Producto\CategoriaDTO.cs" />
     <Compile Include="DTOs\Producto\DetalleProductoDTO.cs" />
     <Compile Include="DTOs\Producto\ListaProductoDTO.cs" />
     <Compile Include="DTOs\Producto\MultimediaProductoDTO.cs" />

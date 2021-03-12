@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model  List<TiendaEnLinea.Core.Model.CategoriaProducto>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+        <h2>Listado de categorias de productos</h2>
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <a href="@Url.Action("DetalleCategoria")" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus text-white">
+        </i> Agregar Categoria
+    </a><br />
+
+    <table class="table table-stripped">
+        ​<!-- Encabezado de la tabla -->
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+               
+                <th></th>
+            </tr>
+        </thead>
+        ​<!-- -->
+        ​<!-- Cuerpo de la tabla -->
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>@item.Nombre</td>
+                    <td>
+                        @if (item.Activa)
+                        {
+                            @("Activa")
+                        }
+                        else
+                        {
+                            @("Inactiva")
+                        }
+                    </td>
+                 
+                    <td>
+                        <a class="btn btn-white btn-bitbucket" href="@Url.Action("DetalleCategoria", new {id =item.Codigo })">
+                            <i class="fa fa-edit"></i> Modificar
+                        </a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+
+

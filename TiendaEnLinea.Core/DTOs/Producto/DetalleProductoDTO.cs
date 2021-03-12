@@ -24,7 +24,7 @@ namespace TiendaEnLinea.Core.DTOs.Producto
         public bool Activo { get; set; }
         public string MultiploVenta { get; set; }
         public string PrefijoVenta { get; set; }
-
+        public string IdCategoria { get; set; }
         public string DescripcionOferta { get; set; }
 
 

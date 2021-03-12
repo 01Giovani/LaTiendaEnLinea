@@ -855,11 +855,12 @@
     <Content Include="Views\Pedido\PendientesEntrega.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Cliente\Detalle.cshtml" />
+    <Content Include="Views\CategoriaProducto\Index.cshtml" />
+    <Content Include="Views\CategoriaProducto\DetalleCategoria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\CategoriaProducto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

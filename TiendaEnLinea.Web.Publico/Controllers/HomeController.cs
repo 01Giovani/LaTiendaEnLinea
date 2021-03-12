@@ -278,7 +278,7 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         }
 
         [HttpGet]
-        public ActionResult FinalizarPedido(string comentario= null)
+        public ActionResult FinalizarPedido(string comentario= null,string tipoPago=null)
         {
             
             string id = GetCookieCliente();
@@ -292,7 +292,16 @@ namespace TiendaEnLinea.Web.Publico.Controllers
 
 
             Pedido pedido = _pedidoService.GetPedidoNoTracking(abierto.Codigo,true);
-           
+            if (!string.IsNullOrEmpty(tipoPago))
+            {
+                TipoPago? tipo = null;
+                if (tipoPago == "Efectivo")
+                    tipo = TipoPago.Efectivo;
+                if (tipoPago == "Transferencia")
+                    tipo = TipoPago.Transferencia;
+
+                pedido.IdTipoPago = tipo;
+            }
 
             if (pedido.ProductosPedidos == null || pedido.ProductosPedidos.Count == 0)
                 return RedirectToAction("Carretilla", new { state = "invalid" });

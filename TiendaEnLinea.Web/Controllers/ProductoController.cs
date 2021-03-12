@@ -17,13 +17,16 @@ namespace TiendaEnLinea.Web.Controllers
 {
     public class ProductoController : Controller
     {
+        private ICategoriaProductoService _categoriaProductoService;
         private static IMapper _mapper;
         private IProductoService _productoService;
         public ProductoController(
-            IProductoService productoService
+            IProductoService productoService,
+            ICategoriaProductoService categoriaProductoService
             )
         {
             _productoService = productoService;
+            _categoriaProductoService = categoriaProductoService;
         }
 
         static ProductoController()
@@ -33,7 +36,7 @@ namespace TiendaEnLinea.Web.Controllers
             {
                 x.CreateMap<Producto, ListaProductoDTO>();
                 x.CreateMap<Producto, DetalleProductoDTO>();
-                
+                x.CreateMap<CategoriaProducto, CategoriaDTO>();
             });
 
             _mapper = config.CreateMapper();
@@ -54,7 +57,10 @@ namespace TiendaEnLinea.Web.Controllers
         public ActionResult Detalle(Guid? id = null)
         {
 
-            DetalleProductoDTO model = new DetalleProductoDTO();
+            List<CategoriaProducto> categorias = _categoriaProductoService.GetListaCategoriasSelect();
+            ViewBag.categorias = categorias ?? new List<CategoriaProducto>();
+
+            DetalleProductoDTO model = new DetalleProductoDTO() {Activo =true };
             if (id != null) {
                 Producto producto = _productoService.GetProducto(id.Value);
                 if(producto != null)
@@ -89,7 +95,8 @@ namespace TiendaEnLinea.Web.Controllers
                 Activo  = data.Activo,
                 MultiploVenta = multiplo,
                 PrefijoVenta = data.PrefijoVenta,
-                DescripcionOferta = data.DescripcionOferta
+                DescripcionOferta = data.DescripcionOferta,
+                IdCategoria = data.IdCategoria != null ? int.Parse(data.IdCategoria) : (int?)null
 
             });
 

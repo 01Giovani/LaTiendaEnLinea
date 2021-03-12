@@ -19,6 +19,10 @@ namespace TiendaEnLinea.Service
             _categoriaProductoRepository = categoriaProductoRepository;
         }
 
+        public List<CategoriaProducto> GetListaCategoriasSelect()
+        {
+            return _categoriaProductoRepository.GetLista(x => x.Activa == true);
+        }
 
         public List<CategoriaProducto> GetListaCategorias()
         {
@@ -33,6 +37,11 @@ namespace TiendaEnLinea.Service
         public CategoriaProducto ModificarCategoria(CategoriaProducto categoriaProducto)
         {
             return _categoriaProductoRepository.ModificarCategoria(categoriaProducto);
+        }
+
+        public CategoriaProducto GetCategoria(int id)
+        {
+            return _categoriaProductoRepository.FindBy(x => x.Codigo == id);
         }
     }
 }

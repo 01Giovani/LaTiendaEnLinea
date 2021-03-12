@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TiendaEnLinea.Core.DTOs.Categoria;
+using TiendaEnLinea.Core.Model;
 using TiendaEnLinea.Core.Services;
 
 namespace TiendaEnLinea.Web.Controllers
@@ -23,7 +24,10 @@ namespace TiendaEnLinea.Web.Controllers
         [CaracteristicasAccion("lista categorias",false,true)]
         public ActionResult Index()
         {
-            return View();
+            List<CategoriaProducto> categorias =
+                _categoriaProductoService.GetListaCategorias().OrderBy(x=>x.Nombre).ToList();
+
+            return View(categorias);
         }
 
 
@@ -31,8 +35,14 @@ namespace TiendaEnLinea.Web.Controllers
         [HttpGet]
         public ActionResult DetalleCategoria(int? id = null)
         {
-
-            return View();
+            CategoriaProductoDTO response = new CategoriaProductoDTO() { Codigo = 0, Activo = true };
+            if (id != null) { 
+                CategoriaProducto cat = _categoriaProductoService.GetCategoria(id.Value);
+                response.Codigo = cat.Codigo;
+                response.Nombre = cat.Nombre;
+                response.Activo = cat.Activa;
+            }           
+            return View(response);
         }
 
 
@@ -40,6 +50,24 @@ namespace TiendaEnLinea.Web.Controllers
         [HttpPost]
         public ActionResult DetalleCategoria(CategoriaProductoDTO data)
         {
+
+            if(data.Codigo != 0)
+            {
+                _categoriaProductoService.ModificarCategoria(new CategoriaProducto() { 
+                    Activa = data.Activo,
+                    Codigo = data.Codigo,
+                    Nombre = data.Nombre
+                });
+            }
+            else
+            {
+                _categoriaProductoService.GuardarCategoria(new CategoriaProducto() { 
+                    Codigo = 0,
+                    Activa = data.Activo,
+                    Nombre = data.Nombre
+                });
+            }
+            
             return RedirectToAction("Index");
         }
     }
