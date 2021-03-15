@@ -49,6 +49,8 @@
     <Compile Include="DTOs\Categoria\CategoriaProductoDTO.cs" />
     <Compile Include="DTOs\Cliente\ClienteDTO.cs" />
     <Compile Include="DTOs\Cliente\ClienteInDTO.cs" />
+    <Compile Include="DTOs\Dashboard\ConteoActividadDTO.cs" />
+    <Compile Include="DTOs\Dashboard\DashboardDTO.cs" />
     <Compile Include="DTOs\Pedido\AgregarDTO.cs" />
     <Compile Include="DTOs\Pedido\CarretillaDTO.cs" />
     <Compile Include="DTOs\Pedido\CheckoutListaDTO.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Model\Pedido.cs" />
     <Compile Include="Model\Producto.cs" />
     <Compile Include="Model\ProductosPedido.cs" />
+    <Compile Include="Model\Visita.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICategoriaProductoRepository.cs" />
     <Compile Include="Repositories\ICheckoutRepository.cs" />
@@ -78,11 +81,14 @@
     <Compile Include="Repositories\IPedidoRepository.cs" />
     <Compile Include="Repositories\IProductoPedidoRepository.cs" />
     <Compile Include="Repositories\IProductoRepository.cs" />
+    <Compile Include="Repositories\IVisitaRepository.cs" />
     <Compile Include="Services\ICategoriaProductoService.cs" />
     <Compile Include="Services\ICheckOutService.cs" />
     <Compile Include="Services\IClienteService.cs" />
+    <Compile Include="Services\IDashboardService.cs" />
     <Compile Include="Services\IPedidoService.cs" />
     <Compile Include="Services\IProductoService.cs" />
+    <Compile Include="Services\IVisitasService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

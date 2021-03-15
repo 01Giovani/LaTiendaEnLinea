@@ -57,6 +57,8 @@
     <Compile Include="CategoriaProductoService.cs" />
     <Compile Include="CheckOutService.cs" />
     <Compile Include="ClienteService.cs" />
+    <Compile Include="DashboardService.cs" />
+    <Compile Include="VisitasService.cs" />
     <Compile Include="PedidoService.cs" />
     <Compile Include="ProductoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

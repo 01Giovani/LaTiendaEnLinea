@@ -178,7 +178,7 @@
         </div>
     </footer>
 
-    <input type="hidden" id="endpoints" data-verificar="@Url.Action("VerificarCliente")" data-check="@Url.Action("GuardarCliente")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")" />
+    <input type="hidden" id="endpoints" data-visita="@Url.Action("NewVisit","Home")" data-verificar="@Url.Action("VerificarCliente")" data-check="@Url.Action("GuardarCliente")" data-agregar="@Url.Action("AgregarProducto")" data-modificar="@Url.Action("ModificarDetalle")" data-eliminar="@Url.Action("EliminarDetalle")" data-fin="@Url.Action("FinalizarPedido")" data-carretilla="@Url.Action("_Detalle")" />
 
 
     <div class="loading-overlay">
@@ -210,7 +210,7 @@
 
     @RenderSection("scripts", required: false)
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         function showloanding() {
             $('.loading-overlay').fadeIn(500);
@@ -222,13 +222,14 @@
 
         $(document).ready(function () {
 
-
+            
 
             var bandera = '@ViewBag.gracias';
             var co = getCookie("cliente");
 
             if (co == "" && bandera == "") {
 
+                
                 var url = $("#endpoints").data("check");
 
 
@@ -314,8 +315,12 @@
                     }
                 });
 
+                newVisit();
+
             }
 
+
+            
 
         });
 
@@ -337,7 +342,25 @@
 
                 },
                 error: function (error) {
-                    
+
+                    console.log("Error:" + error);
+                }
+            });
+        }
+
+        function newVisit() {
+
+            var url = $("#endpoints").data("visita");
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: null,
+                dataType: "json",
+                success: function () {
+                    console.log("new visit");
+                },
+                error: function (error) {
+
                     console.log("Error:" + error);
                 }
             });
@@ -379,7 +402,7 @@
         //    });
         //}
 
-    </script>
+</script>
 
 </body>
 </html>

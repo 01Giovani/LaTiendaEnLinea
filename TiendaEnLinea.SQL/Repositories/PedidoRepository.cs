@@ -49,5 +49,18 @@ namespace TiendaEnLinea.SQL.Repositories
         {
             return _db.Pedido.Where(x=>x.IdEstado == EstadoPedido.Enviado).Max(x => x.OrdenEntrega).GetValueOrDefault(0) +1;
         }
+
+        public decimal GetTotalPedidosMes()
+        {
+            DateTimeOffset ahora = DateTimeOffset.Now;
+
+            decimal? res = _db.Pedido
+                .Where(x =>
+                x.IdEstado == EstadoPedido.Entregado &&
+                x.FechaIngreso.Month == ahora.Month &&
+                x.FechaIngreso.Year == ahora.Year).Sum(x => x.Total);
+
+            return res ?? 0; ;
+        }
     }
 }

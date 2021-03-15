@@ -76,12 +76,13 @@ namespace TiendaEnLinea.Web.Publico.App_Start
             kernel.Bind<IPedidoRepository>().To<PedidoRepository>().InRequestScope();
             kernel.Bind<IProductoRepository>().To<ProductoRepository>().InRequestScope();
             kernel.Bind<IProductoPedidoRepository>().To<ProductoPedidoRepository>().InRequestScope();
-
+            kernel.Bind<IVisitaRepository>().To<VisitaRepository>().InRequestScope();
 
             //SERVICIOS
             kernel.Bind<IProductoService>().To<ProductoService>().InRequestScope();
             kernel.Bind<IPedidoService>().To<PedidoService>().InRequestScope();
             kernel.Bind<ICheckOutService>().To<CheckOutService>().InRequestScope();
+            kernel.Bind<IVisitasService>().To<VisitasService>().InRequestScope();
         }
     }
 }

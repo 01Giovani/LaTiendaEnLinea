@@ -78,7 +78,7 @@ namespace TiendaEnLinea.Web.App_Start
             kernel.Bind<IProductoRepository>().To<ProductoRepository>().InRequestScope();
             kernel.Bind<IProductoPedidoRepository>().To<ProductoPedidoRepository>().InRequestScope();
             kernel.Bind<ICategoriaProductoRepository>().To<CategoriaProductoRepository>().InRequestScope();
-
+            kernel.Bind<IVisitaRepository>().To<VisitaRepository>().InRequestScope();
 
             //SERVICIOS
             kernel.Bind<IProductoService>().To<ProductoService>().InRequestScope();
@@ -86,6 +86,7 @@ namespace TiendaEnLinea.Web.App_Start
             kernel.Bind<ICheckOutService>().To<CheckOutService>().InRequestScope();
             kernel.Bind<IClienteService>().To<ClienteService>().InRequestScope();
             kernel.Bind<ICategoriaProductoService>().To<CategoriaProductoService>().InRequestScope();
+            kernel.Bind<IDashboardService>().To<DashboardService>().InRequestScope();
 
             //LOG
             kernel.Bind<IExtraerInfoExcepcion>().To<Bitworks.Logger.Utils.ExtraerInfoExcepcion>().InSingletonScope();

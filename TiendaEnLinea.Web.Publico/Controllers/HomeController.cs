@@ -24,15 +24,18 @@ namespace TiendaEnLinea.Web.Publico.Controllers
         private IProductoService _productoService;
         private IPedidoService _pedidoService;
         private ICheckOutService _checkOutService;
+        private IVisitasService _visitasService;
         public HomeController(
             IProductoService productoService,
             IPedidoService pedidoService,
-            ICheckOutService checkOutService
+            ICheckOutService checkOutService,
+            IVisitasService visitasService
             )
         {
             _productoService = productoService;
             _pedidoService = pedidoService;
             _checkOutService = checkOutService;
+            _visitasService = visitasService;
         }
 
         static HomeController()
@@ -449,6 +452,25 @@ namespace TiendaEnLinea.Web.Publico.Controllers
                 return RedirectToAction("Index");
 
             return View(ped);
+        }
+
+        [HttpPost]
+        public ActionResult NewVisit()
+        {
+            string ip = GetIpAddress();
+            _visitasService.GuardarVisita(ip??"-");
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+        private string GetIpAddress()
+        {
+            string ipAdd = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (string.IsNullOrEmpty(ipAdd))
+                ipAdd = Request.ServerVariables["REMOTE_ADDR"];
+
+            return ipAdd;
         }
     }
 }

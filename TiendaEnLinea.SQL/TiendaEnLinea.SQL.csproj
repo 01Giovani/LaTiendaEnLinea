@@ -63,6 +63,7 @@
     <Compile Include="Mapping\PedidoMap.cs" />
     <Compile Include="Mapping\ProductoMap.cs" />
     <Compile Include="Mapping\ProductoPedidoMap.cs" />
+    <Compile Include="Mapping\VisitaMap.cs" />
     <Compile Include="Migrations\202011011952516_inicial.cs" />
     <Compile Include="Migrations\202011011952516_inicial.Designer.cs">
       <DependentUpon>202011011952516_inicial.cs</DependentUpon>
@@ -103,6 +104,10 @@
     <Compile Include="Migrations\202103110417596_categorias.Designer.cs">
       <DependentUpon>202103110417596_categorias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103141732180_visitas.cs" />
+    <Compile Include="Migrations\202103141732180_visitas.Designer.cs">
+      <DependentUpon>202103141732180_visitas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoriaProductoRepository.cs" />
@@ -113,6 +118,7 @@
     <Compile Include="Repositories\PedidoRepository.cs" />
     <Compile Include="Repositories\ProductoPedidoRepository.cs" />
     <Compile Include="Repositories\ProductoRepository.cs" />
+    <Compile Include="Repositories\VisitaRepository.cs" />
     <Compile Include="TiendaEnLineaContext.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103110417596_categorias.resx">
       <DependentUpon>202103110417596_categorias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103141732180_visitas.resx">
+      <DependentUpon>202103141732180_visitas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

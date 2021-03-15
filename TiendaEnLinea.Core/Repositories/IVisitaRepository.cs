@@ -4,17 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiendaEnLinea.Core.DTOs.Dashboard;
 using TiendaEnLinea.Core.Model;
 
 namespace TiendaEnLinea.Core.Repositories
 {
-    public interface IPedidoRepository: IGenericRepository<Pedido>
+    public interface IVisitaRepository:IGenericRepository<Visita>
     {
-        Pedido Inicializar(Pedido pedido);
-
-        Pedido Modificar(Pedido pedido);
-        int GeTMaxOrden();
-
-        decimal GetTotalPedidosMes();
+        void GuardarVisita(string ip);
+        List<ConteoActividadDTO> ActividadClientes();
     }
 }
