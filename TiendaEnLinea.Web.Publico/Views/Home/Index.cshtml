@@ -10,9 +10,8 @@
         width: 45%;
         height: 28px;
         color: #456D33;
-        font-size:15px;
-        font-weight:bolder;
-
+        font-size: 15px;
+        font-weight: bolder;
     }
 
     .input2 button {
@@ -21,9 +20,26 @@
         color: #456D33;
     }
 
-    .input2{
-        width:100%;
-        margin-bottom:4px;
+    .input2 {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color: #A8201A;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    .my-float {
+        margin-top: 22px;
     }
 </style>
 
@@ -120,240 +136,263 @@
 
     @if (Model != null && Model.Count(x => x.Destacado == true) > 0)
     {
-    <div class="lista-recomendados pt-2 mb-4 mb-md-5">
-        <div class="bg-secondary text-white">
-            <div class="wrap container-fluid py-4">
-                <div class="row align-items-end">
-                    <div class="col-md">
-                        <h2 class="tt-main"><span class="st">@*Promociones*@</span> <span class="tt">Promociones</span></h2>
-                    </div>
-                    <div class="col-auto pt-3 pt-md-0">
-                        <div class="sldr-tools sldr-promo-tools">
-                            @*<a href="" class="btn-grid text-white"><i class="icon-grid"></i></a>
-                                <div class="sldr-arrows text-white ml-2">
-                                    <a href="" class="sldr-arrow prev" id="prevSldrPromos"><i class="icon-arrow-left"></i></a>
-                                    <a href="" class="sldr-arrow next" id="nextSldrPromos"><i class="icon-arrow-right"></i></a>
-                                </div>*@
+        <div class="lista-recomendados pt-2 mb-4 mb-md-5">
+            <div class="bg-secondary text-white">
+                <div class="wrap container-fluid py-4">
+                    <div class="row align-items-end">
+                        <div class="col-md">
+                            <h2 class="tt-main"><span class="st">@*Promociones*@</span> <span class="tt">Promociones</span></h2>
+                        </div>
+                        <div class="col-auto pt-3 pt-md-0">
+                            <div class="sldr-tools sldr-promo-tools">
+                                @*<a href="" class="btn-grid text-white"><i class="icon-grid"></i></a>
+                                    <div class="sldr-arrows text-white ml-2">
+                                        <a href="" class="sldr-arrow prev" id="prevSldrPromos"><i class="icon-arrow-left"></i></a>
+                                        <a href="" class="sldr-arrow next" id="nextSldrPromos"><i class="icon-arrow-right"></i></a>
+                                    </div>*@
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="slider-st1 slider-promos mb-4">
-            <div class="wrap container-fluid inner">
-                <div class="sldr-wrap">
-                    <div class="slider">
+            <div class="slider-st1 slider-promos mb-4">
+                <div class="wrap container-fluid inner">
+                    <div class="sldr-wrap">
+                        <div class="slider">
 
-                        @if (Model != null && Model.Count(x => x.Destacado == true) > 0)
-                        {
-                            foreach (var dest in Model.Where(x => x.Destacado).ToList())
+                            @if (Model != null && Model.Count(x => x.Destacado == true) > 0)
                             {
-                                string url = Url.Action("GetMedia", new { id = dest.Fotos.FirstOrDefault() });
+                                foreach (var dest in Model.Where(x => x.Destacado).ToList())
+                                {
+                                    string url = Url.Action("GetMedia", new { id = dest.Fotos.FirstOrDefault() });
 
-                                <div class="item">
-                                    <div class="item-producto">
-                                        <figure style="background-image: url(@url)">
-                                            <a href="#"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
-                                        </figure>
-                                        <div class="pcontent">
-                                            <div class="info" style="height:110px;">
-                                                <h3><a href="#">@dest.Nombre</a></h3>
-                                                <div class="precios">
-                                                    <div class="left">
-                                                        <strong class="antes">@dest.Precio.ToString("$0.00")</strong>
-                                                        <span class="tsm texto2">@dest.PrefijoVenta </span>
-                                                    </div>
-                                                    @if (dest.PrecioOferta != null)
-                                                    {
-                                                        <div class="ppal">
-                                                            <strong>@dest.PrecioOferta.Value.ToString("$0.00")</strong>
-                                                            @if (string.IsNullOrEmpty(dest.DescripcionOferta))
-                                                            {
-                                                                <span class="tsm texto1"><span class="text-secondary">precio-</span>oferta</span>
-                                                            }
-                                                            else
-                                                            {
-                                                                <span class="tsm texto1">@dest.DescripcionOferta</span>
-                                                            }
-
+                                    <div class="item">
+                                        <div class="item-producto">
+                                            <figure style="background-image: url(@url)">
+                                                <a href="#"><img src="@Url.Action("GetMedia",new{ id = dest.Fotos.FirstOrDefault() })" alt=""></a>
+                                            </figure>
+                                            <div class="pcontent">
+                                                <div class="info" style="height:110px;">
+                                                    <h3><a href="#">@dest.Nombre</a></h3>
+                                                    <div class="precios">
+                                                        <div class="left">
+                                                            <strong class="antes">@dest.Precio.ToString("$0.00")</strong>
+                                                            <span class="tsm texto2">@dest.PrefijoVenta </span>
                                                         </div>
+                                                        @if (dest.PrecioOferta != null)
+                                                        {
+                                                            <div class="ppal">
+                                                                <strong>@dest.PrecioOferta.Value.ToString("$0.00")</strong>
+                                                                @if (string.IsNullOrEmpty(dest.DescripcionOferta))
+                                                                {
+                                                                    <span class="tsm texto1"><span class="text-secondary">precio-</span>oferta</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="tsm texto1">@dest.DescripcionOferta</span>
+                                                                }
 
+                                                            </div>
+
+                                                        }
+
+                                                    </div>
+                                                    @if (!string.IsNullOrEmpty(dest.DescripcionOferta))
+                                                    {
+                                                        <p class="desc">Antes, @dest.Descripcion</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="desc">@dest.Descripcion</p>
                                                     }
 
                                                 </div>
-                                                @if (!string.IsNullOrEmpty(dest.DescripcionOferta))
-                                                {
-                                                    <p class="desc">Antes, @dest.Descripcion</p>
-                                                }
-                                                else
-                                                {
-                                                    <p class="desc">@dest.Descripcion</p>
-                                                }
-
-                                            </div>
-                                            <div class="agregar">
-                                                <div class="add-box">
-                                                    <div class="input2">
-                                                        <button class="ctrl down btnmenos" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-menos"></i></button>
-                                                        <input id="@("des-")@dest.Codigo" readonly="readonly" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
-                                                        <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
+                                                <div class="agregar">
+                                                    <div class="add-box">
+                                                        <div class="input2">
+                                                            <button class="ctrl down btnmenos" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-menos"></i></button>
+                                                            <input id="@("des-")@dest.Codigo" readonly="readonly" type="text" value="@string.Format("{0:0.##}", dest.MultiploVenta)">
+                                                            <button class="ctrl up btnmas" data-caja="@("des-")@dest.Codigo" data-step="@dest.MultiploVenta"><i class="icon-mas"></i></button>
+                                                        </div>
+                                                        <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
                                                     </div>
-                                                    <button data-producto="@dest.Codigo" data-caja="@("des-")@dest.Codigo" class="add-cart agregarbtn">Agregar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                }
                             }
-                        }
 
 
 
 
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
-    </div>
+        </div>
     }
 
+    <div class="wrap container-fluid mb-3">
+
+        <div class="row align-items-end py-4 pb-lg-5">
+
+            <div class="col-lg-auto col-xl-5 text-primary">
+                <h2 class="tt-main"><span class="st text-secondary">&nbsp;</span> <span class="tt">&nbsp;</span></h2>
+            </div>
+            <div class="col-lg col-xl-7">
+                <div class="row filtros no-gutters pt-3 pt-lg-0">
+
+                    <div class="col-md-auto f-col">
+                        <a href="@Url.Action("Carretilla")" style="font-size:24px" class="btn btn-secondary text-uppercase btn-block py-2 shadow">Ver mi pedido</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </div>
 
 
+<a href="@Url.Action("Carretilla")" class="float">
+    <i class="icon-bolsa-compras my-float"></i>
+</a>
+
+
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $(document).ready(function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const myParam = urlParams.get('state');
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('state');
 
-        if (myParam && myParam === "noproducts") {
+            if (myParam && myParam === "noproducts") {
 
-            Swal.fire("Espera!", "Aún no has agregado ningun producto", "warning");
-        }
-    });
-
-   
-    $(document).on("click", ".btnmenos", function () {
-        var caja = $(this).data("caja");
-        var step = 0;
-        step = $(this).data("step") * 1;
-
-        var textbox = $("#" + caja);
-
-        if (isNumber(textbox.val()) === false) {
-            textbox.val(step);
-        }
-
-        textbox.val(function (i, val) {
-            var aux = 0.00;
-            aux = val * 1;
-
-
-            if (aux % step !== 0) {
-                aux = aux - (aux % step);
-            } else {
-                aux = aux - step;
+                Swal.fire("Espera!", "Aún no has agregado ningun producto", "warning");
             }
-          
-            if (aux < step)
-                aux = step * 1;
-           
-            return aux;
         });
 
 
-    });
+        $(document).on("click", ".btnmenos", function () {
+            var caja = $(this).data("caja");
+            var step = 0;
+            step = $(this).data("step") * 1;
 
-    $(document).on("click", ".btnmas", function () {
-        var caja = $(this).data("caja");
-        var textbox = $("#" + caja);
+            var textbox = $("#" + caja);
 
-        var step = 0;
-        step = $(this).data("step") * 1;
-
-        if (isNumber(textbox.val()) === false) {
-            textbox.val(step);
-        }
-
-        textbox.val(function (i, val) {
-            var aux = 0.00;
-            aux = val * 1;
-
-            if (aux % step !== 0) {
-                aux = aux + step - (aux % step);
-            } else {
-                aux = aux + step;
+            if (isNumber(textbox.val()) === false) {
+                textbox.val(step);
             }
-            
-            if (aux < step)
-                aux = step * 1;
 
-            return aux;
-        });
-    });
+            textbox.val(function (i, val) {
+                var aux = 0.00;
+                aux = val * 1;
 
 
-
-
-    $(document).on("click", ".agregarbtn", function () {
-
-        var button = $(this);
-        var caja = $(this).data("caja");
-        var cantidad = $("#" + caja).val();
-
-        if (isNumber(cantidad) === false) {
-            Swal.fire('Espera!', 'Cantidad invalida', 'warning');
-            return;
-        }
-    
-        var url = $("#endpoints").data("agregar");
-        var producto = $(this).data("producto");
-
-        var payload = { "IdProducto": producto, "Cantidad": cantidad };
-
-        button.prop("disabled", true);
-        //Swal.showLoading();
-        showloanding();
-        peticionAjaxPost(url, payload,button);
-
-    });
-
-   
-
-    function peticionAjaxPost(url,data,button) {
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            dataType: "json",
-            success: function (data) {
-
-                if (data.url) {
-                    window.location.href = data.url;
+                if (aux % step !== 0) {
+                    aux = aux - (aux % step);
                 } else {
-                    button.prop("disabled", false);
-                    //Swal.hideLoading();
-                    hideLoanding();
-                    Swal.fire(data.titulo, data.mensaje, data.tipo);
+                    aux = aux - step;
                 }
-                             
-            },
-            error: function (error) {
-                console.log("Error:"+error);
-            }
+
+                if (aux < step)
+                    aux = step * 1;
+
+                return aux;
+            });
+
+
         });
-    }
-   
 
-    function isNumber(n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    }
+        $(document).on("click", ".btnmas", function () {
+            var caja = $(this).data("caja");
+            var textbox = $("#" + caja);
 
-</script>    
+            var step = 0;
+            step = $(this).data("step") * 1;
+
+            if (isNumber(textbox.val()) === false) {
+                textbox.val(step);
+            }
+
+            textbox.val(function (i, val) {
+                var aux = 0.00;
+                aux = val * 1;
+
+                if (aux % step !== 0) {
+                    aux = aux + step - (aux % step);
+                } else {
+                    aux = aux + step;
+                }
+
+                if (aux < step)
+                    aux = step * 1;
+
+                return aux;
+            });
+        });
+
+
+
+
+        $(document).on("click", ".agregarbtn", function () {
+
+            var button = $(this);
+            var caja = $(this).data("caja");
+            var cantidad = $("#" + caja).val();
+
+            if (isNumber(cantidad) === false) {
+                Swal.fire('Espera!', 'Cantidad invalida', 'warning');
+                return;
+            }
+
+            var url = $("#endpoints").data("agregar");
+            var producto = $(this).data("producto");
+
+            var payload = { "IdProducto": producto, "Cantidad": cantidad };
+
+            button.prop("disabled", true);
+            //Swal.showLoading();
+            showloanding();
+            peticionAjaxPost(url, payload, button);
+
+        });
+
+
+
+        function peticionAjaxPost(url, data, button) {
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        button.prop("disabled", false);
+                        //Swal.hideLoading();
+                        hideLoanding();
+                        Swal.fire(data.titulo, data.mensaje, data.tipo);
+                    }
+
+                },
+                error: function (error) {
+                    console.log("Error:" + error);
+                }
+            });
+        }
+
+
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+    </script>
 }

@@ -212,6 +212,7 @@
     <Content Include="wwwroot\img\logo.png" />
     <Content Include="wwwroot\img\logo.svg" />
     <Content Include="wwwroot\img\mastercard-secure.png" />
+    <Content Include="wwwroot\img\picture.png" />
     <Content Include="wwwroot\img\seccion-contacto.jpg" />
     <Content Include="wwwroot\img\seccion-ideas.jpg" />
     <Content Include="wwwroot\img\seccion-nosotros.jpg" />

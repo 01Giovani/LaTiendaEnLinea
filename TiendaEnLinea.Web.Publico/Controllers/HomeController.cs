@@ -183,7 +183,8 @@ namespace TiendaEnLinea.Web.Publico.Controllers
             }
             
             else
-                throw new HttpException(404, "El archivo seleccionado no existe");
+                return File(Server.MapPath(Url.Content("~/wwwroot/img/picture.png")), "image/png", "picture.png");
+            
 
         }
 
